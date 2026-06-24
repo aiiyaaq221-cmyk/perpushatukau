@@ -32,12 +32,10 @@ class AuthenticatedSessionController extends Controller
     
         // Arahkan pengguna ke halaman sesuai role
         if ($user->role === 'admin') {
-            return redirect()->route('admin.index');
-        } elseif ($user->role === 'guru') {
-            return redirect()->route('guru.index');
-        } elseif ($user->role === 'siswa') {
-            return redirect()->route('siswa.index');
-        }
+            return redirect()->route('dashboard');
+        } elseif ($user->role === 'user') {
+            return redirect()->route('user.index');
+        } 
     
         // Default jika role tidak dikenali
         return redirect()->route('dashboard');

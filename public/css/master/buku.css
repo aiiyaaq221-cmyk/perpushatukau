@@ -1,0 +1,338 @@
+/* ===================================
+   HEADER CARD
+=================================== */
+.header-card{ 
+    background:#fff; 
+    padding:25px 30px; 
+    border-radius:20px; 
+    box-shadow:0 5px 20px rgba(0,0,0,.06); 
+    margin-bottom:25px; 
+
+}
+.modal-content{
+    border:none;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+}
+
+.modal-header-custom{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    padding:22px 25px;
+    background:#fff;
+    border-bottom:1px solid #f1f1f1;
+}
+
+.modal-header-custom h5{
+    margin-bottom:5px;
+    font-weight:700;
+}
+
+.modal-header-custom p{
+    margin:0;
+    color:#6c757d;
+    font-size:14px;
+}
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.page-title{
+    margin:0;
+    font-size:30px;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.page-subtitle{
+    margin:6px 0 0;
+    color:#64748b;
+    font-size:15px;
+}
+
+/* ===================================
+   BUTTON
+=================================== */
+
+.btn-modern{
+    border:none;
+    border-radius:12px;
+    padding:12px 22px;
+    font-weight:600;
+    color:white;
+    background:#2b74fa;
+    transition:.3s;
+}
+
+.btn-modern:hover{
+    transform:translateY(-2px);
+    background:#397bf7;
+    color:white;
+}
+
+
+/* ===================================
+   Button simpan dan batal
+=================================== */
+
+.custom-footer{
+    border-top: none;
+    padding: 25px 30px;
+    display: flex;
+}
+
+.btn-cancel{
+    width: 90px;
+    height: 40px;
+    border: 1px solid #596066;
+    border-radius: 13px;
+    background: transparent;
+    color: #555;
+    font-size: 14px;
+    font-weight: 150;
+    transition: .3s;
+}
+
+.btn-cancel:hover{
+    background: #f5f5f5;
+}
+
+.btn-save{
+    width: 90px;
+    height: 40px;
+    border: none;
+    border-radius: 14px;
+    background: #4A86F7;
+    color: white;
+    font-size: 14px;
+    font-weight: 150;
+    transition: .3s;
+}
+
+.btn-save:hover{
+    background: #3b78eb;
+    transform: translateY(-2px);
+}
+
+/* ===================================
+   CARD
+=================================== */
+
+.modern-card{
+    background:#fff;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 4px 20px rgba(0,0,0,.05);
+}
+
+/* ===================================
+   STATISTIK
+=================================== */
+
+.stat-card{
+    background:#fff;
+    padding:22px;
+    border-radius:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+    transition:.3s;
+}
+
+.stat-card:hover{
+    transform:translateY(-4px);
+}
+
+.stat-card h3{
+    font-size:30px;
+    font-weight:700;
+    margin-bottom:5px;
+    color:#1e293b;
+}
+
+.stat-card p{
+    margin:0;
+    color:#64748b;
+}
+
+.stat-card.blue{
+    border-left:5px solid #2563eb;
+}
+
+.stat-card.green{
+    border-left:5px solid #22c55e;
+}
+
+.stat-card.orange{
+    border-left:5px solid #f59e0b;
+}
+
+.stat-card.red{
+    border-left:5px solid #ef4444;
+}
+
+/* ===================================
+   INPUT
+=================================== */
+
+.modern-input{
+    height:48px;
+    border-radius:12px;
+    border:1px solid #e2e8f0;
+    font-size:14px;
+}
+
+.modern-input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
+
+/* ===================================
+   TABLE
+=================================== */
+
+.modern-table{
+    margin-bottom:0;
+}
+
+.modern-table thead th{
+    background:#f8fafc;
+    color:#64748b;
+    border:none;
+    font-size:11px;
+    font-weight:600;
+    text-align:center;
+    vertical-align:middle;
+    padding:15px;
+}
+
+.modern-table tbody td{
+    border:none;
+    vertical-align:middle;
+    padding:15px;
+    font-size:13px;
+}
+
+.modern-table tbody tr{
+    border-bottom:1px solid #f1f5f9;
+    transition:.2s;
+}
+
+.modern-table tbody tr:hover{
+    background:#f8fafc;
+}
+
+
+/* ===================================
+   COVER BUKU
+=================================== */
+
+.book-cover{
+    width:55px;
+    height:75px;
+    object-fit:cover;
+    border-radius:8px;
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
+}
+
+/* ===================================
+   MODAL
+=================================== */
+
+.modal-content{
+    border:none;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,.15);
+}
+
+.modal-header-custom{
+    background:#f8fafc;
+    color:#1e293b;
+    padding:20px 25px;
+    border-bottom:1px solid #e2e8f0;
+}
+
+.modal-header-custom h5{
+    margin:0;
+    font-size:20px;
+    font-weight:700;
+}
+
+.modal-header-custom p{
+    margin:0;
+    color:#64748b;
+    font-size:13px;
+}
+
+.modern-label{
+    font-size:13px;
+    font-weight:600;
+    color:#475569;
+    margin-bottom:6px;
+}
+
+.modern-textarea{
+    border-radius:12px;
+    border:1px solid #e2e8f0;
+}
+
+/* ===================================
+   UPLOAD COVER
+=================================== */
+
+.upload-cover{
+    min-height:140px;
+    border:2px dashed #dbeafe;
+    border-radius:16px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:#fafcff;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.upload-cover:hover{
+    border-color:#2563eb;
+    background:#eff6ff;
+}
+
+.cover-icon{
+    font-size:42px;
+    color:#2563eb;
+    margin-bottom:10px;
+}
+
+.cover-preview{
+    width:80px;
+    height:110px;
+    object-fit:cover;
+    border-radius:10px;
+    display:none;
+}
+
+.modal-footer{
+    border:none;
+    padding:20px;
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+
+@media(max-width:768px){
+
+    .page-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .btn-modern{
+        width:100%;
+    }
+}

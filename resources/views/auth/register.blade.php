@@ -31,19 +31,23 @@
                 <input type="email" name="email" placeholder="Email" value="{{ old('email') }}"
                     class="w-full p-2 rounded-full border border-blue-400 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400" required>
             </div>
+            
             <div class="mb-4">
-                <select name="role" required
-                    class="w-full p-2 rounded-full border border-blue-400 bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-blue-400">
-                    <option value="" disabled selected class="text-gray-800">Pilih Role</option>
-                    <option value="admin" class="text-gray-800">Admin</option>
-                    <option value="guru" class="text-gray-800">Guru</option>
-                    <option value="siswa" class="text-gray-800">Siswa</option>
+                <select name="role" 
+                    class="w-full p-2 rounded-full border border-blue-400 bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+
+                    <option value="">Pilih Role</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">user</option>
+
                 </select>
             </div>
+            
             <div class="mb-4">
                 <input type="password" name="password" placeholder="Password"
                     class="w-full p-2 rounded-full border border-blue-400 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400" required>
             </div>
+
             <div class="mb-6">
                 <input type="password" name="password_confirmation" placeholder="Confirm Password"
                     class="w-full p-2 rounded-full border border-blue-400 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400" required>

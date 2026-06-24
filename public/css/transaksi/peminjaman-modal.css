@@ -1,0 +1,326 @@
+/* Modal */
+.modal-content{
+    border: none;
+    border-radius: 20px; 
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,.15);
+}
+
+/* Header */
+.modal-header{
+    background: linear-gradient(135deg,#86a9f4,#7b9cf5);
+    color: white;
+    border: none;
+    padding: 20px 25px;
+}
+
+.modern-table thead th{
+    background:#ffdf8d;
+    color:#475569;
+    font-size:10px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    padding:14px;
+    text-align:center;
+    vertical-align:middle;
+    border-bottom:2px solid #E2E8F0;
+}
+
+.modal-title{
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.btn-close{
+    filter: brightness(0) invert(1);
+}
+
+/* Body */
+.modal-body{
+    padding: 25px;
+    background: #f8fafc;
+}
+
+/* Label */
+.form-label{
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 6px;
+}
+
+/* Input */
+.form-control,
+.form-select{
+    border-radius: 12px;
+    border: 1px solid #dbe2ea;
+    min-height: 48px;
+    transition: .2s;
+}
+
+.form-control:focus,
+.form-select:focus{
+    border-color: #2563eb;
+    box-shadow: 0 0 0 .2rem rgba(37,99,235,.15);
+}
+
+/* Buku Item */
+.buku-item{
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 3px 10px rgba(0,0,0,.05);
+    margin-bottom: 15px;
+}
+
+/* Section Buku */
+.section-title{
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* Footer */
+.modal-footer{
+    border: none;
+    padding: 20px 25px;
+    background: white;
+}
+
+/* Tombol */
+.btn-primary{
+    background: #2563eb;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-weight: 600;
+}
+
+.btn-primary:hover{
+    background: #1d4ed8;
+}
+
+.btn-success{
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.btn-danger{
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.btn-secondary{
+    border-radius: 12px;
+}
+
+/* Badge Informasi */
+.info-box{
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.info-box h6{
+    margin: 0;
+    color: #1d4ed8;
+    font-weight: 700;
+}
+
+.info-box p{
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+/* ===================================
+   HEADER CARD
+=================================== */
+
+.header-card{
+    background:#fff;
+    padding:25px 30px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+    margin-bottom:25px;
+}
+
+/* ===================================
+   PAGE HEADER
+=================================== */
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.page-title{
+    margin:0;
+    font-size:30px;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.page-subtitle{
+    margin:6px 0 0;
+    color:#64748b;
+    font-size:15px;
+}
+
+/* ===================================
+   BUTTON
+=================================== */
+
+.btn-modern{
+    border:none;
+    border-radius:12px;
+    padding:12px 22px;
+    font-weight:600;
+    color:white;
+    background:#2b74fa;
+    box-shadow: 0 8px 20px rgba(230,145,56,.25);
+    transition:.3s;
+}
+
+.btn-modern:hover{
+    transform:translateY(-2px);
+    background:#397bf7;
+    color:white;
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+
+@media(max-width:768px){
+
+    .page-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+    .btn-modern{
+        width:100%;
+    }
+}
+
+/* ===================================
+   FILTER CARD
+=================================== */
+
+.filter-card{
+    background:#fff;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+    margin-bottom:25px;
+}
+
+
+
+/* ===================================
+   INPUT
+=================================== */
+
+.modern-input{
+    height:48px;
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    background:#f8fafc;
+}
+
+.modern-input:focus{
+    border-color:#397bf7;
+    box-shadow:0 0 0 4px rgba(246,178,107,.15);
+    background:white;
+}
+
+/* ===================================
+   BUTTON FILTER
+=================================== */
+
+.btn-filter{
+    height:48px;
+    border:none;
+    border-radius:12px;
+    font-weight:600;
+    color:white;
+    background:#397bf7;
+    transition:.3s;
+}
+
+.btn-filter:hover{
+    transform:translateY(-2px);
+    background:#397bf7;
+    color:white;
+}
+
+/* LABEL */
+
+.form-label{
+    font-size:13px;
+    font-weight:600;
+    color:#475569;
+    margin-bottom:6px;
+}
+
+/* ===================================
+   Button simpan dan batal
+=================================== */
+
+.custom-footer{
+    border-top: none;
+    padding: 25px 30px;
+    display: flex;
+}
+
+.btn-cancel{
+    width: 90px;
+    height: 40px;
+    border: 1px solid #596066;
+    border-radius: 13px;
+    background: transparent;
+    color: #555;
+    font-size: 14px;
+    font-weight: 150;
+    transition: .3s;
+}
+
+.btn-cancel:hover{
+    background: #f5f5f5;
+}
+
+.btn-save{
+    width: 90px;
+    height: 40px;
+    border: none;
+    border-radius: 14px;
+    background: #4A86F7;
+    color: white;
+    font-size: 14px;
+    font-weight: 150;
+    transition: .3s;
+}
+
+.btn-save:hover{
+    background: #3b78eb;
+    transform: translateY(-2px);
+}
+
+/* ===================================
+   statistik
+=================================== */
+
+.blue{
+    border-left:6px solid #6691CC;
+}
+
+.green{
+    border-left:6px solid #24C55D;
+}
+
+.orange{
+    border-left:6px solid #FECA11;
+}

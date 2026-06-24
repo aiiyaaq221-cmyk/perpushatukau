@@ -1,0 +1,151 @@
+.report-header{
+    border-radius:10px;
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #f8fafc
+    );
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.06);
+}
+
+.table-card{
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,.05);
+    transition: all .3s ease;
+}
+
+.table-card:hover{
+    box-shadow: 0 15px 35px rgba(0,0,0,.08);
+}
+
+.table-title{
+    position:relative;
+    padding-left:15px;
+}
+
+.table-title::before{
+    content:'';
+    position:absolute;
+
+    left:0;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:5px;
+    height:22px;
+
+    background:#22c55e;
+    border-radius:10px;
+}
+
+.stat-card{
+    border:none;
+    border-radius:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+    transition:.3s;
+}
+
+.stat-card:hover{
+    transform:translateY(-4px);
+}
+
+.stat-card.warning {
+    background:#ffffff;
+    border-left: 5px solid #ff9800;
+}
+
+.stat-card.success {
+    background:#ffffff;
+    border-left: 5px solid #27cb37;
+}
+
+.stat-card.danger {
+    background:#ffffff;
+    border-left: 5px solid #d71111;
+}
+
+.filter-card{
+    border-radius:18px;
+    background:#fff;
+}
+
+.form-control,
+.form-select{
+    border-radius:12px;
+    min-height:48px;
+    border:1px solid #e5e7eb;
+}
+
+.form-control:focus,
+.form-select:focus{
+    box-shadow:0 0 0 .2rem rgba(37,99,235,.15);
+}
+
+
+.btn-success{
+    border-radius:12px;
+}
+
+.btn-danger{
+    border-radius:12px;
+}
+
+.btn-success:hover,
+.btn-danger:hover{
+    transform:translateY(-2px);
+    transition:.2s;
+}
+
+.modern-table{
+    border-collapse:separate;
+    border-spacing:0;
+}
+
+.modern-table thead th{
+    background:#f8fafc;
+    color:#475569;
+    font-weight:600;
+    font-size:12px;
+    border:none;
+    padding:16px;
+}
+
+.modern-table tbody tr{
+    transition:all .25s ease;
+}
+
+.modern-table tbody tr:hover{
+    background:#f8fffb;
+
+    box-shadow:
+        inset 4px 0 0 #c59f22;
+
+    transition:.25s;
+}
+
+.modern-table tbody td{
+    transition: background-color .25s ease;
+}
+
+.modern-table tbody tr:hover td{
+    background: #fdf5de !important;
+}
+
+
+.kode-peminjaman{
+    background:#eef4ff;
+    color:#0d6efd;
+    padding:6px 12px;
+    border-radius:10px;
+    font-weight:600;
+}
+
+.badge{
+    padding:.55rem .9rem;
+    border-radius:30px;
+    font-weight:500;
+}

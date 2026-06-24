@@ -1,9 +1,20 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SiswaController;
-use App\Http\Controllers\GuruController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Master\BukuController;
+use App\Http\Controllers\Master\AnggotaController;
+use App\Http\Controllers\Master\KategoriController;
+use App\Http\Controllers\Laporan\LaporanBukuController;
+use App\Http\Controllers\Laporan\LaporanAnggotaController;
+use App\Http\Controllers\Laporan\LaporanPeminjamanController;
+use App\Http\Controllers\Laporan\LaporanPengembalianController;
+use App\Http\Controllers\Laporan\LaporanPengunjungController;
+use App\Http\Controllers\Transaksi\PeminjamanController;
+use App\Http\Controllers\Transaksi\PengembalianController;
+use App\Http\Controllers\Pengunjung\PengunjungController;
+
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,28 +26,97 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    // Profile routes
-    Route::prefix('profile')->group(function () {
-        Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+Route::get('/logout-test', function () {
+    Auth::logout();
+    session()->invalidate();
+    session()->regenerateToken();
+
+    return redirect('/login');
+});
+    //Route Admin
+   Route::middleware('admin')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        
+        //MASTER
+        
+        Route::prefix('master')->name('master.')->group(function () {
+
+            Route::resource('kategori', KategoriController::class);
+            Route::resource('buku', BukuController::class);
+            Route::put('/buku/{id}', [BukuController::class, 'update']);
+            Route::get('/anggota', [AnggotaController::class, 'index'])->name('anggota.index');
+            Route::post('/anggota/store', [AnggotaController::class, 'store'])->name('anggota.store');
+            Route::put('/anggota/{id}',[AnggotaController::class, 'update'])->name('anggota.update');
+            Route::delete('/anggota/{id}', [AnggotaController::class, 'destroy'])->name('anggota.destroy');
+        });
+       
+
+        Route::prefix('pengunjung')->name('pengunjung.')->group(function () {
+            Route::get('/', [PengunjungController::class, 'index'])->name('index');
+            Route::post('/store', [PengunjungController::class, 'store'])->name('store');
+            Route::put('/update/{id}', [PengunjungController::class, 'update'])->name('update');
+            Route::delete('/destroy/{id}', [PengunjungController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('transaksi')->name('transaksi.')->group(function () {
+            Route::prefix('peminjaman')->name('peminjaman.')->group(function () {
+                Route::get('/', [PeminjamanController::class, 'index'])->name('index');
+                Route::post('/store', [PeminjamanController::class, 'store'])->name('store');
+                Route::get('/{id}', [PeminjamanController::class, 'show'])->name('show');
+                Route::put('/update/{id}', [PeminjamanController::class, 'update'])->name('update');
+                Route::delete('/destroy/{id}', [PeminjamanController::class, 'destroy'])->name('destroy');
+                Route::post('/{id}/kembali', [PeminjamanController::class, 'kembali'])->name('kembali');
+            });
+
+            Route::prefix('pengembalian')->name('pengembalian.')->group(function(){
+                Route::get('/',[PengembalianController::class, 'index'])->name('index');
+                Route::post('/store/{id}',[PengembalianController::class, 'store'])->name('store');
+                Route::delete('/destroy/{id}', [PengembalianController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+ 
+        //LAPORAN
+        Route::prefix('laporan')->name('laporan.')->group(function(){
+            Route::get('/buku',[LaporanBukuController::class, 'index'])->name('buku');
+            Route::get('/laporan-buku/excel', [LaporanBukuController::class, 'exportExcel'])->name('buku.excel');
+            Route::get('/laporan-buku/pdf', [LaporanBukuController::class, 'exportPdf'])->name('buku.pdf');
+
+            Route::get('/anggota',[LaporanAnggotaController::class, 'index'])->name('anggota');
+            Route::get('/laporan-anggota/excel', [LaporanAnggotaController::class, 'exportExcel'])->name('laporan.anggota.excel');
+            Route::get('/laporan-anggota/pdf', [LaporanAnggotaController::class, 'exportPdf'])->name('laporan.anggota.pdf');
+
+            Route::get('/peminjaman',[LaporanPeminjamanController::class, 'index'])->name('peminjaman');
+
+            Route::get('/pengembalian',[LaporanPengembalianController::class, 'index'])->name('pengembalian');
+            
+            Route::get('/pengunjung',[LaporanPengunjungController::class, 'index'])->name('pengunjung'); 
+            Route::get('/laporan-pengunjung/excel', [LaporanPengunjungController::class, 'exportExcel']) ->name('pengunjung.excel');
+            Route::get('/laporan-pengunjung/pdf', [LaporanPengunjungController::class, 'exportPdf']) ->name('pengunjung.pdf');
+        });
+    });// LAPORAN PENGUNJUNG
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Routes untuk user
+    Route::middleware('user')->group(function () {
+        Route::get('/user', [UserController::class, 'index'])->name('user');
     });
 
-    // Routes untuk Siswa
-    Route::middleware('siswa')->group(function () {
-        Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
-        Route::get('/siswa/kehadiran', [SiswaController::class, 'kehadiran'])->name('siswa.kehadiran');
-        Route::get('/siswa/absensi', [SiswaController::class, 'absensi'])->name('siswa.absensi');
-        Route::get('/siswa/edit', [SiswaController::class, 'edit'])->name('siswa.edit');
-    });
-
-    // Routes untuk Guru
-    Route::middleware('guru')->group(function () {
-        Route::get('/guru', [GuruController::class, 'index'])->name('guru.index');
-    });
-    Route::middleware('admin')->group(function () {
-        Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-    });
+    
 
     
 });

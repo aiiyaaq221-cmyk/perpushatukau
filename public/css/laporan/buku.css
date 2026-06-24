@@ -1,0 +1,398 @@
+/* ===================================
+   HEADER CARD
+=================================== */
+
+.header-card{
+    background:#fff;
+    padding:25px 30px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+/* ===================================
+   PAGE HEADER
+=================================== */
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.page-title{
+    margin:0;
+    font-size:30px;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.page-subtitle{
+    margin:6px 0 0;
+    color:#64748b;
+    font-size:15px;
+}
+
+/* ===================================
+   BUTTON EXPORT
+=================================== */
+
+.btn-modern-export{
+    border:none;
+    border-radius:12px;
+    padding:11px 18px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn-modern-export:hover{
+    transform:translateY(-2px);
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+
+@media(max-width:768px){
+
+    .page-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .page-header .d-flex{
+        width:100%;
+    }
+
+    .btn-modern-export{
+        flex:1;
+        text-align:center;
+    }
+}
+
+/* =========================
+   STATISTIK CARD
+========================= */
+
+.stat-card{
+    background:#fff;
+    border-radius:24px;
+    padding:28px;
+    box-shadow:0 10px 20px rgba(142, 140, 140, 0.06);
+    position:relative;
+    overflow:hidden;
+    height:100%;
+}
+
+.stat-card h3{
+    font-size:32px;
+    font-weight:600;
+    color:#484848;
+    margin-bottom:10px;
+}
+
+.stat-card p{
+    margin:0;
+    font-size:16px;
+    color:#475569;
+    font-weight:500;
+}
+
+/* Garis kiri */
+
+.stat-card.blue{
+    border-left:6px solid #3b82f6;
+}
+
+.stat-card.green{
+    border-left:6px solid #22c55e;
+}
+
+.stat-card.orange{
+    border-left:6px solid #f59e0b;
+}
+
+.stat-card.red{
+    border-left:6px solid #ef4444;
+}
+
+/* ===================================
+   CARD
+=================================== */
+
+.modern-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+/* ===================================
+   FILTER
+=================================== */
+
+.modern-input{
+    border:none;
+    background:#f1f5f9;
+    border-radius:12px;
+    height:48px;
+}
+
+.modern-input:focus{
+    background:white;
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
+
+/* ===================================
+   TABLE
+=================================== */
+
+.modern-table{
+    margin-top:10px;
+    min-width:1400px;
+    border-collapse:collapse;
+}
+
+.modern-table thead th{
+    background:#ffdead;
+    color:#433f35;
+    font-size:12px;
+    font-weight:700;
+    text-transform:uppercase;
+    padding:14px 12px;
+    border:none;
+    white-space:nowrap;
+}
+
+/* garis antar baris */
+
+.modern-table tbody td{
+    padding:14px 12px;
+    border-bottom:1px solid #e2e8f0;
+    vertical-align:middle;
+    transition:all .25s ease;
+}
+
+/* HOVER SATU BARIS */
+
+.modern-table tbody tr:hover td{
+    background:#f9f5e2 !important;
+}
+
+/* efek halus */
+
+.modern-table tbody tr{
+    transition:all .25s ease;
+}
+
+/* optional */
+.modern-table tbody tr:hover{
+    cursor:pointer;
+}
+
+/* No */
+.modern-table th:nth-child(1),
+.modern-table td:nth-child(1){
+    width:60px;
+}
+
+/* Cover */
+.modern-table th:nth-child(2),
+.modern-table td:nth-child(2){
+    width:90px;
+}
+
+/* Judul Buku */
+.modern-table th:nth-child(3),
+.modern-table td:nth-child(3){
+    min-width:280px;
+    max-width:350px;
+    text-align:left;
+}
+
+/* Kategori */
+.modern-table th:nth-child(4),
+.modern-table td:nth-child(4){
+    width:140px;
+}
+
+/* Pengarang */
+.modern-table th:nth-child(5),
+.modern-table td:nth-child(5){
+    min-width:180px;
+}
+
+/* Penerbit */
+.modern-table th:nth-child(6),
+.modern-table td:nth-child(6){
+    min-width:180px;
+}
+
+/* Tahun */
+.modern-table th:nth-child(7),
+.modern-table td:nth-child(7){
+    width:90px;
+}
+
+/* Tanggal Masuk */
+.modern-table th:nth-child(8),
+.modern-table td:nth-child(8){
+    width:130px;
+}
+
+/* Sumber */
+.modern-table th:nth-child(9),
+.modern-table td:nth-child(9){
+    width:120px;
+}
+
+/* Jumlah */
+.modern-table th:nth-child(10),
+.modern-table td:nth-child(10){
+    width:90px;
+}
+
+/* Stok */
+.modern-table th:nth-child(11),
+.modern-table td:nth-child(11){
+    width:120px;
+}
+
+/* Keterangan */
+.modern-table th:nth-child(12),
+.modern-table td:nth-child(12){
+    min-width:220px;
+    max-width:300px;
+    white-space:normal;
+}
+
+.judul-buku,
+.keterangan-buku{
+    white-space:normal;
+    word-break:break-word;
+    line-height:1.5;
+}
+/* ===================================
+   COVER BUKU
+=================================== */
+
+.book-cover{
+    width:65px;
+    height:90px;
+    object-fit:cover;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,.12);
+}
+
+/* ===================================
+   BADGE
+=================================== */
+
+.category-badge{
+    background:#dbeafe;
+    color:#2563eb;
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:600;
+}
+
+.stock-good{
+    background:#dcfce7;
+    color:#15803d;
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:600;
+}
+
+.stock-empty{
+    background:#fee2e2;
+    color:#dc2626;
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:600;
+}
+
+/* ===================================
+   EMPTY DATA
+=================================== */
+
+.empty-data{
+    padding:40px 20px;
+}
+
+.empty-data h5{
+    font-weight:700;
+    margin-top:10px;
+}
+
+.empty-data p{
+    color:#64748b;
+}
+
+/* ===================================
+   PAGINATION
+=================================== */
+
+.pagination{
+    justify-content:center;
+}
+
+.page-link{
+    border:none;
+    color:#2563eb;
+    margin:0 3px;
+    border-radius:10px;
+}
+
+.page-item.active .page-link{
+    background:#2563eb;
+    color:white;
+}
+
+
+
+/* ===================================
+   FIX TABLE OVERFLOW
+=================================== */
+
+.wrapper{
+    overflow-x:hidden;
+}
+
+.content{
+    overflow-x:hidden !important;
+    width:100%;
+}
+
+.modern-card{
+    overflow:hidden;
+}
+
+.table-wrapper{
+    width:100%;
+    overflow:hidden;
+}
+
+.table-responsive{
+    display:block;
+    width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+}
+
+.table-responsive::-webkit-scrollbar{
+    height:8px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb{
+    background:#cbd5e1;
+    border-radius:20px;
+}
+
+.table-responsive::-webkit-scrollbar-track{
+    background:#f1f5f9;
+}

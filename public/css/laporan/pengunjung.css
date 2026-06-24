@@ -1,0 +1,336 @@
+/* ======================================
+   LAPORAN PENGUNJUNG
+====================================== */
+
+.content{
+    background:#f8fafc;
+}
+
+/* ======================================
+   HEADER
+====================================== */
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.page-title{
+    font-size:30px;
+    font-weight:700;
+    color:#1e293b;
+    margin-bottom:5px;
+}
+
+.page-subtitle{
+    color:#64748b;
+    margin:0;
+    font-size:14px;
+}
+
+/* ======================================
+   BUTTON EXPORT
+====================================== */
+.btn-export{
+    border:none;
+    border-radius:12px;
+    padding:10px 18px;
+    font-weight:600;
+    text-decoration:none;
+    transition:all .3s ease;
+}
+
+.btn-excel{
+    background:#16a34a !important;
+    color:#fff !important;
+}
+
+.btn-pdf{
+    background:#dc2626 !important;
+    color:#fff !important;
+}
+
+.btn-excel:hover,
+.btn-excel:focus,
+.btn-excel:active{
+    background:#15803d !important;
+    color:#fff !important;
+}
+
+.btn-pdf:hover,
+.btn-pdf:focus,
+.btn-pdf:active{
+    background:#b91c1c !important;
+    color:#fff !important;
+}
+
+.btn-export:hover{
+    transform:translateY(-2px);
+}
+
+/* ======================================
+   CARD STATISTIK
+====================================== */
+
+.stat-card{
+    border:none;
+    border-radius:20px;
+    padding:25px;
+    color:white;
+    overflow:hidden;
+    position:relative;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.stat-card::after{
+    content:'';
+    position:absolute;
+    right:-25px;
+    top:-25px;
+    width:100px;
+    height:100px;
+    background:rgba(255,255,255,.15);
+    border-radius:50%;
+}
+
+.stat-card h3{
+    font-size:32px;
+    font-weight:700;
+    margin:0;
+}
+
+.stat-card p{
+    margin-top:5px;
+    margin-bottom:0;
+    font-size:14px;
+    opacity:.95;
+}
+
+.stat-blue{
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #1d4ed8
+    );
+}
+
+.stat-green{
+    background:linear-gradient(
+        135deg,
+        #10b981,
+        #059669
+    );
+}
+
+.stat-orange{
+    background:linear-gradient(
+        135deg,
+        #f59e0b,
+        #d97706
+    );
+}
+
+.stat-purple{
+    background:linear-gradient(
+        135deg,
+        #8b5cf6,
+        #7c3aed
+    );
+}
+
+/* ======================================
+   CARD UTAMA
+====================================== */
+.modern-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:
+        0 4px 20px rgba(15,23,42,.05);
+
+    width:100%;
+    overflow:hidden;
+}
+
+/* ======================================
+   FILTER
+====================================== */
+
+.modern-input{
+    border:none;
+    background:#f1f5f9;
+    border-radius:14px;
+    height:48px;
+    font-size:14px;
+}
+
+.modern-input:focus{
+    background:white;
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,.15);
+}
+
+/* ======================================
+   TABLE
+====================================== */
+.modern-table{
+    margin-top:10px;
+    min-width:1500px;
+}
+
+.modern-table thead th{
+    background:#f8fafc;
+    border:none;
+    color:#475569;
+    font-size:12px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    padding:15px;
+    white-space:nowrap;
+}
+
+.modern-table tbody td{
+    border:none;
+    padding:15px;
+    font-size:13px;
+    vertical-align:middle;
+}
+
+.modern-table tbody tr{
+    border-bottom:1px solid #f1f5f9;
+    transition:.3s;
+}
+
+.modern-table tbody tr:hover{
+    background:#f8fafc;
+}
+
+.table-responsive{
+    width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+}
+
+.table-responsive::-webkit-scrollbar{
+    height:8px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb{
+    background:#cbd5e1;
+    border-radius:20px;
+}
+
+.table-responsive::-webkit-scrollbar-track{
+    background:#f1f5f9;
+}
+
+/* ======================================
+   BADGE STATUS
+====================================== */
+
+.badge{
+    font-size:11px;
+    font-weight:600;
+    padding:7px 12px;
+    border-radius:999px;
+}
+
+.bg-success{
+    background:#dcfce7 !important;
+    color:#15803d !important;
+}
+
+.bg-secondary{
+    background:#e2e8f0 !important;
+    color:#475569 !important;
+}
+
+/* ======================================
+   EMPTY DATA
+====================================== */
+
+.empty-data{
+    padding:30px;
+}
+
+.empty-data h5{
+    font-weight:700;
+    color:#1e293b;
+}
+
+.empty-data p{
+    color:#64748b;
+    margin-bottom:0;
+}
+
+/* ======================================
+   PAGINATION
+====================================== */
+
+.pagination{
+    gap:6px;
+}
+
+.page-link{
+    border:none;
+    border-radius:10px;
+    color:#2563eb;
+    padding:10px 14px;
+}
+
+.page-item.active .page-link{
+    background:#2563eb;
+    color:white;
+}
+
+/* ======================================
+   RESPONSIVE
+====================================== */
+
+@media(max-width:768px){
+
+    .page-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .page-title{
+        font-size:24px;
+    }
+
+    .stat-card{
+        padding:20px;
+    }
+
+    .stat-card h3{
+        font-size:24px;
+    }
+
+}
+
+
+.wrapper{
+    overflow-x: hidden;
+}
+
+.content{
+    overflow-x: hidden !important;
+    width: 100%;
+}
+
+.table-responsive{
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.modern-table{
+    min-width: 1200px;
+}
