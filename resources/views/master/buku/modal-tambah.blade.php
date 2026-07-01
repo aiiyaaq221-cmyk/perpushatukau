@@ -3,7 +3,6 @@
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <form action="{{ route('master.buku.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-
             <div class="modal-content">
                 <div class="modal-header-custom">
                     <div>
@@ -15,61 +14,32 @@
 
                 <!-- Body -->
                 <div class="modal-body">
-
                     <div class="row g-4">
-
                         <!-- Kategori -->
                         <div class="col-md-6">
-                            <label class="modern-label">
-                                Kategori Buku
-                            </label>
-
-                            <select
-                                name="id_kategori"
-                                class="form-select modern-input"
-                                required>
-
-                                <option value="">
-                                    -- Pilih Kategori --
-                                </option>
-
+                            <label class="modern-label"> Kategori Buku </label>
+                            <select name="id_kategori" class="form-select modern-input"  required>
+                                <option value=""> -- Pilih Kategori -- </option>
                                 @foreach($kategoris as $kategori)
                                     <option value="{{ $kategori->id_kategori }}">
                                         {{ $kategori->nama_kategori }}
                                     </option>
                                 @endforeach
-
                             </select>
                         </div>
 
                         <!-- Kode Buku -->
                         <div class="col-md-6">
-                            <label class="modern-label">
-                                Kode Buku
-                                <small class="text-danger">
-                                    (Opsional)
-                                </small>
+                            <label class="modern-label"> Kode Buku
+                                <small class="text-danger"> (Opsional) </small>
                             </label>
-
-                            <input
-                                type="text"
-                                name="kode_buku"
-                                class="form-control modern-input"
-                                placeholder="Contoh: BK001">
+                            <input type="text" name="kode_buku" class="form-control modern-input" placeholder="Contoh: BK001">
                         </div>
 
                         <!-- Judul Buku -->
                         <div class="col-md-6">
-                            <label class="modern-label">
-                                Judul Buku
-                            </label>
-
-                            <input
-                                type="text"
-                                name="judul_buku"
-                                class="form-control modern-input"
-                                placeholder="Masukkan judul buku"
-                                required>
+                            <label class="modern-label"> Judul Buku </label>
+                            <input type="text" name="judul_buku" class="form-control modern-input"  placeholder="Masukkan judul buku" required>
                         </div>
 
                         <!-- Pengarang -->
@@ -203,97 +173,52 @@
                             </label>
 
                             <div class="upload-cover">
-
                                 <i class="bi bi-book-half cover-icon"></i>
-
                                 <h6>Pilih Cover</h6>
-
-                                <small>
-                                    JPG, PNG, WEBP
-                                </small>
-
-                                <input
-                                    type="file"
-                                    name="cover"
-                                    id="coverInput"
-                                    hidden>
-
-                                <img
-                                    id="preview"
-                                    class="cover-preview">
+                                <small>  JPG, PNG, WEBP  </small>
+                                <input type="file" name="cover" id="coverInput"    hidden>
+                                <img id="preview" class="cover-preview">
                             </div>
                         </div>
 
                         <!-- Keterangan -->
                         <div class="col-12">
-                            <label class="modern-label">
-                                Keterangan
+                            <label class="modern-label"> Keterangan
                                 <span class="optional">(Opsional)</span>
                             </label>
-
-                            <textarea
-                                class="form-control modern-textarea"
-                                rows="4"
-                                name="keterangan"
-                                placeholder="Masukkan keterangan buku..."></textarea>
+                            <textarea  class="form-control modern-textarea"  rows="4"  name="keterangan" placeholder="Masukkan keterangan buku..."></textarea>
                         </div>
                 </div>
 
                 <!-- Footer -->                
                 <div class="modal-footer custom-footer">
-                    <button type="button"
-                            class="btn-cancel"
-                            data-bs-dismiss="modal">
-                        Batal
-                    </button>
-
-                    <button type="submit"
-                            class="btn-save">
-                        Simpan
-                    </button>
+                    <button type="button" class="btn-cancel" data-bs-dismiss="modal">  Batal </button>
+                    <button type="submit" class="btn-save"> Simpan </button>
                 </div>
             </div>
-
         </form>
-
     </div>
-
 </div>
-
 
 <!-- Preview Cover -->
 <script>
-
 document.querySelector('.upload-cover')
 .addEventListener('click', function () {
-
     document.getElementById('coverInput').click();
-
 });
 
 document.getElementById('coverInput')
 .addEventListener('change', function(e){
-
     const file = e.target.files[0];
-
     if(file){
-
         const reader = new FileReader();
-
         reader.onload = function(event){
-
             const preview =
                 document.getElementById('preview');
-
             preview.src = event.target.result;
             preview.style.display = 'block';
-
         }
-
         reader.readAsDataURL(file);
-
     }
-
 });
-
 </script>

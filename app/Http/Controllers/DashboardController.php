@@ -75,7 +75,15 @@ class DashboardController extends Controller
             ->count();
         }
 
-        $totalTahunIni = array_sum($grafik);
+        $totalBulanIni = Pengunjung::whereYear(
+            'tanggal_kunjungan',
+            Carbon::now()->year
+        )
+        ->whereMonth(
+            'tanggal_kunjungan',
+            Carbon::now()->month
+        )
+        ->count();
 
         $bulanLabels = [
             'Jan','Feb','Mar','Apr',
@@ -106,7 +114,7 @@ class DashboardController extends Controller
             'peminjamanTerbaru',
 
             'grafik',
-            'totalTahunIni',
+            'totalBulanIni',
             'bulanTertinggi',
             'nilaiTertinggi'
         ));

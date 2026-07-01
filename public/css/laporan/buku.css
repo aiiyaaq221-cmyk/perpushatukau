@@ -49,27 +49,6 @@
     transform:translateY(-2px);
 }
 
-/* ===================================
-   RESPONSIVE
-=================================== */
-
-@media(max-width:768px){
-
-    .page-header{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
-    .page-header .d-flex{
-        width:100%;
-    }
-
-    .btn-modern-export{
-        flex:1;
-        text-align:center;
-    }
-}
-
 /* =========================
    STATISTIK CARD
 ========================= */
@@ -85,9 +64,9 @@
 }
 
 .stat-card h3{
-    font-size:32px;
+    font-size:31px;
     font-weight:600;
-    color:#484848;
+    color:#575757;
     margin-bottom:10px;
 }
 
@@ -99,7 +78,6 @@
 }
 
 /* Garis kiri */
-
 .stat-card.blue{
     border-left:6px solid #3b82f6;
 }
@@ -154,8 +132,8 @@
 }
 
 .modern-table thead th{
-    background:#ffdead;
-    color:#433f35;
+    background:#F7CD61;
+    color:#3b3d42;
     font-size:12px;
     font-weight:700;
     text-transform:uppercase;
@@ -176,18 +154,13 @@
 /* HOVER SATU BARIS */
 
 .modern-table tbody tr:hover td{
-    background:#f9f5e2 !important;
+    background:hwb(49 94% 0%) !important;
 }
 
 /* efek halus */
 
 .modern-table tbody tr{
     transition:all .25s ease;
-}
-
-/* optional */
-.modern-table tbody tr:hover{
-    cursor:pointer;
 }
 
 /* No */
@@ -272,6 +245,7 @@
     word-break:break-word;
     line-height:1.5;
 }
+
 /* ===================================
    COVER BUKU
 =================================== */
@@ -395,4 +369,25 @@
 
 .table-responsive::-webkit-scrollbar-track{
     background:#f1f5f9;
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+
+@media(max-width:768px){
+
+    .page-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .page-header .d-flex{
+        width:100%;
+    }
+
+    .btn-modern-export{
+        flex:1;
+        text-align:center;
+    }
 }

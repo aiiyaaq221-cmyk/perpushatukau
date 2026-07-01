@@ -16,9 +16,11 @@ class PeminjamanController extends Controller
     /**
      * LIST PEMINJAMAN
      */
-    public function index()
+    public function index(Request $request)
     {
-        // update otomatis status terlambat
+        // ==============================
+        // Update otomatis status terlambat
+        // ==============================
         Peminjaman::whereNull('tanggal_kembali')
             ->where('status', 'Dipinjam')
             ->whereDate('batas_kembali', '<', now())
@@ -26,32 +28,101 @@ class PeminjamanController extends Controller
                 'status' => 'Terlambat'
             ]);
 
-            
-        $peminjamans = Peminjaman::with(['anggota', 'details.buku'])
+        // ==============================
+        // Query
+        // ==============================
+        $query = Peminjaman::with([
+            'anggota',
+            'details.buku'
+        ]);
+
+        // ==============================
+        // Search
+        // ==============================
+        if ($request->filled('search')) {
+
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+
+                $q->where(
+                    'kode_peminjaman',
+                    'like',
+                    '%' . $search . '%'
+                )
+
+                ->orWhereHas('anggota', function ($anggota) use ($search) {
+
+                    $anggota->where(
+                        'nama',
+                        'like',
+                        '%' . $search . '%'
+                    );
+
+                });
+
+            });
+
+        }
+
+        // ==============================
+        // Filter Status
+        // ==============================
+        if ($request->filled('status')) {
+
+            $query->where(
+                'status',
+                $request->status
+            );
+
+        }
+
+        // ==============================
+        // Filter Tanggal Pinjam
+        // ==============================
+        if ($request->filled('tanggal_pinjam')) {
+
+            $query->whereDate(
+                'tanggal_pinjam',
+                $request->tanggal_pinjam
+            );
+
+        }
+
+        // ==============================
+        // Data
+        // ==============================
+        $peminjamans = $query
             ->latest()
-            ->get();
+            ->paginate(15)
+            ->withQueryString();
 
-        $anggotas = Anggota::where('status', 'Aktif')->get();
-        $bukus = Buku::where('stok_tersedia', '>', 0)->get();
+        // ==============================
+        // Modal Tambah
+        // ==============================
+        $anggotas = Anggota::where(
+            'status',
+            'Aktif'
+        )->orderBy('nama')->get();
 
-        $totalPeminjaman = Peminjaman::count();
-        $dipinjam = Peminjaman::where('status', 'Dipinjam')->count();
-        $dikembalikan = Peminjaman::where('status', 'Dikembalikan')->count();
-        $terlambat = Peminjaman::where('status', 'Terlambat')->count();
+        $bukus = Buku::where(
+            'stok_tersedia',
+            '>',
+            0
+        )->orderBy('judul_buku')->get();
 
-        return view('transaksi.peminjaman.index', compact(
-            'peminjamans',
-            'anggotas',
-            'bukus',
-            'totalPeminjaman',
-            'dipinjam',
-            'dikembalikan',
-            'terlambat'
-        ));
+        return view(
+            'transaksi.peminjaman.index',
+            compact(
+                'peminjamans',
+                'anggotas',
+                'bukus'
+            )
+        );
     }
 
     /**
-     * STORE PEMINJAMAN (PINJAM BUKU)
+     * STORE PEMINJAMAN
      */
     public function store(Request $request)
     {
@@ -62,24 +133,32 @@ class PeminjamanController extends Controller
         ]);
 
         DB::beginTransaction();
+
         try {
+
             // Generate kode peminjaman
-            $last = Peminjaman::latest()->first();
-            $nomor = $last ? ((int) substr($last->kode_peminjaman, 4)) + 1 : 1;
-            $kode = 'PJM-' . str_pad($nomor, 4, '0', STR_PAD_LEFT);
+            $last = Peminjaman::orderBy('id_peminjaman','desc')->first();
+            $next = $last ? $last->id_peminjaman + 1 : 1;
+            $kode = 'PJM-' . str_pad($next, 6, '0', STR_PAD_LEFT);
+
+            // Huruf kapital otomatis
+            $keterangan = $request->filled('keterangan')
+                ? ucfirst(strtolower(trim($request->keterangan)))
+                : null;
 
             // Simpan peminjaman
             $peminjaman = Peminjaman::create([
                 'kode_peminjaman' => $kode,
                 'id_anggota'      => $request->id_anggota,
-                'tanggal_pinjam'  => $request->tanggal_pinjam,
+                'tanggal_pinjam'  => $request->tanggal_pinjam ?? now()->toDateString(),
                 'batas_kembali'   => $request->batas_kembali,
                 'status'          => 'Dipinjam',
-                'keterangan'      => $request->keterangan,
+                'keterangan'      => $keterangan,
             ]);
 
             // Simpan detail buku
             foreach ($request->buku as $item) {
+
                 $buku = Buku::findOrFail($item['id_buku']);
 
                 // Cek stok
@@ -92,9 +171,9 @@ class PeminjamanController extends Controller
                 // Kurangi stok
                 $buku->decrement('stok_tersedia', $item['jumlah']);
 
-                // Simpan detail peminjaman
+                // Simpan detail
                 DetailPeminjaman::create([
-                    'id_peminjaman' => $peminjaman->id_peminjaman, // sesuaikan PK
+                    'id_peminjaman' => $peminjaman->id_peminjaman,
                     'id_buku'       => $item['id_buku'],
                     'jumlah'        => $item['jumlah'],
                 ]);
@@ -118,11 +197,13 @@ class PeminjamanController extends Controller
     }
 
     /**
-     * SHOW DETAIL (optional kalau dipakai)
+     * SHOW DETAIL
      */
     public function show($id)
     {
-        $peminjaman = Peminjaman::with(['anggota', 'details.buku']) ->findOrFail($id);
+        $peminjaman = Peminjaman::with(['anggota', 'details.buku'])
+            ->findOrFail($id);
+
         return view('transaksi.peminjaman.show', compact('peminjaman'));
     }
 
@@ -132,14 +213,20 @@ class PeminjamanController extends Controller
     public function update(Request $request, $id)
     {
         $peminjaman = Peminjaman::findOrFail($id);
+
         if ($peminjaman->status == 'Dikembalikan') {
             return back()->with('error', 'Data yang sudah dikembalikan tidak bisa diubah');
         }
 
+        // Huruf kapital otomatis
+        $keterangan = $request->filled('keterangan')
+            ? ucfirst(strtolower(trim($request->keterangan)))
+            : null;
+
         $peminjaman->update([
-            'id_anggota' => $request->id_anggota,
-            'batas_kembali' => $request->batas_kembali,
-            'keterangan' => $request->keterangan,
+            'id_anggota'      => $request->id_anggota,
+            'batas_kembali'   => $request->batas_kembali,
+            'keterangan'      => $keterangan,
         ]);
 
         return back()->with('success', 'Data peminjaman berhasil diubah');
@@ -148,7 +235,6 @@ class PeminjamanController extends Controller
     /**
      * KEMBALIKAN BUKU
      */
-    
     public function kembali($id)
     {
         DB::beginTransaction();
@@ -169,8 +255,7 @@ class PeminjamanController extends Controller
                 );
             }
 
-            $statusPengembalian =
-                now()->gt($peminjaman->batas_kembali)
+            $statusPengembalian = now()->gt($peminjaman->batas_kembali)
                 ? 'Terlambat'
                 : 'Tepat Waktu';
 
@@ -216,7 +301,7 @@ class PeminjamanController extends Controller
             $peminjaman = Peminjaman::with('details.buku')
                 ->findOrFail($id);
 
-            // balikin stok dulu
+            // Kembalikan stok
             foreach ($peminjaman->details as $detail) {
                 $detail->buku->increment('stok_tersedia', $detail->jumlah);
             }
@@ -224,11 +309,13 @@ class PeminjamanController extends Controller
             $peminjaman->delete();
 
             DB::commit();
+
             return back()->with('success', 'Data peminjaman berhasil dihapus');
 
         } catch (\Exception $e) {
 
             DB::rollBack();
+
             return back()->with('error', $e->getMessage());
         }
     }

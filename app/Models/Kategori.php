@@ -18,5 +18,4 @@ class Kategori extends Model
             'id_kategori'
         );
     }
-
 }

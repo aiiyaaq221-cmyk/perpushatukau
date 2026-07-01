@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
 
                     <div class="col-md-2 d-flex align-items-end gap-2">
-                        <button class="btn btn-primary flex-fill"> <i class="fas fa-search"> Filter</i> </button>
+                        <button class="btn btn-primary flex-fill"> <i class="fas fa-search"></i> </button>
 
                         @if(request()->hasAny(['nama','tanggal','status']))
                             <a href="{{ route('pengunjung.index') }}" class="btn btn-secondary">
@@ -158,34 +158,27 @@ document.addEventListener('DOMContentLoaded', function () {
                         @if($pengunjung->jenis_pengunjung == 'anggota')
 
                             <span class="badge bg-success">
-
                                 {{ $pengunjung->anggota->status ?? 'Aktif' }}
-
                             </span>
-
                         @else
-
                             <span class="badge bg-secondary">
                                 {{ $pengunjung->status_pengunjung }}
                             </span>
-
                         @endif
                     </td>
 
                     <td>{{ $pengunjung->tujuan }}</td>
                     <td class="text-center">
                         <div class="d-flex justify-content-center gap-2">
-                            <button class="btn btn-info btn-sm action-btn">
-                                Detail
-                            </button>
+                            
+                            <button type="button" class="btn btn-info btn-sm action-btn" data-bs-toggle="modal" data-bs-target="#detailPengunjung{{ $pengunjung->id_tamu }}"> Detail </button>
+                            <button type="button" class="btn btn-warning btn-sm action-btn" data-bs-toggle="modal" data-bs-target="#editPengunjung{{ $pengunjung->id_tamu }}">Edit</button>
+                            <form action="{{ route('pengunjung.destroy', $pengunjung->id_tamu) }}" method="POST" class="d-inline form-delete">
+                                @csrf
+                                @method('DELETE')
 
-                            <button class="btn btn-warning btn-sm action-btn">
-                                Edit
-                            </button>
-
-                            <button class="btn btn-danger btn-sm action-btn">
-                                Hapus
-                            </button>
+                                <button type="submit" class="btn btn-danger btn-sm action-btn"> Hapus </button>
+                            </form>
                         </div>
                     </td>
                 </tr>
@@ -208,46 +201,87 @@ document.addEventListener('DOMContentLoaded', function () {
     </div>
 </div>
 
-
-
+@if(session('success'))
 
 <script>
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded',function(){
 
-    document.querySelectorAll('.btn-hapus').forEach(button => {
+    Swal.fire({
 
-        button.addEventListener('click', function () {
+        icon:'success',
 
-            let url = this.dataset.url;
-            let nama = this.dataset.nama;
+        title:'Berhasil',
+
+        text:'{{ session("success") }}',
+
+        confirmButtonColor:'#3085d6',
+
+        allowOutsideClick:false,
+
+        allowEscapeKey:true
+
+    });
+
+});
+
+</script>
+
+@endif
+
+
+
+@if(session('error'))
+
+<script>
+
+document.addEventListener('DOMContentLoaded',function(){
+
+    Swal.fire({
+
+        icon:'error',
+
+        title:'Gagal!',
+
+        text:'{{ session("error") }}',
+
+        confirmButtonColor:'#d33',
+
+        allowOutsideClick:false,
+
+        allowEscapeKey:true
+
+    });
+
+});
+
+</script>
+
+@endif
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    document.querySelectorAll(".form-delete").forEach(form => {
+
+        form.addEventListener("submit", function(e){
+
+            e.preventDefault();
 
             Swal.fire({
-                title: 'Hapus Pengunjung?',
-                html: `
-                    <div style="font-size:15px">
-                        Data pengunjung
-                        <br>
-                        <strong>${nama}</strong>
-                        <br><br>
-                        akan dihapus permanen.
-                    </div>
-                `,
-                icon: 'warning',
+                title: "Hapus Data?",
+                text: "Data pengunjung yang dihapus tidak dapat dikembalikan.",
+                icon: "warning",
                 showCancelButton: true,
-                confirmButtonText: 'Ya, Hapus',
-                cancelButtonText: 'Batal',
-                reverseButtons: true,
-                confirmButtonColor: '#dc3545',
-                cancelButtonColor: '#6c757d'
-            }).then((result) => {
+                confirmButtonColor: "#dc3545",
+                cancelButtonColor: "#6c757d",
+                confirmButtonText: "Ya, Hapus",
+                cancelButtonText: "Batal"
+            }).then((result)=>{
 
-                if (result.isConfirmed) {
-
-                    const form = document.getElementById('formHapus');
-                    form.action = url;
+                if(result.isConfirmed){
                     form.submit();
-
                 }
 
             });
@@ -257,9 +291,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
-
 </script>
-
 
 @include('pengunjung.modal-tambah')
 @include('pengunjung.modal-edit')

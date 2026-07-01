@@ -5,14 +5,32 @@ namespace App\Http\Controllers\Master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Kategori;
+use Illuminate\Support\Str;
 
 class KategoriController extends Controller
 {
-     public function index()
+    public function index(Request $request)
     {
-        $kategoris = \App\Models\Kategori::latest()->get();
+        $query = Kategori::withCount('bukus');
 
-        return view('master.kategori.index', compact('kategoris'));
+        if ($request->filled('search')) {
+
+            $query->where(
+                'nama_kategori',
+                'like',
+                '%' . $request->search . '%'
+            );
+
+        }
+
+        $kategoris = $query
+            ->latest()
+            ->get();
+
+        return view(
+            'master.kategori.index',
+            compact('kategoris')
+        );
     }
 
 
@@ -23,10 +41,11 @@ class KategoriController extends Controller
         ]);
 
         Kategori::create([
-            'nama_kategori' => $request->nama_kategori
+            'nama_kategori' => Str::title(trim($request->nama_kategori))
         ]);
 
-        return redirect()->back()
+        return redirect()
+            ->back()
             ->with('success', 'Kategori berhasil ditambahkan');
     }
 
@@ -40,20 +59,21 @@ class KategoriController extends Controller
         $kategori = Kategori::findOrFail($id);
 
         $kategori->update([
-            'nama_kategori' => $request->nama_kategori
+            'nama_kategori' => Str::title(trim($request->nama_kategori))
         ]);
 
-        return redirect()->back()
+        return redirect()
+            ->back()
             ->with('success', 'Kategori berhasil diubah');
     }
 
-
+    
     public function destroy(Kategori $kategori)
     {
         $kategori->delete();
 
-        return redirect()->back()
+        return redirect()
+            ->back()
             ->with('success', 'Kategori berhasil dihapus');
     }
-
 }

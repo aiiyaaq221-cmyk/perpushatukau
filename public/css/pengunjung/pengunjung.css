@@ -126,21 +126,6 @@
     transform: none !important;
 }
 
-/* statistik */
-.blue{
-    border-left:6px solid #6691CC;
-}
-
-.green{
-    border-left:6px solid #24C55D;
-}
-
-.orange{
-    border-left:6px solid #FECA11;
-}
-
-
-
 /* =========================
    TABLE
 ========================= */
@@ -156,15 +141,16 @@
     margin-bottom:0;
 }
 
+
 .modern-table thead th{
-    background:#fff8e6;
-    color:#475569;
-    font-size:12px;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:.5px;
+    background:#F7CD61;
+    color:#3b3d42;
     border:none;
-    padding:16px;
+    padding:15px;
+    font-size:11px;
+    font-weight:600;
+    text-align:center;
+    vertical-align:middle;
 }
 
 .modern-table tbody td{
@@ -179,6 +165,16 @@
 
 .modern-table tbody tr:hover{
     background:#f8fafc;
+}
+
+/* HOVER SATU BARIS */
+.modern-table tbody tr:hover td{
+    background:hwb(49 94% 0%) !important;
+}
+
+/* efek halus */
+.modern-table tbody tr{
+    transition:all .25s ease;
 }
 
 .modern-table tbody tr:last-child td{

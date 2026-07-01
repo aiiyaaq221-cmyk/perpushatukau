@@ -1,12 +1,11 @@
-/* =========================
-   HEADER-PAGE CARD
-========================= */
-
+/*==================================
+HEADER
+==================================*/
 .header-card{
     background:#fff;
     padding:25px 30px;
     border-radius:20px;
-    box-shadow:0 4px 20px rgba(0,0,0,.05);
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
     margin-bottom:25px;
 }
 
@@ -30,82 +29,198 @@
     font-size:15px;
 }
 
-/* =========================
-   TABEL
-========================= */
+/*==================================
+FILTER CARD
+==================================*/
+.filter-card{
+    background:#fff;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+    margin-bottom:25px;
+}
+
+.form-label{
+    font-size:13px;
+    font-weight:600;
+    color:#475569;
+    margin-bottom:6px;
+}
+
+.modern-input{
+    height:48px;
+    border:1px solid #dbe2ea;
+    border-radius:12px;
+    background:#f8fafc;
+}
+
+.modern-input:focus{
+    border-color:#397bf7;
+    background:#fff;
+    box-shadow:0 0 0 .2rem rgba(57,123,247,.15);
+}
+
+.btn-filter{
+    height:48px;
+    border:none;
+    border-radius:12px;
+    font-weight:600;
+    background:#397bf7;
+    color:#fff;
+    transition:.25s;
+}
+
+.btn-filter:hover{
+    background:#2f6be0;
+    color:#fff;
+}
+
+.btn-reset{
+    height:48px;
+    border:none;
+    border-radius:12px;
+    font-weight:600;
+}
+/*==================================
+TABLE CARD
+==================================*/
+.modern-card{
+    background:#fff;
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.table-responsive{
+    overflow-x:auto;
+    scrollbar-width:thin;
+}
 
 .modern-table{
-    overflow: hidden;
-    border-radius: 15px;
+    width:100%;
+    margin-bottom:0;
+    min-width:980px;
+    border-collapse:separate;
+    border-spacing:0;
 }
 
-.modern-table thead th{
-    background: #fdf1d1 !important;
-    color: #141414 !important;
-    font-weight: 600;
-    border: none !important;
-    padding: 15px;
+.modern-table th,
+.modern-table td{
+    vertical-align:middle;
+    white-space:nowrap;
 }
+
+/* HEADER */
+.modern-table thead th{
+    background:#F7CD61;
+    color:#3b3d42;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    text-align:center;
+    padding:12px 10px;
+    border:none;
+}
+
+/* BODY */
+.modern-table tbody td{
+    padding:11px 10px;
+    border-bottom:1px solid #eef2f7;
+    font-size:11px;
+    color:#334155;
+}
+
+.modern-table tbody tr{
+    transition:.25s;
+}
+
+.modern-table tbody tr:hover td{
+    background:#fffdf4;
+}
+
 .modern-table thead th:first-child{
-    border-top-left-radius: 15px;
+    border-top-left-radius:15px;
 }
 
 .modern-table thead th:last-child{
-    border-top-right-radius: 15px;
+    border-top-right-radius:15px;
 }
 
-/* =========================
-   STAT CARD
-========================= */
-
-.stat-card{
-    background: #fff;
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0,0,0,.08);
-    transition: .3s;
-    position: relative;
-    overflow: hidden;
+/* Tombol aksi */
+.modern-table .btn-sm{
+    padding:5px 9px;
+    font-size:12px;
 }
 
-.stat-card:hover{
-    transform: translateY(-5px);
+/* Nama anggota */
+.nama-anggota{
+    max-width:160px;
+    white-space:normal;
+    line-height:1.35;
+    font-weight:600;
 }
 
-.stat-card h3{
-    font-size: 31px;
-    font-weight: 700;
-    margin-bottom: 5px;
-    color: #222;
+/* Kode */
+.kode{
+    font-weight:700;
+    color:#397bf7;
 }
 
-.stat-card p{
-    margin: 0;
-    color: #666;
-    font-size: 15px;
+/* Tanggal */
+.tanggal{
+    font-size:11px;
+    color:#475569;
+}
+/*==================================
+BADGE
+==================================*/
+
+.modern-table .badge{
+    font-size:11px;
+    padding:7px 10px;
+    border-radius:15px;
+}
+/*==================================
+EMPTY DATA
+==================================*/
+.empty-data{
+    padding:50px 20px;
+    text-align:center;
 }
 
-/* Warna */
-.stat-card.blue{
-    border-left: 5px solid #4f8cff;
+.empty-data h5{
+    font-weight:700;
+    color:#1e293b;
 }
 
-.stat-card.green{
-    border-left: 5px solid #28c76f;
+.empty-data p{
+    color:#64748b;
+    margin:0;
 }
 
-.stat-card.red{
-    border-left: 5px solid #e74c3c;
+/*==================================
+PAGINATION
+==================================*/
+.pagination{
+    margin-bottom:0;
 }
 
-.stat-card.yellow{
-    border-left: 5px solid #f1ba15;
+.page-link{
+    border:none;
+    border-radius:10px;
+    margin:0 3px;
+    color:#397bf7;
+    font-weight:600;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+.page-item.active .page-link{
+    background:#397bf7;
+    border-color:#397bf7;
+}
 
+/*==================================
+RESPONSIVE
+==================================*/
 @media(max-width:768px){
 
     .page-header{
@@ -113,7 +228,10 @@
         align-items:flex-start;
     }
 
-    .btn-modern{
-        width:100%;
+    .filter-card,
+    .modern-card,
+    .header-card{
+        padding:20px;
     }
+
 }

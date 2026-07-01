@@ -7,28 +7,17 @@
 @section('content')
 
 <!-- HEADER -->
-<div class="page-header">
+<div class="header-card mb-4">
+    <div class="page-header">
+        <div class="page-info">
+            <h2 class="page-title"> 📋 Laporan Tamu</h2>
+            <p class="page-subtitle"> Data kunjungan tamu Perpustakaan Hatukau </p>
+        </div>
 
-    <div>
-        <h2 class="page-title">
-            📋 Laporan Tamu
-        </h2>
-
-        <p class="page-subtitle">
-            Data kunjungan tamu Perpustakaan Hatukau
-        </p>
-    </div>
-
-    <div>
-        <a href="{{ route('laporan.pengunjung.excel') }}"
-        class="btn btn-export btn-excel me-2">
-            📊 Export Excel
-        </a>
-
-        <a href="{{ route('laporan.pengunjung.pdf') }}"
-        class="btn btn-export btn-pdf">
-            📄 Export PDF
-        </a>
+        <div class="d-flex gap-2 flex-wrap">
+            <a href="{{ route('laporan.pengunjung.excel') }}" class="btn btn-success btn-modern-export"> 📊 Export Excel </a>
+            <a href="{{ route('laporan.pengunjung.pdf') }}" class="btn btn-danger btn-modern-export"> 📄 Export PDF </a>
+        </div>
     </div>
 </div>
 
@@ -87,7 +76,7 @@
 
             <div class="col-md-2 d-flex align-items-end gap-2">
                 <button class="btn btn-primary flex-fill">
-                    <i class="fas fa-search"> Filter</i>
+                    <i class="fas fa-search"> </i> Filter
                 </button>
 
                 @if(request()->hasAny(['search','tanggal','status']))

@@ -5,39 +5,20 @@
 @endsection
 
 @section('content')
-<div class="container-fluid py-4">
-    <!-- HEADER -->
-    <div class="card border-0 shadow-sm report-header mb-4">
-        <div class="card-body">
-           <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h3 class="fw-bold mb-1">
-                        <i class="fas fa-book-reader text-primary me-2"></i>
-                        Laporan Peminjaman
-                    </h3>
-
-                    <p class="text-muted mb-0">
-                        Data seluruh transaksi peminjaman buku
-                    </p>
-                </div>
-
-                <div class="d-flex gap-2">
-                    <a href="#"
-                        class="btn btn-success">
-
-                        <i class="fas fa-file-excel me-2"></i>
-                        Export Excel
-                    </a>
-
-                    <a href="#"
-                        class="btn btn-danger">
-                        <i class="fas fa-file-pdf me-2"></i>
-                        Export PDF
-                    </a>
-                </div>
+<div class="container-fluid pt-1 pb-4">
+    <div class="header-card mb-4">
+        <div class="page-header">
+            <div class="page-info">
+                <h2 class="page-title"> 📚 Laporan Peminjaman </h2>
+                <p class="page-subtitle">  Data seluruh transaksi peminjaman buku </p>
+            </div>
+            <div class="d-flex gap-2 flex-wrap">
+                <a href="#" class="btn btn-success btn-modern-export"> 📊 Export Excel </a>
+                <a href="#" class="btn btn-danger btn-modern-export"> 📄 Export PDF </a>
             </div>
         </div>
     </div>
+
 
     <!-- STATISTIK -->
 
@@ -125,7 +106,7 @@
 
                     <div class="col-md-2 d-flex align-items-end gap-2">
                         <button class="btn btn-primary flex-fill">
-                            <i class="fas fa-search"> Filter</i>
+                            <i class="fas fa-search"> </i> Filter
                         </button>
 
                         @if(request()->hasAny(['nama','tanggal','status']))

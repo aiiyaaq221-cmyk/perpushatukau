@@ -1,142 +1,183 @@
 @foreach($anggotas as $anggota)
 
-<div
-    class="modal fade"
-    id="detailAnggota{{ $anggota->id_anggota }}"
-    tabindex="-1"
-    aria-hidden="true">
+<div class="modal fade"
+     id="detailAnggota{{ $anggota->id_anggota }}"
+     tabindex="-1">
 
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
 
-        <div class="modal-content border-0 shadow">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
 
-            <!-- Header -->
-            <div class="modal-header">
+            {{-- HEADER --}}
+            <div class="modal-header border-0 px-4 py-3" style="background:linear-gradient(135deg,#c3d6ff,#e9f0ff);">
+                <div> <h4 class="mb-0 fw-bold"> 👤 Detail Anggota </h4>
+                    <small class="text-muted"> {{ $anggota->nama }} </small>
+                </div>
 
-                <h5 class="modal-title fw-bold">
-                    Detail Anggota
-                </h5>
-
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal">
+                <button class="btn-close"
+                        data-bs-dismiss="modal">
                 </button>
 
             </div>
 
-            <!-- Body -->
-            <div class="modal-body">
+            {{-- BODY --}}
+            <div class="modal-body p-4">
 
-                <div class="row g-3">
+                <div class="row g-4">
 
-                    <div class="col-md-6">
-                        <label class="text-muted small">
-                            Kode Anggota
-                        </label>
+                    {{-- LEFT --}}
+                    <div class="col-lg-4">
 
-                        <div class="fw-semibold">
-                            {{ $anggota->kode_anggota ?? '-' }}
-                        </div>
-                    </div>
+                        <div class="card border-0 shadow-sm rounded-4 p-4 text-center">
 
-                    <div class="col-md-6">
-                        <label class="text-muted small">
-                            Nama Lengkap
-                        </label>
+                            <div class="avatar mb-3 fs-1">
+                                👤
+                            </div>
 
-                        <div class="fw-semibold">
-                            {{ $anggota->nama }}
-                        </div>
-                    </div>
+                            <h4 class="mb-1">
+                                {{ $anggota->nama }}
+                            </h4>
 
-                    <div class="col-md-6">
-                        <label class="text-muted small">
-                            Jenis Kelamin
-                        </label>
+                            <small class="text-muted">
+                                {{ $anggota->kode_anggota }}
+                            </small>
 
-                        <div class="fw-semibold">
-                            {{ $anggota->jenis_kelamin }}
-                        </div>
-                    </div>
+                            <hr>
 
-                    <div class="col-md-6">
-                        <label class="text-muted small">
-                            No. Telepon
-                        </label>
+                            @if($anggota->status=='Aktif')
 
-                        <div class="fw-semibold">
-                            {{ $anggota->no_telp ?? '-' }}
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="text-muted small">
-                            Email
-                        </label>
-
-                        <div class="fw-semibold">
-                            {{ $anggota->email ?? '-' }}
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="text-muted small">
-                            Tanggal Daftar
-                        </label>
-
-                        <div class="fw-semibold">
-                            {{ \Carbon\Carbon::parse($anggota->tanggal_daftar)->format('d F Y') }}
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label class="text-muted small">
-                            Alamat
-                        </label>
-
-                        <div class="fw-semibold">
-                            {{ $anggota->alamat }}
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label class="text-muted small">
-                            Status
-                        </label>
-
-                        <div>
-
-                            @if($anggota->status == 'Aktif')
-
-                                <span class="badge bg-success px-3 py-2">
+                                <span class="badge bg-success rounded-pill px-3 py-2">
                                     Aktif
                                 </span>
 
                             @else
 
-                                <span class="badge bg-danger px-3 py-2">
+                                <span class="badge bg-danger rounded-pill px-3 py-2">
                                     Tidak Aktif
                                 </span>
 
                             @endif
 
                         </div>
+
+                    </div>
+
+                    {{-- RIGHT --}}
+                    <div class="col-lg-8">
+
+                        <div class="card border-0 shadow-sm rounded-4 p-4">
+
+                            <h5 class="mb-4">
+                                📌 Informasi Anggota
+                            </h5>
+
+                            <div class="row g-3">
+
+                                <div class="col-md-6">
+                                    <div class="info-box">
+                                        <small>Kode Anggota</small>
+                                        <div class="fw-bold">
+                                            {{ $anggota->kode_anggota }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="info-box">
+                                        <small>Nama Lengkap</small>
+                                        <div class="fw-bold">
+                                            {{ $anggota->nama }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="info-box">
+                                        <small>Jenis Kelamin</small>
+                                        <div class="fw-bold">
+                                            {{ $anggota->jenis_kelamin }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="info-box">
+                                        <small>No. Telepon</small>
+                                        <div class="fw-bold">
+                                            {{ $anggota->no_telp ?? '-' }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="info-box">
+                                        <small>Email</small>
+                                        <div class="fw-bold">
+                                            {{ $anggota->email ?? '-' }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="info-box">
+                                        <small>Tanggal Daftar</small>
+                                        <div class="fw-bold">
+                                            {{ \Carbon\Carbon::parse($anggota->tanggal_daftar)->format('d-m-Y') }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="info-box">
+                                        <small>Alamat</small>
+                                        <div class="fw-bold">
+                                            {{ $anggota->alamat }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="info-box">
+                                        <small>Status</small>
+
+                                        <div class="mt-2">
+
+                                            @if($anggota->status=='Aktif')
+
+                                                <span class="badge bg-success rounded-pill px-3 py-2">
+                                                    Aktif
+                                                </span>
+
+                                            @else
+
+                                                <span class="badge bg-danger rounded-pill px-3 py-2">
+                                                    Tidak Aktif
+                                                </span>
+
+                                            @endif
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>
 
             </div>
 
-            <!-- Footer -->
-            <div class="modal-footer">
+            {{-- FOOTER --}}
+            <div class="modal-footer border-0 p-3">
 
-                <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal">
+                <button class="btn btn-secondary px-4"
+                        data-bs-dismiss="modal">
 
                     Tutup
+
                 </button>
 
             </div>

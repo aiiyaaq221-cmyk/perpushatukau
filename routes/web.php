@@ -39,12 +39,10 @@ Route::get('/logout-test', function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         
         //MASTER
-        
         Route::prefix('master')->name('master.')->group(function () {
-
+            Route::put('/buku/{id}', [BukuController::class, 'update']) ->name('buku.update');
             Route::resource('kategori', KategoriController::class);
             Route::resource('buku', BukuController::class);
-            Route::put('/buku/{id}', [BukuController::class, 'update']);
             Route::get('/anggota', [AnggotaController::class, 'index'])->name('anggota.index');
             Route::post('/anggota/store', [AnggotaController::class, 'store'])->name('anggota.store');
             Route::put('/anggota/{id}',[AnggotaController::class, 'update'])->name('anggota.update');
@@ -56,6 +54,7 @@ Route::get('/logout-test', function () {
             Route::get('/', [PengunjungController::class, 'index'])->name('index');
             Route::post('/store', [PengunjungController::class, 'store'])->name('store');
             Route::put('/update/{id}', [PengunjungController::class, 'update'])->name('update');
+            Route::delete('/pengunjung/{id}', [PengunjungController::class, 'destroy'])->name('pengunjung.destroy');
             Route::delete('/destroy/{id}', [PengunjungController::class, 'destroy'])->name('destroy');
         });
 
@@ -84,18 +83,21 @@ Route::get('/logout-test', function () {
             Route::get('/laporan-buku/pdf', [LaporanBukuController::class, 'exportPdf'])->name('buku.pdf');
 
             Route::get('/anggota',[LaporanAnggotaController::class, 'index'])->name('anggota');
-            Route::get('/laporan-anggota/excel', [LaporanAnggotaController::class, 'exportExcel'])->name('laporan.anggota.excel');
-            Route::get('/laporan-anggota/pdf', [LaporanAnggotaController::class, 'exportPdf'])->name('laporan.anggota.pdf');
+            Route::get('/laporan-anggota/excel', [LaporanAnggotaController::class, 'exportExcel'])->name('anggota.excel');
+            Route::get('/laporan-anggota/pdf', [LaporanAnggotaController::class, 'exportPdf'])->name('anggota.pdf');
 
             Route::get('/peminjaman',[LaporanPeminjamanController::class, 'index'])->name('peminjaman');
 
             Route::get('/pengembalian',[LaporanPengembalianController::class, 'index'])->name('pengembalian');
-            
+            Route::get('/pengembalian', [LaporanPengembalianController::class, 'index'])->name('pengembalian');
+            Route::get('/laporan-pengembalian/excel', [LaporanPengembalianController::class, 'exportExcel'])->name('pengembalian.excel');
+            Route::get('/laporan-pengembalian/pdf', [LaporanPengembalianController::class, 'exportPdf'])->name('pengembalian.pdf');
+           
             Route::get('/pengunjung',[LaporanPengunjungController::class, 'index'])->name('pengunjung'); 
             Route::get('/laporan-pengunjung/excel', [LaporanPengunjungController::class, 'exportExcel']) ->name('pengunjung.excel');
             Route::get('/laporan-pengunjung/pdf', [LaporanPengunjungController::class, 'exportPdf']) ->name('pengunjung.pdf');
         });
-    });// LAPORAN PENGUNJUNG
+    });
 
 
 
@@ -106,6 +108,7 @@ Route::get('/logout-test', function () {
 
 
 
+    
 
 
 

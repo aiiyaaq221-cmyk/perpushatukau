@@ -6,30 +6,39 @@
     background:#f8fafc;
 }
 
-/* ======================================
-   HEADER
-====================================== */
+/* ===================================
+   HEADER CARD
+=================================== */
+
+.header-card{
+    background:#fff;
+    padding:25px 30px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+/* ===================================
+   PAGE HEADER
+=================================== */
 
 .page-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:25px;
-    flex-wrap:wrap;
-    gap:15px;
+    gap:20px;
 }
 
 .page-title{
+    margin:0;
     font-size:30px;
     font-weight:700;
     color:#1e293b;
-    margin-bottom:5px;
 }
 
 .page-subtitle{
+    margin:6px 0 0;
     color:#64748b;
-    margin:0;
-    font-size:14px;
+    font-size:15px;
 }
 
 /* ======================================
@@ -184,8 +193,8 @@
 }
 
 .modern-table thead th{
-    background:#f8fafc;
-    border:none;
+    background:#F7CD61;
+    color:#3b3d42;
     color:#475569;
     font-size:12px;
     font-weight:700;
@@ -210,6 +219,19 @@
 .modern-table tbody tr:hover{
     background:#f8fafc;
 }
+
+/* HOVER SATU BARIS */
+
+.modern-table tbody tr:hover td{
+    background:hwb(49 94% 0%) !important;
+}
+
+/* efek halus */
+
+.modern-table tbody tr{
+    transition:all .25s ease;
+}
+
 
 .table-responsive{
     width:100%;
@@ -290,6 +312,25 @@
     color:white;
 }
 
+.wrapper{
+    overflow-x: hidden;
+}
+
+.content{
+    overflow-x: hidden !important;
+    width: 100%;
+}
+
+.table-responsive{
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.modern-table{
+    min-width: 1200px;
+}
+
 /* ======================================
    RESPONSIVE
 ====================================== */
@@ -315,22 +356,3 @@
 
 }
 
-
-.wrapper{
-    overflow-x: hidden;
-}
-
-.content{
-    overflow-x: hidden !important;
-    width: 100%;
-}
-
-.table-responsive{
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-}
-
-.modern-table{
-    min-width: 1200px;
-}

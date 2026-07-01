@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class PengunjungController extends Controller
 {
-   public function index(Request $request)
+    public function index(Request $request)
     {
         $query = Pengunjung::with('anggota');
 
@@ -68,7 +68,6 @@ class PengunjungController extends Controller
         );
     }
 
-    
     public function store(Request $request)
     {
         if ($request->jenis_pengunjung == 'anggota') {
@@ -80,15 +79,17 @@ class PengunjungController extends Controller
             Pengunjung::create([
                 'id_anggota'         => $anggota->id_anggota,
                 'jenis_pengunjung'   => 'anggota',
-                'nama'               => $anggota->nama,
-                'alamat'             => $anggota->alamat,
+                'nama'               => ucfirst(strtolower(trim($anggota->nama))),
+                'alamat'             => ucfirst(strtolower(trim($anggota->alamat))),
                 'jenis_kelamin'      => $anggota->jenis_kelamin,
 
                 // otomatis ambil status anggota
                 'status_pengunjung'  => $anggota->status,
-                'tujuan'             => $request->tujuan,
+                'tujuan'             => ucfirst(strtolower(trim($request->tujuan))),
                 'umur'               => $anggota->umur,
-                'keterangan'         => $request->keterangan,
+                'keterangan'         => $request->filled('keterangan')
+                    ? ucfirst(strtolower(trim($request->keterangan)))
+                    : null,
                 'tanggal_kunjungan'  => now(),
             ]);
 
@@ -103,13 +104,15 @@ class PengunjungController extends Controller
 
             Pengunjung::create([
                 'jenis_pengunjung'   => 'non_anggota',
-                'nama'               => $request->nama,
-                'alamat'             => $request->alamat,
+                'nama'               => ucfirst(strtolower(trim($request->nama))),
+                'alamat'             => ucfirst(strtolower(trim($request->alamat))),
                 'umur'               => $request->umur,
                 'jenis_kelamin'      => $request->jenis_kelamin,
                 'status_pengunjung'  => $request->status_pengunjung,
-                'tujuan'             => $request->tujuan,
-                'keterangan'         => $request->keterangan,
+                'tujuan'             => ucfirst(strtolower(trim($request->tujuan))),
+                'keterangan'         => $request->filled('keterangan')
+                    ? ucfirst(strtolower(trim($request->keterangan)))
+                    : null,
                 'tanggal_kunjungan'  => now(),
             ]);
         }
@@ -121,11 +124,10 @@ class PengunjungController extends Controller
                 'Data pengunjung berhasil ditambahkan.'
             );
     }
-    
+
     public function update(Request $request, $id)
     {
         $pengunjung = Pengunjung::findOrFail($id);
-
         $request->validate([
             'nama' => 'required',
             'jenis_kelamin' => 'required|in:L,P',
@@ -133,28 +135,36 @@ class PengunjungController extends Controller
         ]);
 
         $pengunjung->update([
-
-            'nama' => $request->nama,
+            'nama' => ucfirst(strtolower(trim($request->nama))),
             'jenis_kelamin' => $request->jenis_kelamin,
-            'alamat' => $request->alamat,
-            'tujuan' => $request->tujuan,
+            'alamat' => ucfirst(strtolower(trim($request->alamat))),
+            'tujuan' => ucfirst(strtolower(trim($request->tujuan))),
             'status_pengunjung' => $request->status_pengunjung,
-            'keterangan' => $request->keterangan,
-
+            'keterangan' => $request->filled('keterangan')
+                ? ucfirst(strtolower(trim($request->keterangan)))
+                : null,
         ]);
 
         return redirect()
             ->back()
-            ->with('success', 'Data pengunjung berhasil diupdate.');
+            ->with('success', 'Data pengunjung berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
-        $pengunjung = Pengunjung::findOrFail($id);
-        $pengunjung->delete();
+        try {
+            $pengunjung = Pengunjung::findOrFail($id);
+            $nama = $pengunjung->nama;
+            $pengunjung->delete();
+            return redirect()
+                ->route('pengunjung.index')
+                ->with('success', "Data pengunjung {$nama} telah berhasil dihapus.");
 
-        return redirect()
-            ->back()
-            ->with('success', 'Data pengunjung berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('pengunjung.index')
+                ->with('error', 'Data pengunjung gagal dihapus.');
+        }
     }
+
 }

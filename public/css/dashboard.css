@@ -24,7 +24,7 @@ body{
 }
 
 .welcome-card{
-    background:#E9930A;
+    background:#f3b147;
     border-radius:16px;
     padding:30px;
     color:white;
@@ -304,9 +304,6 @@ body{
     height: 320px !important;
 }
 
-
-
-
 /*laporan buku*/
 /* CARD UTAMA */
 .report-card{
@@ -495,6 +492,47 @@ body{
     box-shadow:0 8px 20px rgba(236,70,67,.35);
 }
 
-.logout-btn::before{
-    content:"🚪";
+
+/* ===========================
+   SWEET ALERT TOAST
+=========================== */
+.popup-success{
+    width:330px !important;
+    padding:18px 20px 20px !important;
+    border-radius:14px !important;
+    box-shadow:0 20px 45px rgba(0,0,0,.25);
+}
+
+.popup-success .swal2-icon{
+    margin:8px auto 10px !important;
+    transform:scale(.70);
+}
+
+.popup-success .swal2-title{
+    font-size:18px;
+    margin:0;
+    font-weight:700;
+}
+
+.popup-success .swal2-html-container{
+    margin-top:6px;
+    font-size:16px;
+    color:#100f0f;
+}
+
+.swal2-popup{
+    padding-top:14px !important;
+}
+
+.swal2-icon{
+    margin-bottom:8px !important;
+}
+
+.swal2-title{
+    margin-top:0 !important;
+    margin-bottom:6px !important;
+}
+
+.swal2-html-container{
+    margin-top:4px !important;
 }

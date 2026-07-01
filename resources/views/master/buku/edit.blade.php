@@ -1,5 +1,4 @@
 @foreach($bukus as $buku)
-
 <div class="modal fade" 
     id="editBuku{{ $buku->id_buku }}" 
     tabindex="-1" 
@@ -11,11 +10,10 @@
             <div class="modal-content">
                 <!-- Header -->
                 <div class="modal-header-custom">
-                    <div> <h5>📚 Tambah Data Buku</h5>
-                        <p>
-                            Lengkapi informasi buku yang akan ditambahkan ke perpustakaan </p>
+                    <div> 
+                        <h5>📚 Edit Data Buku</h5>
+                        <p> Perbarui informasi buku pada perpustakaan </p>
                     </div>
-
                 </div>
 
                 <!-- Body -->
@@ -28,18 +26,13 @@
                                 Kategori Buku
                             </label>
 
-                            <select
-                                name="id_kategori"
-                                class="form-select modern-input">
-
+                            <select name="id_kategori" class="form-select modern-input">
                                 @foreach($kategoris as $kategori)
-
                                     <option
                                         value="{{ $kategori->id_kategori }}"
                                         {{ $buku->id_kategori == $kategori->id_kategori ? 'selected' : '' }}>
 
                                         {{ $kategori->nama_kategori }}
-
                                     </option>
                                 @endforeach
                             </select>
@@ -54,12 +47,7 @@
                                 </small>
                             </label>
 
-                            <input
-                                type="text"
-                                name="kode_buku"
-                                class="form-control modern-input"
-                                value="{{ $buku->kode_buku }}"
-                                placeholder="Contoh: BK001">
+                            <input type="text"  name="kode_buku" class="form-control modern-input" value="{{ $buku->kode_buku }}" placeholder="Contoh: BK001">
                         </div>
 
                         <!-- Judul Buku -->

@@ -82,7 +82,7 @@
 
                 <div class="col-md-3 d-flex align-items-end gap-2">
                     <button class="btn btn-primary flex-fill">
-                        <i class="fas fa-search"> Filter</i>
+                        <i class="fas fa-search"> </i> Filter
                     </button>
 
                     @if(request()->hasAny(['search','kategori','tanggal']))

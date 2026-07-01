@@ -51,7 +51,6 @@
 
     <!-- Grafik -->
     <div class="chart-card">
-
         <div class="chart-header">
             <h3> Grafik Kunjungan Per Bulan  </h3>
             <span class="chart-subtitle">
@@ -61,15 +60,13 @@
 
         <div class="chart-summary">
             <div class="summary-item">
-                <span>Total Tahun Ini</span>
-                    <h4> {{ $totalTahunIni }}</h4>
+                <span>Total Bulan Ini</span>
+                <h4>{{ $totalBulanIni }}</h4>
             </div>
-
             <div class="summary-item">
                 <span>Bulan Tertinggi</span>
-                    <h4>{{ $bulanTertinggi }} </h4>
+                <h4>{{ $bulanTertinggi }} </h4>
             </div>
-
             <div class="summary-item">
                 <span>Kunjungan Tertinggi</span>
                 <h4>{{ $nilaiTertinggi }}</h4>
@@ -156,7 +153,6 @@
                         <th>Total Buku</th>
                         <th>Status</th>
                     </tr>
-
                 </thead>
 
                 <tbody>
@@ -164,7 +160,6 @@
                     @forelse($peminjamanTerbaru as $item)
 
                     <tr>
-
                         <td> {{ $item->kode_peminjaman }}</td>
                         <td> {{ $item->anggota->nama }} </td>
                         <td> {{ \Carbon\Carbon::parse($item->tanggal_pinjam)->format('d-m-Y') }}</td>
@@ -186,43 +181,27 @@
                                     Terlambat
                                 </span>
                             @endif
-
                         </td>
-
                     </tr>
 
                     @empty
-
                     <tr>
-
                         <td colspan="6" class="text-center">
-
                             Belum ada data peminjaman
-
                         </td>
-
                     </tr>
 
                     @endforelse
-
                 </tbody>
-
             </table>
-
         </div>
-
     </div>
 </div>
-
 @endsection
 
-
 @push('scripts')
-
 <script>
-
 document.addEventListener("DOMContentLoaded", function () {
-
     const ctx =
         document.getElementById('visitorChart');
 
@@ -239,76 +218,48 @@ document.addEventListener("DOMContentLoaded", function () {
             ],
 
             datasets: [{
-
                 label: 'Jumlah Pengunjung',
-
                 data: @json($grafik),
-
                 borderColor:'#E9930A',
-
                 backgroundColor:
                     'rgba(233,147,10,0.15)',
-
                 fill:true,
-
                 tension:0.4,
-
                 borderWidth:4,
-
                 pointRadius:6,
-
                 pointHoverRadius:10,
-
                 pointBackgroundColor:'#fff',
-
                 pointBorderColor:'#E9930A',
-
                 pointBorderWidth:3
-
             }]
         },
 
         options: {
-
             responsive:true,
-
             maintainAspectRatio:false,
-
             interaction:{
                 intersect:false,
                 mode:'index'
             },
-
             plugins:{
-
                 legend:{
                     display:false
                 },
-
                 tooltip:{
-
                     backgroundColor:'#1F2937',
-
                     titleColor:'#fff',
-
                     bodyColor:'#fff',
-
                     padding:12,
-
                     callbacks:{
-
                         label:function(context){
-
                             return context.parsed.y +
                                 ' Pengunjung';
-
                         }
                     }
                 }
             },
 
             scales:{
-
                 y:{
                     beginAtZero:true,
                     ticks:{
@@ -323,11 +274,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         }
-
     });
-
 });
-
 </script>
-
 @endpush

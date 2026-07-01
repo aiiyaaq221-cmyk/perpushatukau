@@ -54,6 +54,79 @@
     background:#1d4ed8;
     color:white;
 }
+/* =========================
+   SEARCH BOX
+========================= */
+
+.search-box{
+    position:relative;
+}
+
+.search-icon{
+    position:absolute;
+    left:16px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#94a3b8;
+}
+
+.search-input{
+    padding-left:42px;
+}
+
+/* ===================================
+   MODAL MODERN
+=================================== */
+
+.modern-modal{
+    border:none;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.modal-icon{
+    width:50px;
+    height:50px;
+    font-size:20px;
+    flex-shrink:0;
+}
+
+.modal-title{
+    font-size:20px;
+    color:#1e293b;
+}
+
+.modern-label{
+    display:block;
+    margin-bottom:8px;
+    font-size:14px;
+    font-weight:600;
+    color:#475569;
+}
+
+.modern-input{
+    height:50px;
+    border-radius:12px;
+    border:1px solid #dbe2ea;
+    transition:.3s;
+}
+
+.modern-input:focus{
+    border-color:#2b74fa;
+    box-shadow:0 0 0 .15rem rgba(43,116,250,.15);
+}
+
+.modal-footer .btn{
+    min-width:110px;
+}
+
+.btn-light{
+    border:1px solid #dbe2ea;
+}
+
+.btn-light:hover{
+    background:#eef4ff;
+}
 
 /* jd */
 .modern-card{
@@ -64,18 +137,19 @@
 }
 
 .modern-table{
+    border-radius:8px;
     margin-bottom:0;
 }
 
 /* Header tabel */
 .modern-table thead th{
-    background:#f8fafc;
-    color:#64748b;
+    background:#F7CD61;
+    color:#3b3d42;
     font-size:13px;
     font-weight:600;
     border:none;
     padding:15px;
-    text-align:center; /* CENTER HEADER */
+    text-align:center; 
     text-transform:uppercase;
     letter-spacing:.5px;
 }
@@ -85,16 +159,19 @@
     vertical-align:middle;
     font-size:14px;
     padding:15px;
-    text-align:center; /* CENTER ISI */
+    text-align:center;
 }
 
+/* HOVER SATU BARIS */
+.modern-table tbody tr:hover td{
+    background:hwb(49 94% 0%) !important;
+}
+
+/* efek halus */
 .modern-table tbody tr{
-    transition:.3s;
+    transition:all .25s ease;
 }
 
-.modern-table tbody tr:hover{
-    background:#f8fafc;
-}
 
 /* Tombol */
 .btn-sm{

@@ -1,3 +1,12 @@
+.modal-dialog{
+    margin:25px auto !important;
+}
+
+.modal-edit{
+    max-width:800px;
+    width:90%;
+}
+
 /* =========================
    HEADER CARD
 ========================= */
@@ -62,49 +71,49 @@
     box-shadow:0 10px 25px rgba(0,0,0,.05);
 }
 
-.stat-card{
-    background:#fff;
-    padding:20px;
-    border-radius:18px;
-    text-align:center;
-    box-shadow:0 5px 20px rgba(0,0,0,.05);
+/* =========================
+   TABEL
+========================= */
+.table-responsive{
+    overflow-x:auto;
 }
 
-.stat-card h3{
-    font-size:30px;
-    font-weight:700;
-    margin-bottom:5px;
+.modern-table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
 }
 
-.stat-card p{
-    color:#64748b;
-    margin:0;
-}
-
-.blue{
-    border-left:5px solid #3b82f6;
-}
-
-.green{
-    border-left:5px solid #22c55e;
-}
-
-.orange{
-    border-left:5px solid #f97316;
-}
-
-.modern-table th{
-    text-align:center;
-    background:#f8fafc;
-    color:#64748b;
-    font-size:13px;
-    border:none;
-}
-
-.modern-table td{
+/* HEADER TABLE */
+.modern-table thead th{
+    background:#F7CD61;
+    padding:14px;
     text-align:center;
     vertical-align:middle;
-    font-size:14px;
+    font-weight:700;
+    text-transform:uppercase;
+}
+
+/* HOVER SATU BARIS */
+
+.modern-table tbody tr:hover td{
+    background:hwb(49 94% 0%) !important;
+}
+
+/* efek halus */
+
+.modern-table tbody tr{
+    transition:all .25s ease;
+}
+
+/* Radius kiri atas */
+.modern-table thead th:first-child{
+    border-top-left-radius:11px;
+}
+
+/* Radius kanan atas */
+.modern-table thead th:last-child{
+    border-top-right-radius:11px;
 }
 
 .modern-modal{
@@ -139,6 +148,65 @@
     padding:50px 0;
 }
 
+.info-box{
+    background:#f8f9fc;
+    border:1px solid #e8ebf3;
+    border-radius:15px;
+    padding:15px 18px;
+    height:100%;
+    transition:.3s;
+}
+
+.info-box:hover{
+    background:#eef4ff;
+    border-color:#b7cdfd;
+}
+
+.info-box small{
+    display:block;
+    color:#6c757d;
+    margin-bottom:6px;
+    font-size:.82rem;
+}
+
+.avatar{
+    width:100px;
+    height:100px;
+    margin:auto;
+    border-radius:50%;
+    background:#eef4ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:45px;
+}
+
+/* =========================
+   MODAL HEADER
+========================= */
+
+.modal-header{
+    min-height:auto;
+}
+
+.modal-icon{
+    width:50px;
+    height:50px;
+    font-size:20px;
+    flex-shrink:0;
+}
+
+.modal-title{
+    font-size:22px;
+    color:#1e293b;
+    margin:0;
+    line-height:1.2;
+}
+
+.modal-header small{
+    font-size:14px;
+    color:#64748b;
+}
 
 /* =========================
    RESPONSIVE
@@ -155,3 +223,4 @@
         width:100%;
     }
 }
+

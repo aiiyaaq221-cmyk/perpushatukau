@@ -1,3 +1,40 @@
+
+/* ===================================
+   HEADER CARD
+=================================== */
+
+.header-card{
+    background:#fff;
+    padding:25px 30px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+    margin-bottom:25px;
+}
+
+/* ===================================
+   PAGE HEADER
+=================================== */
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.page-title{
+    margin:0;
+    font-size:30px;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.page-subtitle{
+    margin:6px 0 0;
+    color:#64748b;
+    font-size:15px;
+}
+
 /* Modal */
 .modal-content{
     border: none;
@@ -15,20 +52,30 @@
 }
 
 .modern-table thead th{
-    background:#ffdf8d;
-    color:#475569;
-    font-size:10px;
-    font-weight:700;
+    background:#F7CD61;
+    color:#3b3d42;
+    font-size:11px;
+    font-weight:600;
     text-transform:uppercase;
-    letter-spacing:.5px;
     padding:14px;
     text-align:center;
     vertical-align:middle;
     border-bottom:2px solid #E2E8F0;
 }
 
+
+/* HOVER SATU BARIS */
+.modern-table tbody tr:hover td{
+    background:hwb(49 94% 0%) !important;
+}
+
+/* efek halus */
+.modern-table tbody tr{
+    transition:all .25s ease;
+}
+
 .modal-title{
-    font-weight: 700;
+    font-weight: 600;
     font-size: 20px;
 }
 
@@ -134,40 +181,48 @@
     font-size: 13px;
 }
 
-/* ===================================
-   HEADER CARD
-=================================== */
+/* ===========================
+   PAGINATION
+=========================== */
 
-.header-card{
-    background:#fff;
-    padding:25px 30px;
-    border-radius:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.06);
-    margin-bottom:25px;
-}
-
-/* ===================================
-   PAGE HEADER
-=================================== */
-
-.page-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
-}
-
-.page-title{
+.pagination{
     margin:0;
-    font-size:30px;
-    font-weight:700;
-    color:#1e293b;
 }
 
-.page-subtitle{
-    margin:6px 0 0;
-    color:#64748b;
-    font-size:15px;
+.pagination .page-link{
+
+    border:none;
+    margin:0 4px;
+    border-radius:10px;
+    color:#397bf7;
+    font-weight:600;
+    min-width:42px;
+    height:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    transition:.25s;
+}
+
+.pagination .page-link:hover{
+
+    background:#397bf7;
+    color:#fff;
+}
+
+.pagination .page-item.active .page-link{
+
+    background:#397bf7;
+    color:#fff;
+    box-shadow:0 6px 18px rgba(57,123,247,.25);
+}
+
+.pagination .page-item.disabled .page-link{
+
+    background:#f1f5f9;
+    color:#94a3b8;
 }
 
 /* ===================================
@@ -189,21 +244,6 @@
     transform:translateY(-2px);
     background:#397bf7;
     color:white;
-}
-
-/* ===================================
-   RESPONSIVE
-=================================== */
-
-@media(max-width:768px){
-
-    .page-header{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-    .btn-modern{
-        width:100%;
-    }
 }
 
 /* ===================================
@@ -242,10 +282,10 @@
 =================================== */
 
 .btn-filter{
-    height:48px;
+    height:25px;
     border:none;
     border-radius:12px;
-    font-weight:600;
+    font-weight:500;
     color:white;
     background:#397bf7;
     transition:.3s;
@@ -257,7 +297,6 @@
     color:white;
 }
 
-/* LABEL */
 
 .form-label{
     font-size:13px;
@@ -310,17 +349,102 @@
 }
 
 /* ===================================
-   statistik
+   MODERN CARD
 =================================== */
 
-.blue{
-    border-left:6px solid #6691CC;
+.modern-card{
+    background:#fff;
+    border-radius:20px;
+    padding:28px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+    margin-bottom:25px;
 }
 
-.green{
-    border-left:6px solid #24C55D;
+/* Header tabel */
+
+.table-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+    gap:20px;
 }
 
-.orange{
-    border-left:6px solid #FECA11;
+.table-title{
+    font-size:17px;
+    font-weight:700;
+    color:#1e293b;
+    margin:0;
+}
+
+.table-subtitle{
+    color:#64748b;
+    font-size:14px;
+    margin-top:4px;
+}
+
+/* garis pemisah */
+
+.table-divider{
+    border:0;
+    border-top:1px solid #edf2f7;
+    margin:22px 0;
+}
+
+/*==================================
+TABLE SCROLL
+==================================*/
+
+.table-scroll{
+    overflow-x:auto;
+    overflow-y:hidden;
+    white-space:nowrap;
+    padding-bottom:8px;
+}
+
+.table-scroll::-webkit-scrollbar{
+    height:10px;
+}
+
+.table-scroll::-webkit-scrollbar-track{
+    background:#e5e7eb;
+    border-radius:20px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb{
+    background:#9ca3af;
+    border-radius:20px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb:hover{
+    background:#6b7280;
+}
+
+/*==================================
+TABLE
+==================================*/
+
+.modern-table{
+    min-width:1300px;
+}
+
+.modern-table td,
+.modern-table th{
+    vertical-align:middle;
+}
+
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+
+@media(max-width:768px){
+
+    .page-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+    .btn-modern{
+        width:100%;
+    }
 }

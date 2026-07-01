@@ -6,42 +6,84 @@ use App\Http\Controllers\Controller;
 use App\Models\Buku;
 use App\Models\Pengembalian;
 use App\Models\Peminjaman;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PengembalianController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pengembalians = Pengembalian::with([
+        // ==============================
+        // Query
+        // ==============================
+        $query = Pengembalian::with([
             'peminjaman.anggota',
             'peminjaman.details.buku'
-        ])
-        ->latest()
-        ->get();
-       
-        $totalPengembalian = $pengembalians->count();
+        ]);
 
-        $tepatWaktu = $pengembalians
-            ->where('status_pengembalian', 'Tepat Waktu')
-            ->count();
+        // ==============================
+        // Search
+        // ==============================
+        if ($request->filled('search')) {
 
-        $terlambat = $pengembalians
-            ->where('status_pengembalian', 'Terlambat')
-            ->count();
+            $search = trim($request->search);
 
-         $persenTerlambat = $totalPengembalian > 0
-            ? round(($terlambat / $totalPengembalian) * 100)
-            : 0;
-            
+            $query->whereHas('peminjaman', function ($q) use ($search) {
+
+                $q->where('kode_peminjaman', 'like', '%' . $search . '%')
+
+                    ->orWhereHas('anggota', function ($anggota) use ($search) {
+
+                        $anggota->where(
+                            'nama',
+                            'like',
+                            '%' . $search . '%'
+                        );
+
+                    });
+
+            });
+
+        }
+
+        // ==============================
+        // Filter Status
+        // ==============================
+        if ($request->filled('status')) {
+
+            $query->where(
+                'status_pengembalian',
+                $request->status
+            );
+
+        }
+
+        // ==============================
+        // Filter Tanggal Kembali
+        // ==============================
+        if ($request->filled('tanggal')) {
+
+            $query->whereDate(
+                'tanggal_kembali',
+                $request->tanggal
+            );
+
+        }
+
+        // ==============================
+        // Data
+        // ==============================
+        $pengembalians = $query
+            ->latest()
+            ->paginate(15)
+            ->withQueryString();
+
+        // ==============================
+        // View
+        // ==============================
         return view(
             'transaksi.pengembalian.index',
-            compact(
-                'pengembalians',
-                'totalPengembalian',
-                'tepatWaktu',
-                'terlambat',
-                'persenTerlambat'
-            )
+            compact('pengembalians')
         );
     }
 

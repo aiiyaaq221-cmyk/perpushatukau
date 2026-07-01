@@ -1,45 +1,26 @@
 @extends('layouts.app')
 
-
 @section('styles')
 <link href="{{ asset('css/laporan/anggota.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
-<div class="container-fluid py-4">
-
-    <!-- Header -->
-    <div class="card border-0 shadow-sm mb-4 report-header">
-        <div class="card-body d-flex justify-content-between align-items-center">
-            <div>
-                <h3 class="fw-bold mb-1">
-                    <i class="fas fa-users me-2 text-primary"></i>
-                    Laporan Anggota
-                </h3>
-                <p class="text-muted mb-0">
-                    Data seluruh anggota perpustakaan
-                </p>
+<div class="container-fluid pt-1 pb-4">
+    <div class="header-card mb-4">
+        <div class="page-header">
+            <div class="page-info">
+                <h2 class="page-title"> 📚 Laporan Anggota </h2>
+                <p class="page-subtitle"> Data Anggota Perpustakaan Hatukau </p>
             </div>
-
-            <div class="d-flex gap-2">
-                <a href="{{ route('laporan.laporan.anggota.excel') }}"
-                class="btn btn-success btn-modern">
-                    <i class="fas fa-file-excel me-2"></i>
-                    Export Excel
-                </a>
-
-                <a href="{{ route('laporan.laporan.anggota.pdf') }}"
-                class="btn btn-danger btn-modern">
-                    <i class="fas fa-file-pdf me-2"></i>
-                    Export PDF
-                </a>
+            <div class="d-flex gap-2 flex-wrap">
+                <a href="{{ route('laporan.anggota.excel') }}" class="btn btn-success btn-modern-export"> 📊 Export Excel </a>
+                <a href="{{ route('laporan.anggota.pdf') }}" class="btn btn-danger btn-modern-export"> 📄 Export PDF </a>
             </div>
         </div>
     </div>
-
+    
     <!-- Statistik -->
     <div class="row mb-4">
-
         <div class="col-lg-3 col-md-6 mb-3">
             <div class="card stat-card">
                 <div class="card-body">
@@ -75,7 +56,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <!-- Filter -->
@@ -105,9 +85,9 @@
                     </select>
                 </div>
 
-                <div class="col-md-2 d-flex align-items-end gap-2">
+                <div class="col-md-4 d-flex align-items-end gap-2">
                     <button class="btn btn-primary flex-fill">
-                        <i class="fas fa-search"> Filter</i>
+                        <i class="fas fa-search"> </i> Filter
                     </button>
 
                     @if(request()->hasAny(['nama','tanggal','status']))
@@ -164,7 +144,6 @@
                                 @endif
                             </td>
                         </tr>
-
                         @empty
 
                         <tr>
@@ -173,7 +152,6 @@
                             </td>
                         </tr>
                         @endforelse
-
                     </tbody>
                 </table>
             </div>

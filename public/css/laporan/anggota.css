@@ -1,6 +1,38 @@
-.report-header{
+/* ===================================
+   HEADER CARD
+=================================== */
+
+.header-card{
+    background:#fff;
+    padding:25px 30px;
     border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
 }
+
+/* ===================================
+   PAGE HEADER
+=================================== */
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.page-title{
+    margin:0;
+    font-size:30px;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.page-subtitle{
+    margin:6px 0 0;
+    color:#64748b;
+    font-size:15px;
+}
+
 
 .btn-modern{
     border-radius:12px;
@@ -40,6 +72,7 @@
 .stat-card.primary{
     border-left:5px solid #0d6efd;
 }
+
 .filter-card{
     border-radius:16px;
 }
@@ -65,7 +98,7 @@
 }
 
 .modern-table tbody tr:hover{
-    background:#f8f9ff;
+    background:#fff7e3;
     transform:scale(1.003);
 }
 

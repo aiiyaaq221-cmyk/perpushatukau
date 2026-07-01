@@ -1,6 +1,38 @@
-.report-header{
-    border-radius:10px;
+/* ===================================
+   HEADER CARD
+=================================== */
+
+.header-card{
+    background:#fff;
+    padding:25px 30px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
 }
+
+/* ===================================
+   PAGE HEADER
+=================================== */
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.page-title{
+    margin:0;
+    font-size:30px;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.page-subtitle{
+    margin:6px 0 0;
+    color:#64748b;
+    font-size:15px;
+}
+
 
 .stat-card{
     border:none;
@@ -35,15 +67,33 @@
 }
 
 .modern-table thead th{
-    background:#f8fafc;
+    background:#F7CD61;
+    color:#3b3d42;
     border:none;
     padding:15px;
-    font-weight:700;
+    font-size:11px;
+    font-weight:600;
+    text-align:center;
+    vertical-align:middle;
 }
+
 
 .modern-table tbody td{
     padding:15px;
     border-top:1px solid #edf2f7;
+}
+
+
+/* HOVER SATU BARIS */
+
+.modern-table tbody tr:hover td{
+    background:hwb(49 94% 0%) !important;
+}
+
+/* efek halus */
+
+.modern-table tbody tr{
+    transition:all .25s ease;
 }
 
 .modern-table tbody tr:hover{

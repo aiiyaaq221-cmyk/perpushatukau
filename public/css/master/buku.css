@@ -1,39 +1,38 @@
-/* ===================================
-   HEADER CARD
-=================================== */
-.header-card{ 
-    background:#fff; 
-    padding:25px 30px; 
-    border-radius:20px; 
-    box-shadow:0 5px 20px rgba(0,0,0,.06); 
-    margin-bottom:25px; 
+/* ======================================================
+   ROOT
+====================================================== */
 
-}
-.modal-content{
-    border:none;
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:0 10px 30px rgba(0,0,0,.12);
-}
+:root{
+    --primary:#4A86F7;
+    --primary-hover:#3b78eb;
+    --primary-light:#eff6ff;
+    --text:#1e293b;
+    --text-light:#64748b;
+    --border:#e2e8f0;
+    --border-light:#f1f5f9;
+    --white:#ffffff;
+    --background:#f8fafc;
+    --radius-sm:10px;
+    --radius-md:14px;
+    --radius-lg:20px;
+    --shadow-sm:0 4px 15px rgba(0,0,0,.05);
+    --shadow-md:0 6px 20px rgba(0,0,0,.08);
+    --shadow-lg:0 15px 40px rgba(0,0,0,.15);
 
-.modal-header-custom{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    padding:22px 25px;
-    background:#fff;
-    border-bottom:1px solid #f1f1f1;
+    --transition:.3s ease;
 }
 
-.modal-header-custom h5{
-    margin-bottom:5px;
-    font-weight:700;
-}
 
-.modal-header-custom p{
-    margin:0;
-    color:#6c757d;
-    font-size:14px;
+/* ======================================================
+   HEADER
+====================================================== */
+
+.header-card{
+    background:var(--white);
+    padding:25px 30px;
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-md);
+    margin-bottom:25px;
 }
 
 .page-header{
@@ -47,189 +46,167 @@
     margin:0;
     font-size:30px;
     font-weight:700;
-    color:#1e293b;
+    color:var(--text);
 }
 
 .page-subtitle{
-    margin:6px 0 0;
-    color:#64748b;
+    margin-top:6px;
+    color:var(--text-light);
     font-size:15px;
 }
 
-/* ===================================
+
+/* ======================================================
    BUTTON
-=================================== */
+====================================================== */
 
 .btn-modern{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
     border:none;
     border-radius:12px;
     padding:12px 22px;
+    background:var(--primary);
+    color:var(--white);
+    font-size:14px;
     font-weight:600;
-    color:white;
-    background:#2b74fa;
-    transition:.3s;
+    transition:var(--transition);
 }
 
 .btn-modern:hover{
+    background:var(--primary-hover);
+    color:var(--white);
     transform:translateY(-2px);
-    background:#397bf7;
-    color:white;
 }
 
 
-/* ===================================
-   Button simpan dan batal
-=================================== */
+/* ======================================================
+   MODAL BUTTON
+====================================================== */
 
 .custom-footer{
-    border-top: none;
-    padding: 25px 30px;
-    display: flex;
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    padding:25px 30px;
+    border:none;
+}
+
+.btn-cancel,
+.btn-save{
+    min-width:95px;
+    height:42px;
+    border-radius:12px;
+    font-size:14px;
+    font-weight:600;
+    transition:var(--transition);
 }
 
 .btn-cancel{
-    width: 90px;
-    height: 40px;
-    border: 1px solid #596066;
-    border-radius: 13px;
-    background: transparent;
-    color: #555;
-    font-size: 14px;
-    font-weight: 150;
-    transition: .3s;
+    border:1px solid #ced4da;
+    background:transparent;
+    color:#495057;
 }
 
 .btn-cancel:hover{
-    background: #f5f5f5;
+    background:#f5f5f5;
 }
 
 .btn-save{
-    width: 90px;
-    height: 40px;
-    border: none;
-    border-radius: 14px;
-    background: #4A86F7;
-    color: white;
-    font-size: 14px;
-    font-weight: 150;
-    transition: .3s;
+    border:none;
+    background:var(--primary);
+    color:var(--white);
 }
 
 .btn-save:hover{
-    background: #3b78eb;
-    transform: translateY(-2px);
+    background:var(--primary-hover);
+    transform:translateY(-2px);
 }
 
-/* ===================================
+
+/* ======================================================
    CARD
-=================================== */
+====================================================== */
 
 .modern-card{
-    background:#fff;
+    background:var(--white);
     border-radius:18px;
     padding:20px;
-    box-shadow:0 4px 20px rgba(0,0,0,.05);
+    box-shadow:var(--shadow-sm);
 }
 
-/* ===================================
-   STATISTIK
-=================================== */
-
-.stat-card{
-    background:#fff;
-    padding:22px;
-    border-radius:18px;
-    box-shadow:0 4px 15px rgba(0,0,0,.05);
-    transition:.3s;
-}
-
-.stat-card:hover{
-    transform:translateY(-4px);
-}
-
-.stat-card h3{
-    font-size:30px;
-    font-weight:700;
-    margin-bottom:5px;
-    color:#1e293b;
-}
-
-.stat-card p{
-    margin:0;
-    color:#64748b;
-}
-
-.stat-card.blue{
-    border-left:5px solid #2563eb;
-}
-
-.stat-card.green{
-    border-left:5px solid #22c55e;
-}
-
-.stat-card.orange{
-    border-left:5px solid #f59e0b;
-}
-
-.stat-card.red{
-    border-left:5px solid #ef4444;
-}
-
-/* ===================================
+/* ======================================================
    INPUT
-=================================== */
+====================================================== */
+
+.modern-input,
+.modern-textarea{
+    border:1px solid var(--border);
+    border-radius:12px;
+    font-size:14px;
+    transition:var(--transition);
+}
 
 .modern-input{
     height:48px;
-    border-radius:12px;
-    border:1px solid #e2e8f0;
-    font-size:14px;
 }
 
-.modern-input:focus{
-    border-color:#2563eb;
-    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+.modern-textarea{
+    resize:none;
 }
 
-/* ===================================
+.modern-input:focus,
+.modern-textarea:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(74,134,247,.15);
+}
+
+
+/* ======================================================
    TABLE
-=================================== */
+====================================================== */
 
 .modern-table{
     margin-bottom:0;
 }
 
 .modern-table thead th{
-    background:#f8fafc;
-    color:#64748b;
+    background:#F7CD61;
+    color:#3b3d42;
     border:none;
-    font-size:11px;
+    padding:15px;
+    font-size:12px;
     font-weight:600;
     text-align:center;
     vertical-align:middle;
-    padding:15px;
+}
+
+
+/* HOVER SATU BARIS */
+
+.modern-table tbody tr:hover td{
+    background:hwb(49 94% 0%) !important;
+}
+
+/* efek halus */
+
+.modern-table tbody tr{
+    transition:all .25s ease;
 }
 
 .modern-table tbody td{
-    border:none;
-    vertical-align:middle;
     padding:15px;
+    border:none;
+
     font-size:13px;
+    vertical-align:middle;
 }
 
-.modern-table tbody tr{
-    border-bottom:1px solid #f1f5f9;
-    transition:.2s;
-}
-
-.modern-table tbody tr:hover{
-    background:#f8fafc;
-}
-
-
-/* ===================================
-   COVER BUKU
-=================================== */
+/* ======================================================
+   BOOK COVER
+====================================================== */
 
 .book-cover{
     width:55px;
@@ -239,100 +216,151 @@
     box-shadow:0 3px 10px rgba(0,0,0,.08);
 }
 
-/* ===================================
+
+/* ======================================================
    MODAL
-=================================== */
+====================================================== */
 
 .modal-content{
     border:none;
     border-radius:20px;
-    box-shadow:0 15px 40px rgba(0,0,0,.15);
+    overflow:hidden;
+    box-shadow:var(--shadow-lg);
 }
 
 .modal-header-custom{
-    background:#f8fafc;
-    color:#1e293b;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
     padding:20px 25px;
-    border-bottom:1px solid #e2e8f0;
+    background:linear-gradient(135deg,#b7caf5 0%,#a9bff0 100%);
+    border-radius:20px 20px 0 0;
+    border-bottom:none;
 }
 
 .modal-header-custom h5{
     margin:0;
-    font-size:20px;
+    color:#2b2b2b;
+    font-size:24px;
     font-weight:700;
 }
 
 .modal-header-custom p{
-    margin:0;
-    color:#64748b;
-    font-size:13px;
+    margin-top:5px;
+    color:#4b5563;
+    font-size:14px;
 }
 
-.modern-label{
-    font-size:13px;
-    font-weight:600;
-    color:#475569;
-    margin-bottom:6px;
+.modal-footer{
+    padding:20px;
+    border:none;
 }
 
-.modern-textarea{
-    border-radius:12px;
-    border:1px solid #e2e8f0;
-}
 
-/* ===================================
+/* ======================================================
    UPLOAD COVER
-=================================== */
+====================================================== */
 
 .upload-cover{
     min-height:140px;
-    border:2px dashed #dbeafe;
-    border-radius:16px;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     background:#fafcff;
+    border:2px dashed #dbeafe;
+    border-radius:16px;
     cursor:pointer;
-    transition:.3s;
+    transition:var(--transition);
 }
 
 .upload-cover:hover{
-    border-color:#2563eb;
-    background:#eff6ff;
+    background:var(--primary-light);
+    border-color:var(--primary);
 }
 
 .cover-icon{
-    font-size:42px;
-    color:#2563eb;
     margin-bottom:10px;
+    font-size:42px;
+    color:var(--primary);
 }
 
 .cover-preview{
+    display:none;
     width:80px;
     height:110px;
     object-fit:cover;
     border-radius:10px;
-    display:none;
-}
-
-.modal-footer{
-    border:none;
-    padding:20px;
 }
 
 /* ===================================
-   RESPONSIVE
+   TOOLBAR
 =================================== */
+.modern-card{
+    background:#fff;
+    border-radius:18px;
+    padding:24px;
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+}
 
-@media(max-width:768px){
+.modern-input{
+    height:48px;
+    border-radius:12px;
+    border:1px solid #d9dee7;
+}
 
+.modern-input:focus{
+    border-color:#2b74fa;
+    box-shadow:0 0 0 .15rem rgba(43,116,250,.15);
+}
+
+.modern-label{
+    font-weight:600;
+    margin-bottom:8px;
+    color:#475569;
+    font-size:14px;
+}
+
+.table-title{
+    font-size:24px;
+}
+
+.btn-light{
+    border:1px solid #dce3ec;
+}
+
+.btn-light:hover{
+    background:#eef4ff;
+}
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+
+@media (max-width:768px){
+
+    .header-card{
+        padding:20px;
+    }
     .page-header{
         flex-direction:column;
         align-items:flex-start;
     }
-
+    .page-title{
+        font-size:24px;
+    }
     .btn-modern{
         width:100%;
+    }
+    .custom-footer{
+        flex-direction:column-reverse;
+    }
+    .btn-save,
+    .btn-cancel{
+        width:100%;
+    }
+    .modern-table thead th,
+    .modern-table tbody td{
+        padding:12px 10px;
     }
 }
