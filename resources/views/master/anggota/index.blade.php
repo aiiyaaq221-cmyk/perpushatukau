@@ -36,41 +36,29 @@ Swal.fire({
 
 <!-- HEADER -->
 <div class="header-card">
-
     <div class="page-header">
-
         <div>
-
             <h2 class="page-title">
                 👤 Data Anggota
             </h2>
-
             <p class="page-subtitle">
                 Kelola data anggota Perpustakaan Hatukau
             </p>
-
         </div>
 
         <button
             class="btn btn-primary btn-modern"
             data-bs-toggle="modal"
             data-bs-target="#modalTambahAnggota">
-
             + Tambah Anggota
-
         </button>
-
     </div>
-
 </div>
 
 
 <!-- FILTER -->
 <div class="modern-card mb-4">
-    <form
-        id="searchForm"
-        method="GET">
-
+    <form id="searchForm" method="GET">
         <div class="row g-3 align-items-end">
             <div class="col-lg-6">
                 <label class="modern-label"> Cari Anggota </label>
@@ -114,7 +102,7 @@ Swal.fire({
 </div>
 
 <!-- TABLE -->
-<div class="modern-card">
+<div class="modern-card" id="tableData">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h5 class="fw-bold mb-1"> Data Anggota  </h5>
@@ -128,158 +116,76 @@ Swal.fire({
     <div class="table-responsive">
         <table class="table modern-table align-middle">
             <thead>
-
                 <tr>
-
                     <th>No</th>
-
                     <th>No Anggota</th>
-
                     <th>Nama</th>
-
                     <th>Jenis Kelamin</th>
-
                     <th>Umur</th>
-
                     <th>No. Telp</th>
-
-                    <th>Email</th>
-
+                    <th width="180">Email</th>
                     <th>Tanggal Daftar</th>
-
                     <th>Status</th>
-
-                    <th width="180">
-                        Aksi
-                    </th>
-
+                    <th width="180"> Aksi </th>
                 </tr>
-
             </thead>
 
             <tbody>
-
             @forelse($anggotas as $anggota)
-
                 <tr>
-
+                    <td class="text-center"> {{ $loop->iteration + ($anggotas->firstItem()-1) }} </td>
                     <td>
-                        {{ $loop->iteration }}
-                    </td>
-
-                    <td>
-
                         <span class="fw-semibold text-primary">
-
                             {{ $anggota->kode_anggota }}
-
                         </span>
-
                     </td>
-
                     <td>
-
-                        <div class="fw-semibold">
-
-                            {{ $anggota->nama }}
-
-                        </div>
-
+                        <div class="fw-semibold">{{ $anggota->nama }}</div>
                         <small class="text-muted">
-
                             {{ Str::limit($anggota->alamat,35) }}
-
                         </small>
-
                     </td>
-
+                    <td>{{ $anggota->jenis_kelamin }}</td>
+                    <td>{{ $anggota->umur }}</td>
+                    <td>{{ $anggota->no_telp ?? '-' }}</td>
+                    <td>{{ $anggota->email ?? '-' }}</td>
+                    <td> {{ \Carbon\Carbon::parse($anggota->tanggal_daftar)->format('d-m-Y') }}</td>
                     <td>
-
-                        {{ $anggota->jenis_kelamin }}
-
-                    </td>
-
-                    <td>
-
-                        {{ $anggota->umur }}
-
-                    </td>
-
-                    <td>
-
-                        {{ $anggota->no_telp ?? '-' }}
-
-                    </td>
-
-                    <td>
-
-                        {{ $anggota->email ?? '-' }}
-
-                    </td>
-
-                    <td>
-
-                        {{ \Carbon\Carbon::parse($anggota->tanggal_daftar)->format('d-m-Y') }}
-
-                    </td>
-
-                    <td>
-
                         @if($anggota->status=='Aktif')
-
                             <span class="badge bg-success">
-
                                 Aktif
-
                             </span>
-
                         @else
-
                             <span class="badge bg-danger">
-
                                 Tidak Aktif
-
                             </span>
-
                         @endif
-
                     </td>
 
                     <td>
-
                         <div class="d-flex justify-content-center gap-2">
-
                             <button
                                 class="btn btn-info btn-sm"
                                 data-bs-toggle="modal"
                                 data-bs-target="#detailAnggota{{ $anggota->id_anggota }}">
-
-                                Detail
-
+                                <i class="fas fa-eye"></i>
                             </button>
 
                             <button
                                 class="btn btn-warning btn-sm"
                                 data-bs-toggle="modal"
                                 data-bs-target="#editAnggota{{ $anggota->id_anggota }}">
-
-                                Edit
-
+                                <i class="fas fa-edit"></i>
                             </button>
 
                             <button
                                 class="btn btn-danger btn-sm btn-hapus"
                                 data-url="{{ route('master.anggota.destroy',$anggota->id_anggota) }}"
                                 data-nama="{{ $anggota->nama }}">
-
-                                Hapus
-
+                                <i class="fas fa-trash"></i>
                             </button>
-
                         </div>
-
                     </td>
-
                 </tr>
 
             @empty
@@ -295,6 +201,12 @@ Swal.fire({
             @endforelse
             </tbody>
         </table>
+    </div>
+    <div class="mt-4 d-flex justify-content-between align-items-center flex-wrap">
+        <small class="text-muted">
+        Menampilkan {{ $anggotas->firstItem()??0 }} - {{ $anggotas->lastItem()??0 }} dari {{ $anggotas->total() }} data
+        </small>
+        {{ $anggotas->fragment('tableData')->links('pagination::bootstrap-5') }}
     </div>
 </div>
 

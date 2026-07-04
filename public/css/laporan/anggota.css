@@ -1,6 +1,6 @@
-/* ===================================
-   HEADER CARD
-=================================== */
+/*==================================
+HEADER CARD
+==================================*/
 
 .header-card{
     background:#fff;
@@ -8,10 +8,6 @@
     border-radius:20px;
     box-shadow:0 5px 20px rgba(0,0,0,.06);
 }
-
-/* ===================================
-   PAGE HEADER
-=================================== */
 
 .page-header{
     display:flex;
@@ -33,79 +29,182 @@
     font-size:15px;
 }
 
+/*==================================
+BUTTON
+==================================*/
 
 .btn-modern{
+    border:none;
     border-radius:12px;
-    padding:10px 18px;
+    padding:11px 20px;
     font-weight:600;
 }
 
+/*==================================
+STATISTIK
+==================================*/
+
 .stat-card{
-    border:none;
-    border-radius:18px;
     background:#fff;
-    box-shadow:0 5px 20px rgba(0,0,0,.05);
-    transition:.3s;
+    padding:28px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+    height:100%;
 }
 
-.stat-card:hover{
-    transform:translateY(-5px);
-}
-
-.stat-card h6{
-    color:#6c757d;
-    margin-bottom:10px;
-}
-
-.stat-card h2{
+.stat-card h3{
+    font-size:30px;
     font-weight:700;
+    margin-bottom:8px;
 }
 
-.stat-card.success{
-    border-left:5px solid #198754;
-}
+.stat-card p{
+    margin:0;
+    color:#64748b;
+} 
 
-.stat-card.danger{
-    border-left:5px solid #dc3545;
-}
+.stat-card.primary{border-left:5px solid #3b82f6;}
+.stat-card.success{border-left:5px solid #22c55e;}
+.stat-card.warning{border-left:5px solid #f59e0b;}
+.stat-card.danger{border-left:5px solid #ef4444;}
 
-.stat-card.primary{
-    border-left:5px solid #0d6efd;
-}
+/*==================================
+FILTER
+==================================*/
 
 .filter-card{
-    border-radius:16px;
+    background:#fff;
+    padding:24px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
 }
 
-.modern-input{
+.filter-card label{
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:8px;
+    color:#334155;
+}
+
+.filter-card .form-control,
+.filter-card .form-select{
+    height:46px;
     border-radius:12px;
-    border:1px solid #dee2e6;
-    transition:all .3s ease;
+    border:1px solid #dbe3ef;
 }
 
-.modern-input:focus{
-    border-color:#0d6efd;
-    box-shadow:0 0 0 0.2rem rgba(13,110,253,.15);
+.filter-card .btn{
+    height:46px;
+    border-radius:12px;
+}
+
+/*==================================
+TABLE
+==================================*/
+
+.modern-card{
+    background:#fff;
+    padding:22px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.table-responsive{
+    overflow-x:auto;
 }
 
 .modern-table{
-    border-collapse:separate;
-    border-spacing:0;
+    margin-bottom:0;
+    min-width:950px;
+}
+
+.modern-table thead th{
+    background:#F7CD61;
+    color:#3b3d42;
+    border:none;
+    padding:11px 8px;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    text-align:center;
+    white-space:nowrap;
+}
+
+.modern-table tbody td{
+    padding:10px 8px;
+    border-bottom:1px solid #eef2f7;
+    vertical-align:middle;
+    font-size:14px;
 }
 
 .modern-table tbody tr{
-    transition:all .25s ease;
+    transition:.25s;
 }
 
-.modern-table tbody tr:hover{
-    background:#fff7e3;
-    transform:scale(1.003);
+.modern-table tbody tr:hover td{
+    background:#fffdf4;
 }
 
-.kode-member{
-    background:#eef4ff;
-    color:#0d6efd;
-    padding:6px 12px;
-    border-radius:20px;
+.modern-table thead th:first-child{
+    border-top-left-radius:15px;
+}
+
+.modern-table thead th:last-child{
+    border-top-right-radius:15px;
+}
+
+.nama-anggota{
     font-weight:600;
+    color:#1e293b;
+    line-height:1.3;
+    max-width:160px;
+    white-space:normal;
+    word-break:break-word;
+}
+
+/*==================================
+PAGINATION
+==================================*/
+
+.pagination{
+    margin-bottom:0;
+}
+
+.page-link{
+    border:none;
+    border-radius:10px;
+    margin:0 2px;
+}
+
+.page-item.active .page-link{
+    background:#2563eb;
+}
+
+/*==================================
+EMPTY DATA
+==================================*/
+
+.empty-data h5{
+    font-weight:700;
+}
+
+.empty-data p{
+    color:#64748b;
+}
+
+/*==================================
+RESPONSIVE
+==================================*/
+
+@media(max-width:768px){
+
+    .page-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .btn-modern{
+        width:100%;
+    }
+
 }

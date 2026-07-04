@@ -75,7 +75,7 @@ class PengembalianController extends Controller
         // ==============================
         $pengembalians = $query
             ->latest()
-            ->paginate(15)
+            ->paginate(10)
             ->withQueryString();
 
         // ==============================

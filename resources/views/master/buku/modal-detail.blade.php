@@ -1,9 +1,6 @@
 <div class="modal fade" id="detailBukuModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-
         <div class="modal-content">
-
-            <!-- HEADER -->
             <div class="modal-header-custom">
                 <div>
                     <h5>📚 Detail Buku</h5>
@@ -13,10 +10,7 @@
 
             <!-- BODY -->
             <div class="modal-body p-4">
-
                 <div class="row g-4">
-
-                    <!-- COVER -->
                     <div class="col-md-4 text-center">
                         <img id="detail_cover"
                              class="img-fluid rounded"
@@ -26,20 +20,13 @@
                             <span id="detail_status" class="badge"></span>
                         </div>
                     </div>
-
-                    <!-- INFO -->
                     <div class="col-md-8">
-
                         <h4 id="detail_judul" class="fw-bold mb-1"></h4>
-
                         <p class="text-muted mb-2">
                             <span id="detail_kode"></span>
                         </p>
-
                         <hr>
-
                         <div class="row">
-
                             <div class="col-6 mb-2">
                                 <small class="text-muted">Pengarang</small>
                                 <div id="detail_pengarang"></div>
@@ -74,12 +61,9 @@
                                 <small class="text-muted">Keterangan</small>
                                 <div id="detail_keterangan"></div>
                             </div>
-
                         </div>
                     </div>
-
                 </div>
-
             </div>
 
             <!-- FOOTER -->
@@ -88,14 +72,12 @@
                     Tutup
                 </button>
             </div>
-
         </div>
     </div>
 </div>
 
 <script>
 function setDetailBuku(buku) {
-
     // cover
     document.getElementById('detail_cover').src =
         buku.cover ? '/storage/' + buku.cover : '/img/no-image.png';

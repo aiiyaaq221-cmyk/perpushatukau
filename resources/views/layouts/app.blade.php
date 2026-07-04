@@ -11,20 +11,17 @@
     <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <!-- CSS -->
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
-
     @yield('styles')
 </head>
 
 <body>
-<div class="wrapper">
+<div class="wrapper" id="wrapper">
     @include('layouts.sidebar')
-    <main class="content">
+    <main class="content" id="content">
         @yield('content')
     </main>
 </div>
-
 
 <!-- ===========================================
      LIBRARY
@@ -52,104 +49,44 @@ const swalConfig = {
 
 
 <!-- ===========================================
-     SIDEBAR MENU
-=========================================== -->
-
-<script>
-document.querySelectorAll('.has-submenu > a').forEach(item=>{
-    item.addEventListener('click',function(e){
-        e.preventDefault();
-        this.parentElement.classList.toggle('open');
-    });
-});
-</script>
-
-
-<!-- ===========================================
      AUTO SEARCH
 =========================================== -->
 
 <script>
 let timer;
-/* SEARCH */
-const searchInput = document.getElementById('searchInput');
-if(searchInput){
-    searchInput.addEventListener('keyup',function(){
-        clearTimeout(timer);
-        timer=setTimeout(()=>{
-            this.form.submit();
-        },500);
-    });
-}
+    const searchInput = document.getElementById('searchInput');
+    if(searchInput){
+        searchInput.addEventListener('keyup',function(){
+            clearTimeout(timer);
+            timer=setTimeout(()=>{
+                this.form.submit();
+            },500);
+        });
+    }
+
+    const namaInput=document.getElementById('namaInput');
+    if(namaInput){
+        namaInput.addEventListener('keyup',function(){
+            clearTimeout(timer);
+            timer=setTimeout(()=>{
+                const form=document.getElementById('filterForm');
+                if(form){
+                    form.submit();
+                }
+            },500);
+        });
+    }
 
 
-/* FILTER */
-
-const namaInput=document.getElementById('namaInput');
-if(namaInput){
-    namaInput.addEventListener('keyup',function(){
-        clearTimeout(timer);
-        timer=setTimeout(()=>{
+    document.querySelectorAll('.auto-submit').forEach(function(item){
+        item.addEventListener('change',function(){
             const form=document.getElementById('filterForm');
             if(form){
                 form.submit();
             }
-        },500);
-    });
-}
-
-
-document.querySelectorAll('.auto-submit').forEach(function(item){
-    item.addEventListener('change',function(){
-        const form=document.getElementById('filterForm');
-        if(form){
-            form.submit();
-        }
-    });
-});
-</script>
-
-
-
-<!-- ===========================================
-     SIDEBAR RESIZER
-=========================================== -->
-<script>
-const sidebar=document.querySelector('.sidebar');
-const content=document.querySelector('.content');
-const resizer=document.getElementById('sidebarResizer');
-let isResizing=false;
-const savedWidth=localStorage.getItem('sidebarWidth');
-
-    if(savedWidth){
-        sidebar.style.width=savedWidth+'px';
-        content.style.marginLeft=savedWidth+'px';
-        resizer.style.left=savedWidth+'px';
-    }
-
-    resizer.addEventListener('mousedown',()=>{
-        isResizing=true;
-    });
-
-    document.addEventListener('mousemove',(e)=>{
-        if(!isResizing) return;
-        let width=e.clientX;
-        if(width<220) width=220;
-        if(width>450) width=450;
-        sidebar.style.width=width+'px';
-        content.style.marginLeft=width+'px';
-        resizer.style.left=width+'px';
-        localStorage.setItem(
-            'sidebarWidth',
-            width
-        );
-    });
-
-    document.addEventListener('mouseup',()=>{
-        isResizing=false;
+        });
     });
 </script>
-
 
 
 
@@ -175,7 +112,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 @endif
-
 
 
 <!-- ===========================================
@@ -225,6 +161,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 @stack('scripts')
+
+
+<!-- ===========================================
+     TOGGLE DAFTAR BUKU
+=========================================== -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.toggle-books').forEach(function(btn){
+        btn.addEventListener('click', function(){
+            const target = document.getElementById(this.dataset.target);
+            if(!target) return;
+            if(target.style.display === 'none' || target.style.display === ''){
+                target.style.display = 'block';
+                this.innerHTML = '<i class="fas fa-chevron-up me-1"></i> Lebih sedikit';
+
+            }else{
+                target.style.display = 'none';
+                this.innerHTML = '+' + this.dataset.count + ' lainnya';
+            }
+        });
+    });
+});
+</script>
 
 </body>
 </html>

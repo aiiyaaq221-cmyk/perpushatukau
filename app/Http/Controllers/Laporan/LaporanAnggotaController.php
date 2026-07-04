@@ -8,7 +8,7 @@ use App\Models\Anggota;
 use Carbon\Carbon;
 use App\Exports\AnggotaExport;
 use Maatwebsite\Excel\Facades\Excel;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class LaporanAnggotaController extends Controller
@@ -25,19 +25,19 @@ class LaporanAnggotaController extends Controller
             });
         }
 
+        $anggotas=$query
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+            
         // Filter Status
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
 
-        $anggotas = $query->latest()->get();
-
         $totalAnggota = Anggota::count();
-
         $anggotaAktif = Anggota::where('status', 'Aktif')->count();
-
         $anggotaNonAktif = Anggota::where('status', 'Tidak Aktif')->count();
-
         $anggotaBaru = Anggota::whereMonth(
             'tanggal_daftar',
             Carbon::now()->month
@@ -66,7 +66,18 @@ class LaporanAnggotaController extends Controller
     {
         $anggotas = Anggota::all();
 
-        $pdf = PDF::loadView('laporan.anggota_pdf', compact('anggotas'));
+        Carbon::setLocale('id');
+
+        $tanggalCetak = Carbon::now()->translatedFormat('d F Y');
+        $jamCetak = Carbon::now()->format('H:i');
+        $jumlahData = $anggotas->count();
+
+        $pdf = PDF::loadView('laporan.pdf.anggota_pdf', compact(
+            'anggotas',
+            'tanggalCetak',
+            'jamCetak',
+            'jumlahData'
+        ));
 
         return $pdf->download('laporan-anggota.pdf');
     }

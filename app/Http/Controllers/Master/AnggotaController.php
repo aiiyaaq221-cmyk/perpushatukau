@@ -37,7 +37,9 @@ class AnggotaController extends Controller
 
         $anggotas = $query
             ->orderBy('kode_anggota', 'asc')
-            ->get();
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return view(
             'master.anggota.index',

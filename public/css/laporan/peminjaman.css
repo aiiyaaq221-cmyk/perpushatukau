@@ -1,17 +1,14 @@
-/* ===================================
-   HEADER CARD
-=================================== */
+/*==================================
+HEADER CARD
+==================================*/
 
 .header-card{
     background:#fff;
     padding:25px 30px;
     border-radius:20px;
     box-shadow:0 5px 20px rgba(0,0,0,.06);
+    margin-bottom:25px;
 }
-
-/* ===================================
-   PAGE HEADER
-=================================== */
 
 .page-header{
     display:flex;
@@ -33,82 +30,295 @@
     font-size:15px;
 }
 
+/*==================================
+EXPORT BUTTON
+==================================*/
+
+.btn-modern-export{
+    border:none;
+    border-radius:12px;
+    padding:11px 18px;
+    font-weight:600;
+    transition:.25s;
+}
+
+.btn-modern-export:hover{
+    transform:translateY(-2px);
+}
+
+/*==================================
+STATISTIK CARD
+==================================*/
 
 .stat-card{
-    border:none;
-    border-radius:18px;
+    background:#fff;
+    padding:25px;
+    border-radius:20px;
     box-shadow:0 5px 20px rgba(0,0,0,.06);
-    transition:.3s;
+    transition:.25s;
+    height:100%;
 }
 
 .stat-card:hover{
     transform:translateY(-4px);
 }
 
-.warning{
-    border-left:5px solid #e49009;
+.stat-card h3{
+    margin:0 0 8px;
+    font-size:30px;
+    font-weight:700;
+    color:#1e293b;
 }
 
-.primary{
-    border-left:5px solid #0d6efd;
+.stat-card p{
+    margin:0;
+    color:#64748b;
+    font-size:15px;
 }
 
-.success{
-    border-left:5px solid #198754;
+.stat-card.primary{border-left:5px solid #2563eb;}
+.stat-card.success{border-left:5px solid #22c55e;}
+.stat-card.warning{border-left:5px solid #f59e0b;}
+.stat-card.danger{border-left:5px solid #ef4444;}
+
+/*==================================
+FILTER CARD
+==================================*/
+
+.filter-card{
+    background:#fff;
+    border:none;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+    margin-bottom:20px;
 }
 
-.danger{
-    border-left:5px solid #dc3545;
+.filter-card .card-body{
+    padding:22px 24px;
 }
 
+.filter-card label{
+    display:block;
+    margin-bottom:6px;
+    font-size:13px;
+    font-weight:600;
+    color:#475569;
+}
+
+.filter-card .form-control,
+.filter-card .form-select{
+    height:42px;
+    border:1px solid #dbe2ea;
+    border-radius:10px;
+}
+
+.filter-card .form-control:focus,
+.filter-card .form-select:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 .18rem rgba(37,99,235,.15);
+}
+
+.filter-card .btn{
+    height:42px;
+}
+
+
+/*==================================
+TABLE CARD
+==================================*/
+
+ 
 .modern-table{
-    border-collapse:separate;
-    border-spacing:0;
+    margin-bottom:0;
+    min-width:1100px;
+}
+
+.modern-table th,
+.modern-table td{
+    white-space:nowrap;
 }
 
 .modern-table thead th{
     background:#F7CD61;
     color:#3b3d42;
     border:none;
-    padding:15px;
+    padding:12px 10px;
     font-size:11px;
-    font-weight:600;
+    font-weight:700;
+    text-transform:uppercase;
     text-align:center;
     vertical-align:middle;
 }
 
+.modern-table thead th:first-child{
+    border-top-left-radius:15px;
+}
+
+.modern-table thead th:last-child{
+    border-top-right-radius:15px;
+}
 
 .modern-table tbody td{
-    padding:15px;
-    border-top:1px solid #edf2f7;
+    padding:13px 10px;
+    border-bottom:1px solid #eef2f7;
+    vertical-align:middle;
 }
-
-
-/* HOVER SATU BARIS */
-
-.modern-table tbody tr:hover td{
-    background:hwb(49 94% 0%) !important;
-}
-
-/* efek halus */
 
 .modern-table tbody tr{
-    transition:all .25s ease;
+    transition:.25s;
 }
 
-.modern-table tbody tr:hover{
-    background:#f8fbff;
+.modern-table tbody tr:hover td{
+    background:#fffdf4;
 }
+
+/*==================================
+TABLE CONTENT
+==================================*/
 
 .kode-peminjaman{
     background:#eef4ff;
-    color:#0d6efd;
+    color:#2563eb;
     padding:6px 12px;
     border-radius:10px;
     font-weight:600;
 }
 
+.nama-anggota{
+    font-weight:600;
+    color:#1e293b;
+    white-space:normal;
+    line-height:1.4;
+}
+
+.keterangan{
+    white-space:normal;
+    line-height:1.5;
+}
+
+/*==================================
+BADGE
+==================================*/
+
 .badge{
-    padding:8px 12px;
-    border-radius:8px;
+    padding:7px 12px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:600;
+}
+
+/*==================================
+EMPTY DATA
+==================================*/
+
+.empty-data{
+    padding:40px 20px;
+}
+
+.empty-data h5{
+    margin-top:10px;
+    font-weight:700;
+}
+
+.empty-data p{
+    color:#64748b;
+    margin-bottom:0;
+}
+
+
+/* ===========================
+   BOOK LIST
+===========================*/
+.book-list{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
+
+.book-text{
+    font-size:13px;
+    color:#374151;
+    font-weight:500;
+}
+
+.book-text span{
+    color:#9CA3AF;
+    margin-left:4px;
+    font-size:12px;
+}
+
+.toggle-books{
+    color:#2563EB;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    user-select:none;
+    width:fit-content;
+    transition:.2s;
+}
+
+.toggle-books:hover{
+    color:#1D4ED8;
+    text-decoration:underline;
+}
+
+.more-books{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    margin-top:3px;
+}
+
+/*==================================
+PAGINATION
+==================================*/
+
+.pagination{
+    margin-bottom:0;
+}
+
+.pagination .page-link{
+    border:none;
+    color:#2563eb;
+    border-radius:10px;
+    margin:0 3px;
+    padding:8px 14px;
+}
+
+.pagination .page-link:hover{
+    background:#e8f0ff;
+}
+
+.pagination .page-item.active .page-link{
+    background:#2563eb;
+    color:#fff;
+}
+
+/*==================================
+RESPONSIVE
+==================================*/
+
+@media(max-width:768px){
+
+    .page-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .page-header .d-flex{
+        width:100%;
+    }
+
+    .btn-modern-export{
+        flex:1;
+        text-align:center;
+    }
+
+    .filter-card .btn{
+        width:100%;
+    }
+}
+
+html{
+    scroll-behavior:smooth;
 }

@@ -1,47 +1,139 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+    const sidebar = document.getElementById("sidebar");
+    const toggle = document.getElementById("sidebarToggle");
     const menus = document.querySelectorAll(".has-submenu");
-    menus.forEach(function (menu) {
-        const parentLink = menu.querySelector(".parent-link");
-        if (!parentLink) return;
-       const key = menu.dataset.menu;
-        /* =============================
-           Restore State
-        ============================= */
-        const state = localStorage.getItem("sidebar_" + key);
-        if (state === "open") {
-            menu.classList.add("open");
-        }
-        // Jika route aktif tapi belum ada state
-        if (menu.classList.contains("active-parent") && state === null) {
-            menu.classList.add("open");
-        }
 
-        /* =============================
-           Click Parent
-        ============================= */
+    if (!sidebar) return;
 
-        parentLink.addEventListener("click", function (e) {
-            e.preventDefault();
-            if (menu.classList.contains("open")) {
-                // Tutup submenu
-                menu.classList.remove("open");
-                localStorage.setItem("sidebar_" + key, "close");
-            } else {
+    /* ==========================================
+       RESTORE SIDEBAR
+    ========================================== */
 
-                // Tutup submenu lain
-                menus.forEach(function (item) {
-                    item.classList.remove("open");
-                    const itemKey = item.dataset.menu;
+    if (localStorage.getItem("sidebar") === "collapsed") {
 
-                    if (itemKey) {
-                        localStorage.setItem("sidebar_" + itemKey, "close");
-                    }
+        sidebar.classList.add("collapsed");
+
+    }
+
+    /* ==========================================
+       TOGGLE SIDEBAR
+    ========================================== */
+
+    if (toggle) {
+
+        toggle.addEventListener("click", function () {
+
+            sidebar.classList.toggle("collapsed");
+
+            if (sidebar.classList.contains("collapsed")) {
+
+                localStorage.setItem(
+                    "sidebar",
+                    "collapsed"
+                );
+
+                menus.forEach(function (menu) {
+
+                    menu.classList.remove("open");
+
                 });
 
-                // Buka submenu yang dipilih
-                menu.classList.add("open");
-                localStorage.setItem("sidebar_" + key, "open");
+            } else {
+
+                localStorage.setItem(
+                    "sidebar",
+                    "expanded"
+                );
+
+                restoreOpenMenu();
+
             }
+
         });
+
+    }
+
+    /* ==========================================
+       RESTORE SUBMENU
+    ========================================== */
+
+    restoreOpenMenu();
+
+    function restoreOpenMenu() {
+
+        menus.forEach(function (menu) {
+
+            const key = menu.dataset.menu;
+
+            if (
+                localStorage.getItem(
+                    "submenu_" + key
+                ) === "open"
+            ) {
+
+                menu.classList.add("open");
+
+            }
+
+            if (
+                menu.querySelector(".active-menu")
+            ) {
+
+                menu.classList.add("open");
+
+            }
+
+        });
+
+    }
+
+    /* ==========================================
+       CLICK SUBMENU
+    ========================================== */
+
+    menus.forEach(function (menu) {
+
+        const button = menu.querySelector(".parent-link");
+
+        const key = menu.dataset.menu;
+
+        if (!button) return;
+
+        button.addEventListener("click", function () {
+
+            if (sidebar.classList.contains("collapsed")) {
+
+                return;
+
+            }
+
+            const opened = menu.classList.contains("open");
+
+            menus.forEach(function (item) {
+
+                item.classList.remove("open");
+
+                localStorage.setItem(
+                    "submenu_" + item.dataset.menu,
+                    "close"
+                );
+
+            });
+
+            if (!opened) {
+
+                menu.classList.add("open");
+
+                localStorage.setItem(
+                    "submenu_" + key,
+                    "open"
+                );
+
+            }
+
+        });
+
     });
+
 });

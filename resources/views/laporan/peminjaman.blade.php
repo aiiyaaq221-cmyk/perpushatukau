@@ -13,16 +13,15 @@
                 <p class="page-subtitle">  Data seluruh transaksi peminjaman buku </p>
             </div>
             <div class="d-flex gap-2 flex-wrap">
-                <a href="#" class="btn btn-success btn-modern-export"> 📊 Export Excel </a>
-                <a href="#" class="btn btn-danger btn-modern-export"> 📄 Export PDF </a>
+                <a href="{{ route('laporan.peminjaman.excel') }}" class="btn btn-success btn-modern-export"> 📊 Export Excel </a>
+                <a href="{{ route('laporan.peminjaman.pdf') }}" class="btn btn-danger btn-modern-export"> 📄 Export PDF </a>
             </div>
         </div>
     </div>
 
 
     <!-- STATISTIK -->
-
-    <div class="row mb-4">
+    <div class="row mb-2">
         <div class="col-lg-3 col-md-6 mb-3">
             <div class="card stat-card warning">
                 <div class="card-body">
@@ -71,42 +70,46 @@
     <!-- FILTER -->
     <div class="card border-0 shadow-sm mb-4 filter-card">
         <div class="card-body">
-            <form id="filterForm" method="GET">
+            <form method="GET">
                 <div class="row g-3">
                     <div class="col-md-5">
                         <label>Nama Peminjam</label>
-                        <input type="text" name="nama" id="namaInput" class="form-control" placeholder="Cari nama anggota..." value="{{ request('nama') }}" 
+                        <input type="text"
+                            name="nama"
+                            class="form-control"
+                            placeholder="Cari nama anggota..."
+                            value="{{ request('nama') }}"
                             onkeyup="this.form.submit()">
                     </div>
 
                     <div class="col-md-3">
                         <label>Tanggal Pengembalian</label>
-                        <input type="date" name="tanggal" class="form-control auto-submit" value="{{ request('tanggal_pinjam') }}" 
-                            onkeyup="this.form.submit()">
+                        <input type="date"
+                            name="tanggal"
+                            class="form-control"
+                            value="{{ request('tanggal') }}">
                     </div>
 
                     <div class="col-md-2">
                         <label>Status</label>
-                        <select name="status" class="form-select auto-submit">
+                        <select name="status" class="form-select">
                             <option value="">Semua</option>
-                            <option value="Dipinjam"
-                                {{ request('status') == 'Dipinjam' ? 'selected' : '' }}>
+                            <option value="Dipinjam" {{ request('status')=='Dipinjam'?'selected':'' }}>
                                 Dipinjam
                             </option>
-                            <option value="Dikembalikan"
-                                {{ request('status') == 'Dikembalikan' ? 'selected' : '' }}>
+                            <option value="Dikembalikan" {{ request('status')=='Dikembalikan'?'selected':'' }}>
                                 Dikembalikan
                             </option>
-                            <option value="Terlambat"
-                                {{ request('status') == 'Terlambat' ? 'selected' : '' }}>
+                            <option value="Terlambat" {{ request('status')=='Terlambat'?'selected':'' }}>
                                 Terlambat
                             </option>
                         </select>
                     </div>
 
                     <div class="col-md-2 d-flex align-items-end gap-2">
+
                         <button class="btn btn-primary flex-fill">
-                            <i class="fas fa-search"> </i> Filter
+                            <i class="fas fa-search"></i> 
                         </button>
 
                         @if(request()->hasAny(['nama','tanggal','status']))
@@ -126,107 +129,137 @@
     </div>
 
     <!-- TABLE -->
-
-    <div class="card border-0 shadow-sm">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table modern-table align-middle text-center">
-                    <thead>
+    <div class="modern-card" id="tableData" >
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h5 class="fw-bold mb-1">Data Peminjaman</h5>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table modern-table align-middle">
+                <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Kode</th>
-                        <th>Nama Anggota</th>
-                        <th>Tgl Pinjam</th>
-                        <th>Batas Kembali</th>
-                        <th>Durasi</th>
-                        <th>Status</th>
-                        <th>Keterangan</th>
+                    <th width="60">No</th>
+                    <th width="120">Kode</th>
+                    <th width="150">Anggota</th>
+                    <th width="260">Buku</th>
+                    <th width="110">Pinjam</th>
+                    <th width="120">Batas</th>
+                    <th width="90">Durasi</th>
+                    <th width="110">Status</th>
+                    <th width="140">Keterangan</th>
                     </tr>
-                    </thead>
+                </thead>
+            <tbody>
 
-                    <tbody>
-                    @forelse($peminjamans as $item)
-                        <tr>
-                            <td>
-                                {{ $loop->iteration }}
-                            </td>
+                @forelse($peminjamans as $item)
+                    <tr>
+                        <td class="text-center"> {{ $loop->iteration+($peminjamans->firstItem()-1) }} </td>
+                        <td>
+                            <div class="fw-bold text-primary">
+                                {{ $item->kode_peminjaman }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="fw-semibold nama-anggota">
+                                {{ $item->anggota->nama??'-' }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="book-items">
+                                {{-- 2 buku pertama --}}
+                                @foreach($item->details->take(2) as $detail)
+                                    <div class="book-item">
+                                        <i class="fas fa-book"></i>
+                                        <span>{{ $detail->buku->judul_buku }}</span>
+                                        @if($detail->jumlah > 1)
+                                            <small>×{{ $detail->jumlah }}</small>
+                                        @endif
+                                    </div>
+                                @endforeach
 
-                            <td>
+                                {{-- Buku sisanya --}}
+                                @if($item->details->count() > 2)
+                                    <div
+                                        id="moreBooks{{ $item->id_peminjaman }}"
+                                        class="more-books"
+                                        style="display:none;">
 
-                                <span class="kode-peminjaman">
-                                    {{ $item->kode_peminjaman }}
+                                        @foreach($item->details->skip(2) as $detail)
+
+                                            <div class="book-item">
+                                                <i class="fas fa-book"></i>
+                                                <span>{{ $detail->buku->judul_buku }}</span>
+
+                                                @if($detail->jumlah > 1)
+                                                    <small>×{{ $detail->jumlah }}</small>
+                                                @endif
+                                            </div>
+                                        @endforeach
+                                    </div>
+
+                                    <small
+                                        class="toggle-books"
+                                        data-target="moreBooks{{ $item->id_peminjaman }}"
+                                        data-count="{{ $item->details->count()-2 }}">
+                                        +{{ $item->details->count()-2 }} lainnya
+                                    </small>
+                                @endif
+                            </div>
+                        </td>
+                        <td>{{ \Carbon\Carbon::parse($item->tanggal_pinjam)->translatedFormat('d M Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($item->batas_kembali)->translatedFormat('d M Y') }}</td>
+                        <td class="text-center"> {{ \Carbon\Carbon::parse($item->tanggal_pinjam)->diffInDays($item->batas_kembali) }} Hari </td>
+                        <td class="text-center">
+                            @if($item->tanggal_kembali)
+
+                                <span class="badge bg-success">
+                                    Dikembalikan
                                 </span>
 
-                            </td>
+                            @elseif(\Carbon\Carbon::parse($item->batas_kembali)->isPast())
 
-                            <td>
+                                <span class="badge bg-danger">
+                                    Terlambat
+                                </span>
 
-                                <strong>
-                                    {{ $item->anggota->nama ?? '-' }}
-                                </strong>
+                            @else
 
-                            </td>
+                                <span class="badge bg-primary">
+                                    Dipinjam
+                                </span>
 
-                            <td>
-
-                                {{ \Carbon\Carbon::parse($item->tanggal_pinjam)->format('d M Y') }}
-
-                            </td>
-
-                            <td>
-
-                                {{ \Carbon\Carbon::parse($item->batas_kembali)->format('d M Y') }}
+                            @endif
 
                             </td>
-
-                            <td>
-
-                                {{
-                                    \Carbon\Carbon::parse($item->tanggal_pinjam)
-                                    ->diffInDays($item->batas_kembali)
-                                }}
-
-                                Hari
-
-                            </td>
-
-                            <td>
-
-                                @if($item->status == 'Dipinjam')
-
-                                    <span class="badge bg-primary">
-                                        Dipinjam
-                                    </span>
-
-                                @elseif($item->status == 'Dikembalikan')
-
-                                    <span class="badge bg-success">
-                                        Dikembalikan
-                                    </span>
-
-                                @else
-                                    <span class="badge bg-danger"> Terlambat </span>
-
-                                @endif
-                            </td>
-                            <td> {{ $item->keterangan ?? '-' }} </td>
-                        </tr>
+                        <td> {{ $item->keterangan??'-' }} </td>
+                    </tr>
 
                     @empty
 
-                        <tr>
-                            <td colspan="8" class="text-center py-5">
-                                Tidak ada data peminjaman
-                            </td>
-                        </tr>
-
+                    <tr>
+                        <td colspan="8">
+                            <div class="empty-data text-center py-5">
+                                <div style="font-size:60px">📚</div>
+                                <h5 class="mt-3">Data Peminjaman Kosong</h5>
+                                <p class="text-muted mb-0">
+                                Belum ada data peminjaman.
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
                     @endforelse
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-between align-items-center flex-wrap">
+            <small class="text-muted">
+            Menampilkan {{ $peminjamans->firstItem()??0 }} - {{ $peminjamans->lastItem()??0 }} dari {{ $peminjamans->total() }} data
+            </small>
+            {{ $peminjamans->fragment('tableData')->links('pagination::bootstrap-5') }}
         </div>
     </div>
-
 </div>
 
 @endsection

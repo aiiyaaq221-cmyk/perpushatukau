@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Pengunjung;
 use App\Exports\PengunjungExport;
 use Maatwebsite\Excel\Facades\Excel;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\Facade\Pdf;    
+use Carbon\Carbon;
 
 class LaporanPengunjungController extends Controller
 {
@@ -42,7 +43,8 @@ class LaporanPengunjungController extends Controller
 
         $pengunjungs = $query
             ->latest()
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
         $totalPengunjung = Pengunjung::count();
 
@@ -75,17 +77,27 @@ class LaporanPengunjungController extends Controller
         );
     }
 
+
     public function exportPdf()
     {
-        $pengunjungs = Pengunjung::all();
+        Carbon::setLocale('id');
 
-        $pdf = Pdf::loadView(
+        $pengunjungs = Pengunjung::latest()->get();
+
+        $tanggalCetak = Carbon::now('Asia/Jayapura')->translatedFormat('d F Y');
+        $jamCetak = Carbon::now('Asia/Jayapura')->format('H:i');
+        $jumlahData = $pengunjungs->count();
+
+        $pdf = PDF::loadView(
             'laporan.pdf.pengunjung',
-            compact('pengunjungs')
+            compact(
+                'pengunjungs',
+                'tanggalCetak',
+                'jamCetak',
+                'jumlahData'
+            )
         );
 
-        return $pdf->download(
-            'laporan_pengunjung.pdf'
-        );
+        return $pdf->download('laporan-pengunjung.pdf');
     }
 }

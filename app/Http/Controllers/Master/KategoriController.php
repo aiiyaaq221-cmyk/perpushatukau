@@ -24,8 +24,9 @@ class KategoriController extends Controller
         }
 
         $kategoris = $query
-            ->latest()
-            ->get();
+             ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return view(
             'master.kategori.index',

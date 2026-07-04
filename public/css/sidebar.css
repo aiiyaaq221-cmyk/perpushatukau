@@ -1,306 +1,580 @@
 /* =====================================================
    WRAPPER
 ===================================================== */
+
 .wrapper{
     display:flex;
     min-height:100vh;
-    background:#f3f5fa;
+    background:#f5f7fb;
 }
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.content{
+    flex:1;
+    min-height:100vh;
+    margin-left:280px;
+    width:calc(100% - 280px);
+    padding:30px;
+    transition:
+        margin-left .35s ease,
+        width .35s ease,
+        padding .35s ease;
+}
+
 
 /* =====================================================
    SIDEBAR
 ===================================================== */
+
+/* Container */
+
 .sidebar{
     position:fixed;
     top:0;
     left:0;
-    width:270px;
-    min-width:220px;
-    max-width:450px;
+    width:280px;
     height:100vh;
     display:flex;
     flex-direction:column;
     padding:22px;
     background:#1f1f1f;
     color:#fff;
-    transition:.3s ease;
-    overflow-y:auto;
     overflow-x:hidden;
-    z-index:1000;
+    overflow-y:auto;
+    transition:
+        width .35s ease,
+        left .35s ease;
+    z-index:999;
+    scrollbar-width:thin;
+    scrollbar-color:#4b5563 transparent;
 }
+
+
+/* Scrollbar */
 
 .sidebar::-webkit-scrollbar{
     width:6px;
 }
 
+.sidebar::-webkit-scrollbar-track{
+    background:transparent;
+}
+
 .sidebar::-webkit-scrollbar-thumb{
-    background:#444;
-    border-radius:10px;
-}
-
-/* =====================================================
-   SIDEBAR RESIZER
-===================================================== */
-.sidebar-resizer{
-    position:fixed;
-    top:0;
-    left:270px;
-    width:6px;
-    height:100vh;
-    cursor:col-resize;
-    z-index:9999;
-}
-
-/* =====================================================
-   CONTENT
-===================================================== */
-.content{
-    margin-left:270px;
-    width:calc(100% - 270px);
-    min-height:100vh;
-    padding:20px;
-    background:#F0F3FA;
+    background:#505050;
+    border-radius:12px;
     transition:.3s;
 }
 
+.sidebar::-webkit-scrollbar-thumb:hover{
+    background:#F7B940;
+}
+
+/* Collapse */
+
+.sidebar.collapsed{
+    width:90px;
+}
+
+.sidebar.collapsed + .content{
+    margin-left:90px;
+    width:calc(100% - 90px);
+}
+
+/* Mobile */
+
+.sidebar.show{
+    left:0;
+}
+
+
 /* =====================================================
-   LOGO
-====================================================== */
+   SIDEBAR HEADER
+===================================================== */
+.sidebar-header{
+    position:relative;
+    padding:20px 20px 18px;
+    margin-bottom:18px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.brand img{
+    width:52px;
+    height:52px;
+    object-fit:contain;
+    flex-shrink:0;
+    transition:.3s;
+}
+
+.brand-text{
+    display:flex;
+    flex-direction:column;
+}
+
+.brand-text h4{
+    margin:0;
+    font-size:17px;
+    font-weight:700;
+    line-height:1.2;
+    color:#fff;
+}
+
+.brand-text small{
+    margin-top:3px;
+    font-size:13px;
+    font-weight:500;
+    color:#9CA3AF;
+}
+
+
+/* Collapse Brand */
+
+.sidebar.collapsed .brand{
+    justify-content:center;
+}
+
+.sidebar.collapsed .brand img{
+    width:42px;
+    height:42px;
+}
+
+.sidebar.collapsed .brand-text{
+    display:none;
+}
+
+
+/* =====================================================
+   COLLAPSE BUTTON
+===================================================== */
+.collapse-btn{
+    position:absolute;
+    top:0;
+    right:0;
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:10px;
+    background:#2d2d2d;
+    color:#fff;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.collapse-btn:hover{
+    background:#F59E0B;
+    color:#fff;
+    transform:rotate(180deg);
+}
+
+/* =====================================================
+   SIDEBAR MENU
+===================================================== */
+
+/* Menu Container */
+
+.sidebar-menu{
+    flex:1;
+    margin-top:10px;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+
+.sidebar-menu ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+.sidebar-menu li{
+    margin-bottom:8px;
+}
+
+
+/* =====================================================
+   MENU SECTION TITLE
+===================================================== */
+.menu-title{
+    margin:22px 14px 10px;
+    padding-left:6px;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1.6px;
+    text-transform:uppercase;
+    color:#6B7280;
+}
+
+/* ===========================================
+   MENU LINK
+=========================================== */
+
+.sidebar-menu a,
+.parent-link{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:14px;
+    padding:13px 16px;
+    border:none;
+    background:transparent;
+    color:#d1d5db;
+    border-radius:14px;
+    text-decoration:none;
+    transition:.25s;
+    cursor:pointer;
+}
+
+.sidebar-menu a:hover,
+.parent-link:hover{
+    background:#2B2B2B;
+    color:#fff;
+    transform:translateX(4px);
+}
+
+.parent-link{
+    justify-content:space-between;
+}
+
+.parent-link .menu-item{
+    justify-content:flex-start;
+}
+
+/* =====================================================
+   MENU ITEM
+===================================================== */
+.menu-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    flex:1;
+}
+
+.menu-item i,
+.sidebar-menu > a i,
+.sidebar-menu a > i:first-child{
+    width:22px;
+    text-align:center;
+    font-size:17px;
+}
+
+.menu-item span,
+.sidebar-menu span{
+    white-space:nowrap;
+}
+
+
+/* =====================================================
+   ACTIVE MENU
+===================================================== */
+.sidebar-menu a.active-menu,
+.has-submenu.active-parent > .parent-link{
+    background:linear-gradient(
+        90deg,
+        rgba(245,158,11,.18),
+        rgba(245,158,11,.05)
+    );
+    border:1px solid rgba(245,158,11,.35);
+    color:#FBBF24;
+    font-weight:600;
+    box-shadow:0 6px 20px rgba(0,0,0,.18);
+}
+
+.sidebar-menu a.active-menu i,
+.has-submenu.active-parent > .parent-link i{
+    color:#FBBF24;
+}
+
+
+/* =====================================================
+   SUBMENU
+===================================================== */
+.submenu{
+    margin-left:26px;
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .35s ease;
+}
+
+.has-submenu.open > .submenu{
+    max-height:450px;
+}
+
+.submenu li{
+    margin:5px 0;
+}
+
+.submenu li a{
+    margin-left:34px;
+}
+
+.submenu a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:10px 16px;
+    padding-left:22px;  
+    padding:10px 16px;
+    border-radius:10px;
+    color:#BFC5CF;
+    font-size:14px;
+    transition:.25s;
+
+}
+
+.submenu a:hover{
+    background:#575757;
+    color:#fff;
+}
+
+.submenu a.active-menu{
+    background:#262626;
+    color:#FBBF24;
+    font-weight:600;
+}
+
+
+/* =====================================================
+   SUBMENU ARROW
+===================================================== */
+
+.arrow{
+    font-size:11px;
+    transition:.3s;
+}
+
+.has-submenu.open > .parent-link .arrow{
+    transform:rotate(180deg);
+}
+
+
+/* =====================================================
+   COLLAPSED SIDEBAR
+===================================================== */
+
+.sidebar.collapsed .menu-title,
+.sidebar.collapsed .arrow,
+.sidebar.collapsed .logout-btn span{
+    display:none;
+}
+
+.sidebar.collapsed .sidebar-menu a,
+.sidebar.collapsed .parent-link{
+    justify-content:center;
+    padding:15px;
+}
+
+.sidebar.collapsed .menu-item{
+    justify-content:center;
+}
+
+.sidebar.collapsed .menu-item span{
+    display:none;
+}
+
+.sidebar.collapsed .submenu{
+    display:none !important;
+}
+
+
+/* =====================================================
+   MENU TOOLTIP
+===================================================== */
+
+.sidebar.collapsed .menu > li{
+    position:relative;
+}
+
+.sidebar.collapsed .menu > li:hover::after{
+    content:attr(data-title);
+    position:absolute;
+    top:50%;
+    left:95px;
+    transform:translateY(-50%);
+    padding:8px 14px;
+    background:#1F2937;
+    color:#fff;
+    font-size:13px;
+    white-space:nowrap;
+    border-radius:8px;
+    box-shadow:0 10px 25px rgba(0,0,0,.18);
+    z-index:9999;
+}
+
+
+/* =====================================================
+   MENU ICON
+===================================================== */
+
+.menu i,
+.submenu i{
+    width:20px;
+    text-align:center;
+}
+
+/* =====================================================
+   LOGO SECTION
+===================================================== */
+
 .logo-section{
     display:flex;
     align-items:center;
-    gap:15px;
-    margin-bottom:35px;
-    padding-bottom:20px;
-    border-bottom:1px solid rgba(240, 197, 89, 0.788);
+    gap:14px;
+
+    padding-bottom:22px;
+    margin-bottom:18px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .logo-section img{
-    width:55px;
-    height:55px;
-    object-fit:cover;
+    width:52px;
+    height:52px;
+    object-fit:contain;
 }
 
-.logo-section h5{
+.logo-text h5{
     margin:0;
     font-size:17px;
     font-weight:700;
     color:#fff;
 }
 
-.logo-section small{
-    color:#b8b8b8;
-}
-
-/* =====================================================
-   MENU
-===================================================== */
-.menu{
-    list-style:none;
-    margin:0;
-    padding:0;
-}
-
-.menu>li{
-    margin-bottom:10px;
-    }
-/* =====================================================
-   PARENT MENU
-===================================================== */
-.parent-link,
-.menu > li > a{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:12px;
-    width:100%;
-    padding:14px 18px;
-    border:none;
-    background:transparent;
-    border-radius:14px;
-    color:#f2f2f2;
-    text-decoration:none;
-    font-size:15px;
-    font-weight:500;
-    cursor:pointer;
-    transition:.3s;
-    text-align:left;
-}
-
-.parent-link:hover,
-.menu > li > a:hover{
-    background:#2d2d2d;
-}
-
-/* =====================================================
-   ACTIVE MENU TANPA SUBMENU
-===================================================== */
-.menu>li>a.active-menu{
-    background:#383838;
-    color:#f9a602;
-    font-weight:600;
-    border:2px solid #f9a602;
-}
-
-/* =====================================================
-   PARENT ACTIVE
-===================================================== */
-.has-submenu.active-parent > .parent-link{
-    background:#2b2b2b;
-    color:#f9a602;
-    border:2px solid #f9a602;
-    font-weight:600;
-}
-
-/* =====================================================
-   SUBMENU
-===================================================== */
-.submenu{
-    list-style:none;
-    margin:10px 0 5px;
-    padding:0;
-    display:none;
-    animation:fadeDown .25s ease;
-}
-
-.has-submenu.open > .submenu{
+.logo-text small{
     display:block;
+    margin-top:3px;
+    font-size:13px;
+    color:#9CA3AF;
 }
+
+/* Collapse */
+
+.sidebar.collapsed .logo-section{
+    justify-content:center;
+}
+
+.sidebar.collapsed .logo-section img{
+    width:48px;
+    height:48px;
+}
+
+.sidebar.collapsed .logo-text{
+    display:none;
+}
+
 
 /* =====================================================
-   SUBMENU ITEM
+   SIDEBAR FOOTER
 ===================================================== */
-.submenu li{
-    margin:7px 0;
-}
 
-.submenu li a{
-    position:relative;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-left:34px;
-    padding:13px 18px;
-    border-radius:12px;
-    text-decoration:none;
-    color:#d8d8d8;
-    transition:.3s;
-    font-size:14px;
-}
-
-.submenu li a:hover{
-    background:#383838;
-    color:#fff;
-}
-
-/* =====================================================
-   SUBMENU ACTIVE
-===================================================== */
-.submenu li a.active-menu{
-    background:#3c3c3c;
-    color:#f9a602;
-    font-weight:600;
-}
-
-/* garis kuning */
-.submenu li a.active-menu::before{
-    content:"";
-    position:absolute;
-    left:-15px;
-    top:7px;
-    width:8px;
-    height:calc(100% - 14px);
-    background:#f9a602;
-    border-radius:10px;
-}
-
-/* =====================================================
-   ARROW
-===================================================== */
-.arrow{
-    font-size:11px;
-    transition:.3s;
-}
-
-.has-submenu.open>.parent-link .arrow,
-.has-submenu.active-parent>.parent-link .arrow{
-
-    transform:rotate(180deg);
-}
-.parent-link{
-    width:100%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:14px 18px;
-    border:none;
-    background:transparent;
-    color:#fff;
-    cursor:pointer;
-    text-align:left;
-    border-radius:12px;
-    transition:.3s;
-    appearance:none;
-    -webkit-appearance:none;
-    outline:none;
-}
-
-.parent-link:hover{
-    background:#2f2f2f;
-}
-
-.menu-left{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-/* =====================================================
-   ANIMATION
-===================================================== */
-@keyframes fadeDown{
-    from{
-        opacity:0;
-        transform:translateY(-6px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-/* =====================================================
-   LOGOUT
-===================================================== */
+.sidebar-footer,
 .logout{
     margin-top:auto;
-    padding-top:25px;
+    padding-top:20px;
 }
 
+.logout{
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+
+/* =====================================================
+   LOGOUT BUTTON
+===================================================== */
+
 .logout-btn{
+
     width:100%;
+    height:48px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+
     border:none;
-    background:#ec4643;
-    color:#fff;
     border-radius:14px;
-    padding:14px;
+
+    background:linear-gradient(
+        135deg,
+        #EF4444,
+        #DC2626
+    );
+
+    color:#fff;
     font-size:15px;
     font-weight:600;
+
     cursor:pointer;
     transition:.3s;
 }
 
 .logout-btn:hover{
-    background:#d53b38;
+
     transform:translateY(-2px);
+
+    box-shadow:0 12px 30px rgba(239,68,68,.30);
+}
+
+.sidebar.collapsed .logout-btn{
+    padding:0;
+}
+
+.sidebar.collapsed .logout-btn i{
+    margin:0;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table-responsive{
+    width:100%;
+    overflow-x:auto;
+}
+
+
+/* =====================================================
+   DASHBOARD CARD
+===================================================== */
+
+.dashboard-card,
+.table-card,
+.chart-card,
+.stat-card{
+    transition:.35s;
 }
 
 /* =====================================================
    RESPONSIVE
 ===================================================== */
-@media(max-width:992px){
+
+/* ---------- Tablet ---------- */
+
+@media (max-width:992px){
+
     .sidebar{
         left:-280px;
+        width:280px;
     }
 
     .sidebar.show{
@@ -309,40 +583,145 @@
 
     .content{
         margin-left:0;
-
         width:100%;
+        padding:20px;
     }
 
-    .sidebar-resizer{
-        display:none;
+}
+
+
+/* ---------- Mobile ---------- */
+
+@media (max-width:768px){
+
+    .content{
+        padding:15px;
     }
+
+    .logo-section{
+        margin-bottom:20px;
+    }
+
+    .sidebar{
+        padding:18px;
+    }
+
+    .sidebar-header{
+        padding:16px 16px 14px;
+    }
+
+    .brand img,
+    .logo-section img{
+        width:46px;
+        height:46px;
+    }
+
+    .brand-text h4,
+    .logo-text h5{
+        font-size:16px;
+    }
+
+    .logout-btn{
+        height:46px;
+        font-size:14px;
+    }
+
 }
 
-/* =====================================================
-   OPTIONAL ICON
-==================================================== */
-.menu i,
-.submenu i{
-    width:20px;
-    text-align:center;
-}
 
 /* =====================================================
-   SMOOTH
+   GLOBAL SCROLLBAR
 ===================================================== */
-.menu a{
-    user-select:none;
+
+::-webkit-scrollbar{
+    width:8px;
+    height:8px;
 }
 
-.menu a:active{
-    transform:scale(.98);
+::-webkit-scrollbar-track{
+    background:#f1f5f9;
 }
+
+::-webkit-scrollbar-thumb{
+    background:#b8c0cc;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#94a3b8;
+}
+
+
+/* =====================================================
+   SIDEBAR SCROLLBAR
+===================================================== */
+
+.sidebar::-webkit-scrollbar{
+    width:6px;
+}
+
+.sidebar::-webkit-scrollbar-track{
+    background:transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+    background:#505050;
+    border-radius:20px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover{
+    background:#F7B940;
+}
+
+
+/* =====================================================
+   MODAL FIX
+===================================================== */
 
 .modal{
-    left: 0 !important;
-    width: 100vw !important;
+    left:0 !important;
+    width:100vw !important;
 }
 
 .modal-dialog{
-    margin: 1.75rem auto !important;
+    margin:1.75rem auto !important;
 }
+
+
+/* =====================================================
+   SMOOTH TRANSITION
+===================================================== */
+
+.sidebar,
+.content,
+.sidebar-menu a,
+.parent-link,
+.submenu,
+.logout-btn,
+.dashboard-card,
+.chart-card,
+.table-card{
+    transition:.3s ease;
+}
+
+
+/* =====================================================
+   FOCUS
+===================================================== */
+
+button:focus,
+a:focus{
+    outline:none;
+    box-shadow:none;
+}
+
+
+/* =====================================================
+   IMAGE
+===================================================== */
+
+img{
+    max-width:100%;
+    display:block;
+}
+

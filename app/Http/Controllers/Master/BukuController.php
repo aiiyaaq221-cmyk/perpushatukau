@@ -57,7 +57,10 @@ class BukuController extends Controller
 
         }
 
-        $bukus = $query->latest()->get();
+        $bukus = $query
+            ->orderBy('judul_buku', 'asc')
+            ->paginate(10)
+            ->withQueryString();
 
         $kategoris = Kategori::all();
 
@@ -156,5 +159,20 @@ class BukuController extends Controller
         return redirect()
             ->back()
             ->with('success', 'Data buku berhasil diupdate');
+    }
+
+    public function destroy($id)
+    {
+        $buku = Buku::findOrFail($id);
+
+        if ($buku->cover) {
+            Storage::disk('public')->delete($buku->cover);
+        }
+
+        $buku->delete();
+
+        return redirect()
+            ->back()
+            ->with('success', 'Data buku berhasil dihapus');
     }
 }

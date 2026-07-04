@@ -22,7 +22,7 @@
     <!-- Statistik -->
     <div class="row mb-4">
         <div class="col-lg-3 col-md-6 mb-3">
-            <div class="card stat-card">
+            <div class="card stat-card primary">
                 <div class="card-body">
                     <h6>Total Anggota</h6>
                     <h2>{{ $totalAnggota }}</h2>
@@ -40,7 +40,7 @@
         </div>
 
         <div class="col-lg-3 col-md-6 mb-3">
-            <div class="card stat-card danger">
+            <div class="card stat-card warning">
                 <div class="card-body">
                     <h6>Tidak Aktif</h6>
                     <h2>{{ $anggotaNonAktif }}</h2>
@@ -49,7 +49,7 @@
         </div>
 
         <div class="col-lg-3 col-md-6 mb-3">
-            <div class="card stat-card primary">
+            <div class="card stat-card danger">
                 <div class="card-body">
                     <h6>Daftar Bulan Ini</h6>
                     <h2>{{ $anggotaBaru }}</h2>
@@ -59,102 +59,110 @@
     </div>
 
     <!-- Filter -->
-<div class="card border-0 shadow-sm mb-4 filter-card">
-    <div class="card-body">
-        <form id="filterForm" method="GET">
-            <div class="row g-3 align-items-end">
+    <div class="filter-card mb-4">
+        <form method="GET" action="{{ route('laporan.peminjaman') }}">
+            <div class="row g-3">
                 <div class="col-md-5">
-                    <label class="form-label fw-semibold"> Cari </label>
-                    <input type="text" name="keyword" value="{{ request('keyword') }}" class="form-control modern-input" placeholder="🔍 Cari nama atau alamat anggota..." 
-                        onkeyup="this.form.submit()">
+                    <label>Nama Anggota</label>
+                    <input type="text" name="nama" class="form-control" placeholder="Cari nama anggota..." value="{{ request('nama') }}" onkeyup="this.form.submit()">
                 </div>
-
                 <div class="col-md-3">
-                    <label class="form-label fw-semibold"> Status Anggota </label>
-                    <select name="status" id="statusFilter" class="form-select modern-input" onkeyup="this.form.submit()">
-                        <option value="">Semua Status</option>
-                        <option value="Aktif"
-                            {{ request('status') == 'Aktif' ? 'selected' : '' }}>
-                            Aktif
-                        </option>
-
-                        <option value="Tidak Aktif"
-                            {{ request('status') == 'Tidak Aktif' ? 'selected' : '' }}>
-                            Tidak Aktif
-                        </option>
+                    <label>Tanggal Pinjam</label>
+                    <input type="date" name="tanggal" class="form-control" value="{{ request('tanggal') }}" onchange="this.form.submit()">
+                </div>
+                <div class="col-md-2">
+                    <label>Status</label>
+                    <select name="status" class="form-select" onchange="this.form.submit()">
+                        <option value="">Semua</option>
+                        <option value="Dipinjam" {{ request('status')=='Dipinjam'?'selected':'' }}>Dipinjam</option>
+                        <option value="Dikembalikan" {{ request('status')=='Dikembalikan'?'selected':'' }}>Dikembalikan</option>
+                        <option value="Terlambat" {{ request('status')=='Terlambat'?'selected':'' }}>Terlambat</option>
                     </select>
                 </div>
 
-                <div class="col-md-4 d-flex align-items-end gap-2">
-                    <button class="btn btn-primary flex-fill">
-                        <i class="fas fa-search"> </i> Filter
-                    </button>
-
+                <div class="col-md-2 d-flex align-items-end gap-2">
+                    <button class="btn btn-primary flex-fill"><i class="fas fa-search me-1"></i>Cari</button>
                     @if(request()->hasAny(['nama','tanggal','status']))
-                        <a href="{{ route('laporan.anggota') }}"
-                        class="btn btn-secondary">
-                            Reset
-                        </a>
+                    <a href="{{ route('laporan.peminjaman') }}" class="btn btn-secondary">Reset</a>
                     @endif
                 </div>
             </div>
         </form>
     </div>
-</div>
 
     <!-- Table -->
-    <div class="card border-0 shadow-sm">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover modern-table align-middle text-center">
+    <div class="modern-card">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h5 class="fw-bold mb-1">Data Anggota</h5>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table modern-table align-middle">
+                <thead>
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>JK</th>
-                            <th>Umur</th>
-                            <th>No Telp</th>
-                            <th>Email</th>
-                            <th>Tanggal Daftar</th>
-                            <th>Status</th>
+                            <th width="45">No</th>
+                            <th width="160">Nama</th>
+                            <th width="60">Jenis Kelamin</th>
+                            <th width="55">Umur</th>
+                            <th width="130">No Telp</th>
+                            <th width="160">Email</th>
+                            <th width="105">Tgl Daftar</th>
+                            <th width="80">Status</th>
                         </tr>
                     </thead>
+                </thead>
+                <tbody>
+                    @forelse($anggotas as $anggota)
+                    <tr>
+                        <td class="text-center"> {{ $loop->iteration + ($anggotas->firstItem()-1) }} </td>
+                        <td>
+                            <div class="fw-semibold nama-anggota">
+                                {{ $anggota->nama }}
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            @if($anggota->jenis_kelamin == 'L')
+                                Laki-laki
+                            @elseif($anggota->jenis_kelamin == 'P')
+                                Perempuan
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td class="text-center"> {{ $anggota->umur }} </td>
+                        <td> {{ $anggota->no_telp ?? '-' }} </td>
+                        <td> {{ $anggota->email ?? '-' }} </td>
+                        <td class="text-center"> {{ \Carbon\Carbon::parse($anggota->tanggal_daftar)->translatedFormat('d M Y') }} </td>
+                        <td class="text-center">
+                            @if($anggota->status=='Aktif')
+                                <span class="badge bg-success px-3 py-2"> Aktif </span>
+                            @else
+                                <span class="badge bg-danger px-3 py-2"> Non Aktif  </span>
+                            @endif
+                        </td>
+                    </tr>
+                    @empty
 
-                    <tbody>
+                    <tr>
+                        <td colspan="8">
+                            <div class="empty-data text-center py-5">
+                                <div style="font-size:60px"> 👥 </div>
+                                <h5 class="mt-3"> Data Anggota Kosong </h5>
+                                <p class="text-muted mb-0"> Belum ada data anggota. </p>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
 
-                        @forelse($anggotas as $anggota)
-
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td> <strong>{{ $anggota->nama }}</strong></td>
-                            <td> {{ $anggota->jenis_kelamin }}</td>
-                            <td> {{ $anggota->umur }}  </td>
-                            <td> {{ $anggota->no_telp ?? '-' }}  </td>
-                            <td> {{ $anggota->email ?? '-' }}</td>
-                            <td>{{ \Carbon\Carbon::parse($anggota->tanggal_daftar)->format('d M Y') }}</td>
-                            <td>
-                                @if($anggota->status == 'Aktif')
-                                    <span class="badge bg-success">
-                                        Aktif
-                                    </span>
-                                @else
-                                    <span class="badge bg-danger">
-                                        Tidak Aktif
-                                    </span>
-                                @endif
-                            </td>
-                        </tr>
-                        @empty
-
-                        <tr>
-                            <td colspan="9" class="text-center py-5">
-                                Tidak ada data
-                            </td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+        <div class="mt-4 d-flex justify-content-between align-items-center flex-wrap">
+            <small class="text-muted"> Menampilkan {{ $anggotas->firstItem() ?? 0 }} - {{ $anggotas->lastItem() ?? 0 }} dari {{ $anggotas->total() }} data </small>
+            {{ $anggotas->links('pagination::bootstrap-5') }}
         </div>
     </div>
 </div>

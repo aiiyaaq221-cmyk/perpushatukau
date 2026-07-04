@@ -1,18 +1,13 @@
-/* =========================
-   HEADER CARD
-========================= */
-
+/*==================================
+HEADER CARD
+==================================*/
 .header-card{
     background:#fff;
     padding:25px 30px;
     border-radius:20px;
-    box-shadow:0 4px 20px rgba(0,0,0,.05);
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
     margin-bottom:25px;
 }
-
-/* =========================
-   PAGE HEADER
-========================= */
 
 .page-header{
     display:flex;
@@ -29,171 +24,172 @@
 }
 
 .page-subtitle{
-    margin-top:5px;
-    margin-bottom:0;
-    font-size:14px;
+    margin:5px 0 0;
     color:#64748b;
+    font-size:15px;
 }
 
-/* =========================
-   BUTTON
-========================= */
-
+/*==================================
+BUTTON
+==================================*/
 .btn-modern{
+    padding:12px 22px;
     border:none;
     border-radius:12px;
-    padding:12px 22px;
-    font-weight:600;
     background:#2b74fa;
-    color:white;
-    transition:.3s;
+    color:#fff;
+    font-weight:600;
+    transition:.25s;
 }
 
 .btn-modern:hover{
-    transform:translateY(-2px);
     background:#1d4ed8;
-    color:white;
-}
-
-.action-buttons{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:8px;
-}
-
-.action-buttons .btn{
-    min-width:70px;
-    border-radius:8px;
-    font-size:12px;
-    font-weight:600;
+    color:#fff;
+    transform:translateY(-2px);
 }
 
 .btn-sm{
+    padding:7px 10px;
     border-radius:10px;
-    padding:6px 12px;
     font-size:12px;
     font-weight:600;
 }
 
-/*  */
-.sidebar{
-    position:fixed;
-    width:260px;
-    height:100vh;
-    left:0;
-    top:0;
+/*==================================
+FILTER CARD
+==================================*/
+.filter-card{
+    border:none;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
 }
 
-.content{
-    margin-left:260px;
+.filter-card .card-body{
+    padding:28px;
 }
 
-.page-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-    margin-bottom:25px;
+.filter-card label{
+    font-weight:500;
+    color:#334155;
+    margin-bottom:8px;
 }
 
-.header-left{
-    display:flex;
-    flex-direction:column;
+.filter-card .form-control,
+.filter-card .form-select{
+    height:48px;
+    border-radius:12px;
+    border:1px solid #dbe4ee;
 }
 
-.header-right{
-    display:flex;
-    align-items:flex-end;
+.filter-card .btn{
+    height:48px;
+    border-radius:12px;
 }
 
-.page-title{
-    margin-bottom:4px;
-}
-
-.page-subtitle{
-    margin:0;
-}
-
-.modal{
-    position:fixed !important;
-}
-
-.modal-dialog{
-    margin:auto !important;
-}
-
-.modal.show .modal-dialog {
-    transform: none !important;
-}
-
-/* =========================
-   TABLE
-========================= */
-
+/*==================================
+TABLE CARD
+==================================*/
 .modern-card{
     background:#fff;
+    padding:30px;
     border-radius:20px;
-    overflow:hidden;
-    box-shadow:0 5px 20px rgba(0,0,0,.05);
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.table-header{
+    margin-bottom:18px;
+}
+
+.table-title{
+    margin:0;
+    font-size:20px;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.table-subtitle{
+    margin-top:4px;
+    color:#64748b;
+    font-size:14px;
+}
+
+/*==================================
+TABLE
+==================================*/
+.table-responsive{
+    overflow-x:auto;
 }
 
 .modern-table{
+    width:100%;
     margin-bottom:0;
+    border-collapse:separate;
+    border-spacing:0;
 }
-
 
 .modern-table thead th{
     background:#F7CD61;
     color:#3b3d42;
     border:none;
-    padding:15px;
-    font-size:11px;
-    font-weight:600;
+    padding:15px 12px;
+    text-align:center;
+    vertical-align:middle;
+    font-size:12px;
+    font-weight:700;
+    text-transform:uppercase;
+}
+
+.modern-table thead th:first-child{
+    border-top-left-radius:15px;
+}
+
+.modern-table thead th:last-child{
+    border-top-right-radius:15px;
+}
+
+.modern-table tbody td{
+    padding:15px 12px;
+    border-bottom:1px solid #eef2f7;
     text-align:center;
     vertical-align:middle;
 }
 
-.modern-table tbody td{
-    padding:18px 14px;
-    vertical-align:middle;
-    border-bottom:1px solid #f1f5f9;
-}
-
 .modern-table tbody tr{
-    transition:.2s;
+    transition:.25s;
 }
 
-.modern-table tbody tr:hover{
-    background:#f8fafc;
-}
-
-/* HOVER SATU BARIS */
 .modern-table tbody tr:hover td{
-    background:hwb(49 94% 0%) !important;
-}
-
-/* efek halus */
-.modern-table tbody tr{
-    transition:all .25s ease;
+    background:#fffdf4;
 }
 
 .modern-table tbody tr:last-child td{
     border-bottom:none;
 }
 
+/*==================================
+CONTENT TABLE
+==================================*/
+.nama-pengunjung{
+    font-weight:600;
+    color:#1e293b;
+}
+
+.tanggal{
+    font-weight:600;
+    color:#334155;
+}
+
 .badge{
-    padding:8px 12px;
+    padding:8px 14px;
     border-radius:30px;
     font-size:11px;
     font-weight:600;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-
+/*==================================
+RESPONSIVE
+==================================*/
 @media(max-width:768px){
-
     .page-header{
         flex-direction:column;
         align-items:flex-start;
@@ -201,5 +197,10 @@
 
     .btn-modern{
         width:100%;
+    }
+
+    .filter-card .card-body,
+    .modern-card{
+        padding:20px;
     }
 }

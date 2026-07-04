@@ -18,7 +18,6 @@ return new class extends Migration
                 ->references('id_kategori')
                 ->on('kategoris')
                 ->cascadeOnDelete();
-
             $table->string('kode_buku')->unique();
             $table->string('judul_buku');
             $table->string('pengarang');

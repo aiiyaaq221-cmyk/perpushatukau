@@ -218,46 +218,63 @@ TABLE CARD
                         @endif
 
                     </td>
+                    <td>
+                    <div class="book-items">
+                            {{-- 2 buku pertama --}}
+                            @foreach($item->details->take(2) as $detail)
+                                <div class="book-item">
+                                    <i class="fas fa-book"></i>
+                                    <span>{{ $detail->buku->judul_buku }}</span>
+                                    @if($detail->jumlah > 1)
+                                        <small>×{{ $detail->jumlah }}</small>
+                                    @endif
+                                </div>
+                            @endforeach
 
-                    <td class="text-center">
+                            {{-- Buku sisanya --}}
+                            @if($item->details->count() > 2)
+                                <div
+                                    id="moreBooks{{ $item->id_peminjaman }}"
+                                    class="more-books"
+                                    style="display:none;">
 
-                        <span class="badge bg-secondary px-3 py-2">
-                            {{ $item->details->sum('jumlah') }}
-                            Buku
+                                    @foreach($item->details->skip(2) as $detail)
 
-                        </span>
+                                        <div class="book-item">
+                                            <i class="fas fa-book"></i>
+                                            <span>{{ $detail->buku->judul_buku }}</span>
 
+                                            @if($detail->jumlah > 1)
+                                                <small>×{{ $detail->jumlah }}</small>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <small
+                                    class="toggle-books"
+                                    data-target="moreBooks{{ $item->id_peminjaman }}"
+                                    data-count="{{ $item->details->count()-2 }}">
+                                    +{{ $item->details->count()-2 }} lainnya
+                                </small>
+                            @endif
+                        </div>
                     </td>
-
-
                     <td class="text-center">
-
                         @if($item->status=='Dipinjam')
-
                             <span class="badge bg-primary">
-
                                 Dipinjam
-
                             </span>
 
                         @elseif($item->status=='Dikembalikan')
-
                             <span class="badge bg-success">
-
                                 Dikembalikan
-
                             </span>
-
                         @else
-
                             <span class="badge bg-danger">
-
                                 Terlambat
-
                             </span>
-
                         @endif
-
                     </td>
 
                     <td class="text-center">
@@ -295,42 +312,23 @@ TABLE CARD
                 @empty
 
                 <tr>
-
                     <td colspan="9">
-
                         <div class="empty-data text-center py-5">
-
                             <div style="font-size:60px">
-
                                 📖
-
                             </div>
-
                             <h5 class="mt-3">
-
                                 Data Peminjaman Kosong
-
                             </h5>
-
                             <p class="text-muted mb-0">
-
                                 Belum ada transaksi peminjaman.
-
                             </p>
-
                         </div>
-
                     </td>
-
                 </tr>
-
                 @endforelse
-
             </tbody>
-
         </table>
-        
-
     </div>
 
 
@@ -365,19 +363,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('searchForm');
 
     if (searchInput) {
-
         searchInput.addEventListener('keyup', function () {
-
             clearTimeout(timer);
-
             timer = setTimeout(function () {
-
                 form.submit();
-
             }, 500);
-
         });
-
     }
 
 
@@ -403,101 +394,62 @@ document.addEventListener('DOMContentLoaded', function () {
     ========================================== */
 
     document.querySelectorAll('.btn-kembalikan').forEach(function (button) {
-
         button.addEventListener('click', function () {
-
             let form = this.closest('.form-kembalikan');
-
             Swal.fire({
-
                 title: 'Kembalikan Buku?',
-
                 html:
                     '<div style="font-size:15px">' +
                     'Buku akan dikembalikan ke stok perpustakaan.' +
                     '</div>',
-
                 icon: 'question',
-
                 showCancelButton: true,
-
                 reverseButtons: true,
                 confirmButtonColor: '#198754',
-
                 cancelButtonColor: '#6c757d',
-
                 confirmButtonText: 'Ya, Kembalikan',
-
                 cancelButtonText: 'Batal',
-
                 borderRadius: '15px'
 
             }).then((result) => {
-
                 if (result.isConfirmed) {
-
                     form.submit();
-
                 }
-
             });
-
         });
-
     });
-
 
     /* ==========================================
        KONFIRMASI HAPUS
     ========================================== */
 
     document.querySelectorAll('.btn-delete').forEach(function (button) {
-
         button.addEventListener('click', function () {
-
             let form = this.closest('.form-delete');
-
             Swal.fire({
-
                 title: 'Hapus Data?',
-
                 html:
                     '<div style="font-size:15px">' +
                     'Data peminjaman akan dihapus permanen.' +
                     '<br><br>' +
                     '<b>Tindakan ini tidak dapat dibatalkan.</b>' +
                     '</div>',
-
                 icon: 'warning',
-
                 showCancelButton: true,
-
                 reverseButtons: true,
-
                 confirmButtonColor: '#dc3545',
-
                 cancelButtonColor: '#6c757d',
-
                 confirmButtonText: 'Ya, Hapus',
-
                 cancelButtonText: 'Batal',
-
                 borderRadius: '15px'
 
             }).then((result) => {
-
                 if (result.isConfirmed) {
-
                     form.submit();
-
                 }
-
             });
-
         });
-
     });
-
 });
 </script>
 

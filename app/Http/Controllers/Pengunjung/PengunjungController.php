@@ -12,58 +12,56 @@ class PengunjungController extends Controller
     public function index(Request $request)
     {
         $query = Pengunjung::with('anggota');
-
-        // Filter Nama
+ 
         if ($request->filled('nama')) {
-            $query->where('nama', 'like', '%' . $request->nama . '%');
-        }
+            $query->where(
+                'nama',
+                'like',
+                '%' . $request->nama . '%'
+            );
 
-        // Filter Tanggal
+        }
+ 
         if ($request->filled('tanggal')) {
-            $query->whereDate('tanggal_kunjungan', $request->tanggal);
+            $query->whereDate(
+                'tanggal_kunjungan',
+                $request->tanggal
+            );
         }
-
-        // Filter Jenis Pengunjung
+ 
         if ($request->filled('status')) {
-
             if ($request->status == 'Anggota') {
-                $query->where('jenis_pengunjung', 'anggota');
+                $query->where(
+                    'jenis_pengunjung',
+                    'anggota'
+                );
             }
 
             if ($request->status == 'Umum') {
-                $query->where('jenis_pengunjung', 'non_anggota');
+                $query->where(
+                    'jenis_pengunjung',
+                    'non_anggota'
+                );
             }
         }
-
+ 
         $pengunjungs = $query
             ->latest()
-            ->get();
-
-        $totalPengunjung = Pengunjung::count();
-
-        $pengunjungHariIni = Pengunjung::whereDate(
-            'tanggal_kunjungan',
-            today()
-        )->count();
-
-        $nonAnggota = Pengunjung::where(
-            'jenis_pengunjung',
-            'non_anggota'
-        )->count();
-
+            ->paginate(10)
+            ->withQueryString();
+ 
         $anggotas = Anggota::where(
             'status',
             'Aktif'
-        )->get();
+        )
+        ->orderBy('nama')
+        ->get();
 
         return view(
             'pengunjung.index',
             compact(
                 'pengunjungs',
-                'anggotas',
-                'totalPengunjung',
-                'pengunjungHariIni',
-                'nonAnggota'
+                'anggotas'
             )
         );
     }

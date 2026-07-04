@@ -198,6 +198,50 @@ EMPTY DATA
     margin:0;
 }
 
+
+/* ===========================
+   BOOK LIST
+===========================*/
+.book-list{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
+
+.book-text{
+    font-size:13px;
+    color:#374151;
+    font-weight:500;
+}
+
+.book-text span{
+    color:#9CA3AF;
+    margin-left:4px;
+    font-size:12px;
+}
+
+.toggle-books{
+    color:#2563EB;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    user-select:none;
+    width:fit-content;
+    transition:.2s;
+}
+
+.toggle-books:hover{
+    color:#1D4ED8;
+    text-decoration:underline;
+}
+
+.more-books{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    margin-top:3px;
+}
+
 /*==================================
 PAGINATION
 ==================================*/

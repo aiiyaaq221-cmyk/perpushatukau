@@ -49,7 +49,7 @@
 </div>
 
     <!-- TABEL -->
-    <div class="modern-card">
+    <div class="modern-card" id="tableData">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h5 class="fw-bold mb-1"> Data Kategori  </h5>
@@ -73,9 +73,8 @@
                 <tbody>
 
                     @forelse($kategoris as $kategori)
-
                     <tr>
-                        <td class="text-center"> {{ $loop->iteration }} </td>
+                        <td class="text-center"> {{ $loop->iteration + ($kategoris->firstItem()-1) }} </td>
                         <td>
                             <div class="fw-semibold">
                                 {{ $kategori->nama_kategori }}
@@ -133,6 +132,12 @@
                     @endforelse
                 </tbody>
             </table>
+        </div>
+        <div class="mt-4 d-flex justify-content-between align-items-center flex-wrap">
+            <small class="text-muted">
+            Menampilkan {{ $kategoris->firstItem()??0 }} - {{ $kategoris->lastItem()??0 }} dari {{ $kategoris->total() }} data
+            </small>
+            {{ $kategoris->fragment('tableData')->links('pagination::bootstrap-5') }}
         </div>
     </div>
 

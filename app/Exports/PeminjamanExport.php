@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Anggota;
+use App\Models\Peminjaman;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -14,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 
-class AnggotaExport implements
+class PeminjamanExport implements
     FromCollection,
     WithHeadings,
     WithMapping,
@@ -27,7 +27,12 @@ class AnggotaExport implements
 
     public function collection()
     {
-        $data = Anggota::latest()->get();
+        $data = Peminjaman::with([
+            'anggota',
+            'details.buku'
+        ])
+        ->latest()
+        ->get();
 
         $this->jumlahData = $data->count();
 
@@ -38,23 +43,34 @@ class AnggotaExport implements
     {
         return [
             'No',
-            'Kode Anggota',
-            'Nama',
-            'Alamat',
-            'No. Telepon',
-            'Status'
+            'Kode Peminjaman',
+            'Nama Anggota',
+            'Judul Buku',
+            'Tanggal Pinjam',
+            'Batas Kembali',
+            'Status',
+            'Keterangan'
         ];
     }
 
-    public function map($anggota): array
+    public function map($peminjaman): array
     {
+        $judulBuku = $peminjaman->details
+            ->map(function ($detail) {
+                return optional($detail->buku)->judul_buku;
+            })
+            ->filter()
+            ->implode(', ');
+
         return [
             $this->no++,
-            $anggota->kode_anggota,
-            $anggota->nama,
-            $anggota->alamat,
-            $anggota->no_telp,
-            $anggota->status,
+            $peminjaman->kode_peminjaman,
+            $peminjaman->anggota->nama ?? '-',
+            $judulBuku ?: '-',
+            Carbon::parse($peminjaman->tanggal_pinjam)->format('d-m-Y'),
+            Carbon::parse($peminjaman->batas_kembali)->format('d-m-Y'),
+            $peminjaman->status,
+            $peminjaman->keterangan ?: '-',
         ];
     }
 
@@ -80,11 +96,11 @@ class AnggotaExport implements
                 |--------------------------------------------------
                 */
 
-                $sheet->mergeCells('A1:F1');
+                $sheet->mergeCells('A1:H1');
                 $sheet->setCellValue('A1', 'PERPUSTAKAAN HATUKAU');
 
-                $sheet->mergeCells('A2:F2');
-                $sheet->setCellValue('A2', 'LAPORAN DATA ANGGOTA');
+                $sheet->mergeCells('A2:H2');
+                $sheet->setCellValue('A2', 'LAPORAN DATA PEMINJAMAN BUKU');
 
                 /*
                 |--------------------------------------------------
@@ -115,7 +131,7 @@ class AnggotaExport implements
                 |--------------------------------------------------
                 */
 
-                $sheet->getStyle('A1:F2')->applyFromArray([
+                $sheet->getStyle('A1:H2')->applyFromArray([
 
                     'font' => [
                         'bold' => true,
@@ -134,7 +150,7 @@ class AnggotaExport implements
                 |--------------------------------------------------
                 */
 
-                $sheet->getStyle('A8:F8')->applyFromArray([
+                $sheet->getStyle('A8:H8')->applyFromArray([
 
                     'font' => [
                         'bold' => true,
@@ -170,7 +186,7 @@ class AnggotaExport implements
 
                 $lastRow = $sheet->getHighestRow();
 
-                $sheet->getStyle("A8:F{$lastRow}")
+                $sheet->getStyle("A8:H{$lastRow}")
                     ->applyFromArray([
 
                         'borders' => [
@@ -191,11 +207,11 @@ class AnggotaExport implements
                 |--------------------------------------------------
                 */
 
-                $sheet->getStyle("A8:B{$lastRow}")
+                $sheet->getStyle("A8:A{$lastRow}")
                     ->getAlignment()
                     ->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-                $sheet->getStyle("E8:F{$lastRow}")
+                $sheet->getStyle("E8:G{$lastRow}")
                     ->getAlignment()
                     ->setHorizontal(Alignment::HORIZONTAL_CENTER);
 

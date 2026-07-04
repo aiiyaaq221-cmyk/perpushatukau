@@ -19,13 +19,9 @@
 
 {{-- FILTER --}}
 <div class="filter-card">
-
     <form method="GET" id="filterForm">
-
         <div class="row g-3 align-items-end">
-
             <div class="col-lg-4">
-
                 <label class="form-label">
                     Cari
                 </label>
@@ -46,41 +42,22 @@
                     Status
                 </label>
 
-                <select
-                    name="status"
-                    id="statusFilter"
-                    class="form-select modern-input">
-
-                    <option value="">
-                        Semua Status
-                    </option>
-
+                <select name="status" id="statusFilter" class="form-select modern-input">
+                    <option value=""> Semua Status</option>
                     <option value="Tepat Waktu"
                         {{ request('status')=='Tepat Waktu' ? 'selected' : '' }}>
                         Tepat Waktu
                     </option>
-
                     <option value="Terlambat"
                         {{ request('status')=='Terlambat' ? 'selected' : '' }}>
                         Terlambat
                     </option>
-
                 </select>
-
             </div>
 
             <div class="col-lg-3">
-
-                <label class="form-label">
-                    Tanggal Kembali
-                </label>
-
-                <input
-                    type="date"
-                    name="tanggal"
-                    id="tanggalFilter"
-                    value="{{ request('tanggal') }}"
-                    class="form-control modern-input">
+                <label class="form-label"> Tanggal Kembali  </label>
+                <input type="date" name="tanggal" id="tanggalFilter" value="{{ request('tanggal') }}" class="form-control modern-input">
             </div>
 
             <div class="col-lg-2">
@@ -122,6 +99,7 @@
                     <th width="120">Pinjam</th>
                     <th width="140">Batas Kembali</th>
                     <th width="140">Tanggal Kembali</th>
+                    <th width="250">Buku</th>
                     <th width="120">Status</th>
                     <th width="90">Aksi</th>
                 </tr>
@@ -137,39 +115,66 @@
                             {{ $item->peminjaman->kode_peminjaman }}
                         </div>
                     </td>
-
                     <td>
                         <div class="nama-anggota">
                             {{ $item->peminjaman->anggota->nama }}
                         </div>
                     </td>
-                    <td class="tanggal">  {{ \Carbon\Carbon::parse($item->peminjaman->tanggal_pinjam)->translatedFormat('d M Y') }} </td>
+                    <td class="tanggal"> {{ \Carbon\Carbon::parse($item->peminjaman->tanggal_pinjam)->translatedFormat('d M Y') }} </td>
                     <td class="tanggal"> {{ \Carbon\Carbon::parse($item->peminjaman->batas_kembali)->translatedFormat('d M Y') }} </td>
+                    <td class="tanggal"> {{ \Carbon\Carbon::parse($item->tanggal_kembali)->translatedFormat('d M Y') }}</td>
+                    <td>
+                        <div class="book-items">
+                            @foreach($item->peminjaman->details->take(2) as $detail)
+                                <div class="book-item">
+                                    <i class="fas fa-book"></i>
+                                    <span>
+                                        {{ $detail->buku->judul_buku }}
+                                    </span>
+                                    @if($detail->jumlah > 1)
+                                        <small>×{{ $detail->jumlah }}</small>
+                                    @endif
+                                </div>
 
-                    <td class="tanggal">
-                        {{ \Carbon\Carbon::parse($item->tanggal_kembali)->translatedFormat('d M Y') }}
+                            @endforeach
+
+                            @if($item->peminjaman->details->count() > 2)
+                                <small
+                                    class="toggle-books"
+                                    data-target="moreBooks{{ $item->id_pengembalian }}"
+                                    data-count="{{ $item->peminjaman->details->count()-2 }}">
+                                    +{{ $item->peminjaman->details->count()-2 }} lainnya
+                                </small>
+
+                                <div
+                                    id="moreBooks{{ $item->id_pengembalian }}"
+                                    style="display:none;margin-top:8px;">
+                                    
+                                    @foreach($item->peminjaman->details->skip(2) as $detail)
+                                        <div class="book-item">
+                                            <i class="fas fa-book"></i>
+                                            <span>
+                                                {{ $detail->buku->judul_buku }}
+                                            </span>
+                                            @if($detail->jumlah>1)
+                                                <small>×{{ $detail->jumlah }}</small>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
                     </td>
-
                     <td class="text-center">
-
                         @if($item->status_pengembalian=='Tepat Waktu')
-
                             <span class="badge bg-success px-3 py-2">
-
                                 Tepat Waktu
-
                             </span>
-
                         @else
-
                             <span class="badge bg-danger px-3 py-2">
-
                                 Terlambat
-
                             </span>
-
                         @endif
-
                     </td>
 
                     <td class="text-center">
@@ -212,25 +217,18 @@
                                 Belum ada riwayat pengembalian buku.
 
                             </p>
-
                         </div>
-
                     </td>
-
                 </tr>
 
                 @endforelse
 
             </tbody>
-
         </table>
-
     </div>
 
     <div class="mt-4 d-flex justify-content-between align-items-center flex-wrap">
-
         <small class="text-muted">
-
             Menampilkan
 
             {{ $pengembalians->firstItem() ?? 0 }}
@@ -246,11 +244,8 @@
             data
 
         </small>
-
         {{ $pengembalians->links('pagination::bootstrap-5') }}
-
     </div>
-
 </div>
 
 @include('transaksi.pengembalian.modal-detail')

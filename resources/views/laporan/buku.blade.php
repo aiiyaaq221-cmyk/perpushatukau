@@ -52,144 +52,163 @@
         </div>
     </div>
 
-    <!-- Card Utama -->
-    <div class="modern-card">
-        <!-- Filter -->
-        <form method="GET"
-            action="{{ route('laporan.buku') }}">
-            <div class="row g-3 mb-4">
+    <!-- filter -->
+    <div class="filter-card mb-4">
+        <form method="GET" action="{{ route('laporan.buku') }}">
+            <div class="row g-3">
                 <div class="col-md-4">
-                    <input type="text" name="search" value="{{ request('search') }}" class="form-control modern-input" placeholder="🔍 Cari judul buku..."
-                    onkeyup="this.form.submit()">
+                    <label>Cari Buku</label>
+                    <input
+                        type="text"
+                        name="search"
+                        value="{{ request('search') }}"
+                        class="form-control"
+                        placeholder="Cari judul buku..."
+                        onkeyup="this.form.submit()">
                 </div>
 
                 <div class="col-md-3">
-                    <select name="kategori" class="form-select modern-input">
-                        <option value=""> Semua Kategori  </option>
+                    <label>Kategori</label>
+
+                    <select
+                        name="kategori"
+                        class="form-select"
+                        onchange="this.form.submit()">
+
+                        <option value="">Semua Kategori</option>
+
                         @foreach($kategoris as $kategori)
-                        <option
-                            value="{{ $kategori->id_kategori }}"
-                            {{ request('kategori') == $kategori->id_kategori ? 'selected' : '' }}>
-                            {{ $kategori->nama_kategori }}
-                        </option>
+                            <option
+                                value="{{ $kategori->id_kategori }}"
+                                {{ request('kategori')==$kategori->id_kategori?'selected':'' }}>
+                                {{ $kategori->nama_kategori }}
+                            </option>
                         @endforeach
+
                     </select>
                 </div>
 
-                <div class="col-md-2">
-                    <input type="date" name="tanggal" value="{{ request('tanggal') }}" class="form-control modern-input">
+                <div class="col-md-3">
+                    <label>Tanggal Masuk</label>
+                    <input type="date" name="tanggal" value="{{ request('tanggal') }}" class="form-control"
+                        onchange="this.form.submit()">
                 </div>
 
-                <div class="col-md-3 d-flex align-items-end gap-2">
+                <div class="col-md-2 d-flex align-items-end gap-2">
                     <button class="btn btn-primary flex-fill">
-                        <i class="fas fa-search"> </i> Filter
+                        <i class="fas fa-search"></i>
                     </button>
-
                     @if(request()->hasAny(['search','kategori','tanggal']))
                         <a href="{{ route('laporan.buku') }}" class="btn btn-secondary">
                             Reset
                         </a>
                     @endif
                 </div>
-                
             </div>
         </form>
+    </div>
 
-    <!-- Tabel -->
-    <div class="table-wrapper">
-        <div class="table-responsive custom-scroll">
-            <table class="table align-middle modern-table text-center">
-                <thead>
+<!-- TABLE -->
+<div class="modern-card">
+    <div class="table-header">
+        <h5 class="table-title">Data Buku</h5>
+        <p class="table-subtitle">
+            Total : {{ $bukus->total() }} Buku
+        </p>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table align-middle modern-table text-center">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Cover</th>
+                <th>Judul Buku</th>
+                <th>Kategori</th>
+                <th>Pengarang</th>
+                <th>Penerbit</th>
+                <th>Tahun</th>
+                <th>Tanggal Masuk</th>
+                <th>Sumber</th>
+                <th>Jumlah</th>
+                <th>Stok</th>
+                <th>Keterangan</th>
+            </tr>
+        </thead>
+
+        <tbody>
+                @forelse($bukus as $buku)
                 <tr>
-                    <th>No</th>
-                    <th>Cover</th>
-                    <th>Judul Buku</th>
-                    <th>Kategori</th>
-                    <th>Pengarang</th>
-                    <th>Penerbit</th>
-                    <th>Tahun</th>
-                    <th>Tanggal Masuk</th>
-                    <th>Sumber</th>
-                    <th>Jumlah</th>
-                    <th>Stok</th>
-                    <th>Keterangan</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                    @forelse($bukus as $buku)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>
-                            @if($buku->cover)
-                                <img
-                                    src="{{ asset('storage/'.$buku->cover) }}"
-                                    class="book-cover">
-                            @else
-                                <div class="text-muted small">
-                                    Tidak Ada Cover
-                                </div>
-                            @endif
-                        </td>
-                        <td class="judul-buku">
-                            <strong>
-                                {{ $buku->judul_buku }}
-                            </strong>
-                        </td>
-                        <td>
-                            <span class="badge bg-primary">
-                                {{ $buku->kategori->nama_kategori ?? '-' }}
-                            </span>
-                        </td>
-                        <td> {{ $buku->pengarang }}  </td>
-                        <td> {{ $buku->penerbit }} </td>
-                        <td> {{ $buku->tahun_terbit }} </td>
-                        <td> {{ \Carbon\Carbon::parse($buku->tanggal_masuk)->format('d M Y') }} </td>
-                        <td> {{ $buku->sumber ?? '-' }} </td>
-                        <td>
-                            <span class="badge bg-info">
-                                {{ $buku->jumlah_buku }}
-                            </span>
-                        </td>
-
-                        <td>
-                            @if($buku->stok_tersedia > 0)
-                                <span class="badge bg-success">
-                                    {{ $buku->stok_tersedia }}
-                                    Tersedia
-                                </span>
-                            @else
-                                <span class="badge bg-danger">
-                                    Habis
-                                </span>
-                            @endif
-                        </td>
-                        <td style="max-width:250px"> {{ $buku->keterangan ?? '-' }} </td>
-                    </tr>
-
-                    @empty
-
-                    <tr>
-                        <td colspan="12" class="text-center py-5">
-                            <div class="empty-data">
-                                <div style="font-size:60px">
-                                    📚
-                                </div>
-                                <h5> Belum Ada Data Buku </h5>
-                                <p>  Silakan tambahkan data buku terlebih dahulu </p>
+                    <td class="text-center"> {{ $loop->iteration + ($bukus->firstItem()-1) }} </td>
+                    <td>
+                        @if($buku->cover)
+                            <img
+                                src="{{ asset('storage/'.$buku->cover) }}"
+                                class="book-cover">
+                        @else
+                            <div class="text-muted small">
+                                Tidak Ada Cover
                             </div>
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+                        @endif
+                    </td>
+                    <td class="judul-buku">
+                        <strong>
+                            {{ $buku->judul_buku }}
+                        </strong>
+                    </td>
+                    <td>
+                        <span class="badge bg-primary">
+                            {{ $buku->kategori->nama_kategori ?? '-' }}
+                        </span>
+                    </td>
+                    <td> {{ $buku->pengarang }}  </td>
+                    <td> {{ $buku->penerbit }} </td>
+                    <td> {{ $buku->tahun_terbit }} </td>
+                    <td> {{ \Carbon\Carbon::parse($buku->tanggal_masuk)->format('d M Y') }} </td>
+                    <td> {{ $buku->sumber ?? '-' }} </td>
+                    <td>
+                        <span class="badge bg-info">
+                            {{ $buku->jumlah_buku }}
+                        </span>
+                    </td>
+
+                    <td>
+                        @if($buku->stok_tersedia > 0)
+                            <span class="badge bg-success">
+                                {{ $buku->stok_tersedia }}
+                                Tersedia
+                            </span>
+                        @else
+                            <span class="badge bg-danger">
+                                Habis
+                            </span>
+                        @endif
+                    </td>
+                    <td style="max-width:250px"> {{ $buku->keterangan ?? '-' }} </td>
+                </tr>
+
+                @empty
+
+                <tr>
+                    <td colspan="12" class="text-center py-5">
+                        <div class="empty-data">
+                            <div style="font-size:60px">
+                                📚
+                            </div>
+                            <h5> Belum Ada Data Buku </h5>
+                            <p>  Silakan tambahkan data buku terlebih dahulu </p>
+                        </div>
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>        
+    <div class="pagination-wrapper">
+        <div class="pagination-info"> Menampilkan  {{ $bukus->firstItem() ?? 0 }} - {{ $bukus->lastItem() ?? 0 }} dari {{ $bukus->total() }} data </div>
+        {{ $bukus->links('pagination::bootstrap-5') }}
     </div>
     
-    <!-- Pagination -->
-    <div class="mt-4 d-flex justify-content-center">
-        {{ $bukus->links() }}
-    </div>
 </div>
 
 @endsection

@@ -24,72 +24,89 @@
 <!-- STATISTIK -->
 <div class="row g-3 mb-4">
     <div class="col-md-3">
-        <div class="stat-card stat-blue">
+        <div class="stat-card primary">
             <h3>{{ $totalPengunjung }}</h3>
             <p>Total Kunjungan</p>
         </div>
     </div>
 
     <div class="col-md-3">
-        <div class="stat-card stat-green">
+        <div class="stat-card success">
             <h3>{{ $hariIni }}</h3>
             <p>Hari Ini</p>
         </div>
     </div>
 
     <div class="col-md-3">
-        <div class="stat-card stat-orange">
+        <div class="stat-card warning">
             <h3>{{ $anggota }}</h3>
             <p>Anggota</p>
         </div>
     </div>
 
     <div class="col-md-3">
-        <div class="stat-card stat-purple">
+        <div class="stat-card danger">
             <h3>{{ $umum }}</h3>
             <p>Non Anggota</p>
         </div>
     </div>
 </div>
 
-<!-- CARD -->
-<div class="modern-card">
+<!-- filter -->
+<div class="card border-0 filter-card mb-4">
+    <div class="card-body">
+        <form method="GET">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label>Nama Pengunjung</label>
+                    <input type="text" name="search" class="form-control" placeholder="Cari nama pengunjung..." value="{{ request('search') }}"
+                        onkeyup="this.form.submit()">
+                </div>
 
-    <!-- FILTER -->
-    <form method="GET" action="{{ route('laporan.pengunjung') }}">
-        <div class="row g-3 mb-4">
-            <div class="col-md-4">
-                <input type="text" name="search" value="{{ request('search') }}" class="form-control modern-input" placeholder="🔍 Cari nama pengunjung..." 
-                    onkeyup="this.form.submit()">
-            </div>
-            <div class="col-md-3">
-                <input type="date" name="tanggal" value="{{ request('tanggal') }}" class="form-control modern-input" 
-                    onkeyup="this.form.submit()">
-            </div>
-            <div class="col-md-3">
-                <select name="status" class="form-select modern-input">
-                    <option value=""> Semua Pengunjung </option>
-                    <option value="anggota" {{ request('jenis') == 'anggota' ? 'selected' : '' }}> Anggota </option>
-                    <option value="umum" {{ request('jenis') == 'umum' ? 'selected' : '' }}> Non Anggota </option>
-                </select>
-            </div>
+                <div class="col-md-3">
+                    <label>Tanggal Kunjungan</label>
+                    <input type="date"name="tanggal" class="form-control"
+                        value="{{ request('tanggal') }}">
+                </div>
 
-            <div class="col-md-2 d-flex align-items-end gap-2">
-                <button class="btn btn-primary flex-fill">
-                    <i class="fas fa-search"> </i> Filter
-                </button>
+                <div class="col-md-3">
+                    <label>Status</label>
+                    <select name="status" class="form-select">
+                        <option value="">Semua</option>
+                        <option value="anggota"
+                            {{ request('status')=='anggota'?'selected':'' }}>
+                            Anggota
+                        </option>
+                        <option value="umum"
+                            {{ request('status')=='umum'?'selected':'' }}>
+                            Non Anggota
+                        </option>
+                    </select>
+                </div>
 
-                @if(request()->hasAny(['search','tanggal','status']))
-                    <a href="{{ route('laporan.pengunjung') }}"
-                    class="btn btn-secondary">
-                        Reset
-                    </a>
-                @endif
+                <div class="col-md-2 d-flex align-items-end gap-2">
+                    <button class="btn btn-primary flex-fill">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    @if(request()->hasAny(['search','tanggal','status']))
+                        <a href="{{ route('laporan.pengunjung') }}"
+                            class="btn btn-secondary"> Reset
+                        </a>
+                    @endif
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
+</div>
 
-    <!-- TABEL -->
+
+<!-- tabel CARD -->
+<div class="modern-card" id="tableData">
+    <div class="card-header-custom">
+        <h5 class="table-title">
+            Data Pengunjung Perpustakaan
+        </h5>
+    </div>
     <div class="table-responsive">
         <table class="table modern-table align-middle text-center">
             <thead>
@@ -107,7 +124,6 @@
             </thead>
 
             <tbody>
-
                 @forelse($pengunjungs as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
@@ -148,20 +164,17 @@
                         </div>
                     </td>
                 </tr>
-
                 @endforelse
-
             </tbody>
         </table>
     </div>
 
-    <!-- PAGINATION -->
-    <!-- <div class="mt-4 d-flex justify-content-center">
-
-        {{ $pengunjungs->links() }}
-
-    </div> -->
-
+    <div class="px-4 py-3 d-flex justify-content-between align-items-center flex-wrap">
+        <small class="text-muted">
+            Menampilkan {{ $pengunjungs->firstItem() ?? 0 }}  -  {{ $pengunjungs->lastItem() ?? 0 }} dari {{ $pengunjungs->total() }} data
+        </small>
+        {{ $pengunjungs->fragment('tableData')->links('pagination::bootstrap-5') }}
+    </div>
 </div>
 
 @endsection

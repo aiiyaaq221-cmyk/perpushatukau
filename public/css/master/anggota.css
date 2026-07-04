@@ -1,3 +1,7 @@
+/*==========================
+  MODAL
+==========================*/
+
 .modal-dialog{
     margin:25px auto !important;
 }
@@ -7,21 +11,23 @@
     width:90%;
 }
 
-/* =========================
-   HEADER CARD
-========================= */
+.modern-modal{
+    border:none;
+    border-radius:22px;
+    overflow:hidden;
+}
+
+/*==========================
+  HEADER
+==========================*/
 
 .header-card{
     background:#fff;
     padding:25px 30px;
-    border-radius:20px;
-    box-shadow:0 4px 20px rgba(0,0,0,.05);
     margin-bottom:25px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
 }
-
-/* =========================
-   PAGE HEADER
-========================= */
 
 .page-header{
     display:flex;
@@ -38,99 +44,113 @@
 }
 
 .page-subtitle{
-    margin-top:5px;
-    margin-bottom:0;
+    margin:5px 0 0;
     font-size:14px;
     color:#64748b;
 }
 
-/* =========================
-   BUTTON
-========================= */
+/*==========================
+  BUTTON
+==========================*/
 
 .btn-modern{
     border:none;
     border-radius:12px;
-    padding:12px 22px;
+    padding:11px 22px;
+    background:#2563eb;
+    color:#fff;
     font-weight:600;
-    background:#2b74fa;
-    color:white;
-    transition:.3s;
+    transition:.25s;
 }
 
 .btn-modern:hover{
-    transform:translateY(-2px);
     background:#1d4ed8;
-    color:white;
+    color:#fff;
+    transform:translateY(-2px);
 }
+
+/*==========================
+  CARD
+==========================*/
 
 .modern-card{
     background:#fff;
-    padding:25px;
     border-radius:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,.05);
+    padding:24px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
 }
 
-/* =========================
-   TABEL
-========================= */
+/*==========================
+  TABLE
+==========================*/
+
 .table-responsive{
     overflow-x:auto;
+    scrollbar-width:thin;
 }
 
 .modern-table{
     width:100%;
+    min-width:1350px;
+    margin-bottom:0;
     border-collapse:separate;
     border-spacing:0;
 }
 
-/* HEADER TABLE */
+.modern-table th,
+.modern-table td{
+    white-space:nowrap;
+    vertical-align:middle;
+}
+
 .modern-table thead th{
     background:#F7CD61;
-    padding:14px;
+    color:#3b3d42;
+    padding:10px 12px;
     text-align:center;
-    vertical-align:middle;
+    font-size:12px;
     font-weight:700;
     text-transform:uppercase;
+    border:none;
 }
 
-/* HOVER SATU BARIS */
-
-.modern-table tbody tr:hover td{
-    background:hwb(49 94% 0%) !important;
+.modern-table thead th:first-child{
+    border-top-left-radius:14px;
 }
 
-/* efek halus */
+.modern-table thead th:last-child{
+    border-top-right-radius:14px;
+}
+
+.modern-table tbody td{
+    padding:16px 18px;
+    border-bottom:1px solid #edf2f7;
+    text-align:center;
+    transition:.25s;
+}
 
 .modern-table tbody tr{
-    transition:all .25s ease;
+    transition:.25s;
 }
 
-/* Radius kiri atas */
-.modern-table thead th:first-child{
-    border-top-left-radius:11px;
+.modern-table tbody tr:hover td{
+    background:#fff8e8;
 }
 
-/* Radius kanan atas */
-.modern-table thead th:last-child{
-    border-top-right-radius:11px;
-}
-
-.modern-modal{
-    border:none;
-    border-radius:22px;
-    overflow:hidden;
-}
+/*==========================
+  FORM
+==========================*/
 
 .modern-label{
+    display:block;
+    margin-bottom:7px;
     font-size:13px;
     font-weight:600;
     color:#334155;
-    margin-bottom:8px;
 }
 
 .modern-input{
-    height:50px;
+    height:48px;
     border-radius:12px;
 }
 
@@ -139,51 +159,50 @@
 }
 
 .optional{
-    color:#94a3b8;
     font-size:12px;
+    color:#94a3b8;
 }
 
-.empty-data{
-    text-align:center;
-    padding:50px 0;
-}
+/*==========================
+  DETAIL CARD
+==========================*/
 
 .info-box{
-    background:#f8f9fc;
-    border:1px solid #e8ebf3;
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
     border-radius:15px;
-    padding:15px 18px;
+    padding:16px;
     height:100%;
-    transition:.3s;
+    transition:.25s;
 }
 
 .info-box:hover{
     background:#eef4ff;
-    border-color:#b7cdfd;
+    border-color:#bfd3ff;
 }
 
 .info-box small{
     display:block;
-    color:#6c757d;
-    margin-bottom:6px;
-    font-size:.82rem;
+    margin-bottom:5px;
+    font-size:12px;
+    color:#64748b;
 }
 
 .avatar{
     width:100px;
     height:100px;
     margin:auto;
-    border-radius:50%;
-    background:#eef4ff;
     display:flex;
     align-items:center;
     justify-content:center;
+    border-radius:50%;
+    background:#eef4ff;
     font-size:45px;
 }
 
-/* =========================
-   MODAL HEADER
-========================= */
+/*==========================
+  MODAL HEADER
+==========================*/
 
 .modal-header{
     min-height:auto;
@@ -192,15 +211,14 @@
 .modal-icon{
     width:50px;
     height:50px;
-    font-size:20px;
     flex-shrink:0;
+    font-size:20px;
 }
 
 .modal-title{
+    margin:0;
     font-size:22px;
     color:#1e293b;
-    margin:0;
-    line-height:1.2;
 }
 
 .modal-header small{
@@ -208,9 +226,18 @@
     color:#64748b;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/*==========================
+  EMPTY DATA
+==========================*/
+
+.empty-data{
+    text-align:center;
+    padding:55px 20px;
+}
+
+/*==========================
+  RESPONSIVE
+==========================*/
 
 @media(max-width:768px){
 
@@ -222,5 +249,12 @@
     .btn-modern{
         width:100%;
     }
-}
 
+    .modern-card{
+        padding:18px;
+    }
+
+    .modern-table{
+        min-width:1150px;
+    }
+}

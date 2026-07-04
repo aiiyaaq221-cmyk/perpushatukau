@@ -15,8 +15,10 @@ class LaporanPengembalianController extends Controller
     public function index(Request $request)
     {
         $pengembalians = $this
-        ->getFilteredPengembalian($request)
-        ->get();
+            ->getFilteredPengembalian($request)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         $totalPengembalian = Pengembalian::count();
 

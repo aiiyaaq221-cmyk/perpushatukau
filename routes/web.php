@@ -43,6 +43,7 @@ Route::get('/logout-test', function () {
             Route::put('/buku/{id}', [BukuController::class, 'update']) ->name('buku.update');
             Route::resource('kategori', KategoriController::class);
             Route::resource('buku', BukuController::class);
+            
             Route::get('/anggota', [AnggotaController::class, 'index'])->name('anggota.index');
             Route::post('/anggota/store', [AnggotaController::class, 'store'])->name('anggota.store');
             Route::put('/anggota/{id}',[AnggotaController::class, 'update'])->name('anggota.update');
@@ -72,6 +73,7 @@ Route::get('/logout-test', function () {
                 Route::get('/',[PengembalianController::class, 'index'])->name('index');
                 Route::post('/store/{id}',[PengembalianController::class, 'store'])->name('store');
                 Route::delete('/destroy/{id}', [PengembalianController::class, 'destroy'])->name('destroy');
+                
             });
         });
 
@@ -87,7 +89,9 @@ Route::get('/logout-test', function () {
             Route::get('/laporan-anggota/pdf', [LaporanAnggotaController::class, 'exportPdf'])->name('anggota.pdf');
 
             Route::get('/peminjaman',[LaporanPeminjamanController::class, 'index'])->name('peminjaman');
-
+            Route::get('/laporan/peminjaman/excel',[LaporanPeminjamanController::class,'exportPeminjamanExcel'])->name('peminjaman.excel');
+            Route::get('/laporan/peminjaman/pdf',[LaporanPeminjamanController::class,'exportPeminjamanPdf'])->name('peminjaman.pdf');
+            
             Route::get('/pengembalian',[LaporanPengembalianController::class, 'index'])->name('pengembalian');
             Route::get('/pengembalian', [LaporanPengembalianController::class, 'index'])->name('pengembalian');
             Route::get('/laporan-pengembalian/excel', [LaporanPengembalianController::class, 'exportExcel'])->name('pengembalian.excel');

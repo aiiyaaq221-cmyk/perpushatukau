@@ -1,69 +1,299 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <meta charset="utf-8">
-    <title>Laporan Pengunjung</title>
+<meta charset="UTF-8">
+<title>Laporan Data Pengunjung</title>
 
-    <style>
-        body{
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-        }
+<style>
 
-        h2{
-            text-align: center;
-            margin-bottom: 20px;
-        }
+*{
+    font-family:DejaVu Sans,sans-serif;
+    box-sizing:border-box;
+}
 
-        table{
-            width:100%;
-            border-collapse: collapse;
-        }
+body{
+    font-size:12px;
+    color:#000;
+}
 
-        table th,
-        table td{
-            border:1px solid #000;
-            padding:6px;
-        }
+table{
+    width:100%;
+    border-collapse:collapse;
+}
 
-        table th{
-            background:#f2f2f2;
-            text-align:center;
-        }
-    </style>
+/*==================================
+HEADER
+==================================*/
+
+.header-table{
+    margin-bottom:10px;
+}
+
+.logo{
+    width:90px;
+}
+
+.text-center{
+    text-align:center;
+}
+
+.center{
+    text-align:center;
+}
+
+.judul{
+    font-size:20px;
+    font-weight:bold;
+    text-transform:uppercase;
+}
+
+.subjudul{
+    font-size:15px;
+    margin-top:4px;
+}
+
+.garis{
+    border-top:3px solid #000;
+    border-bottom:1px solid #000;
+    margin:8px 0 18px;
+}
+
+/*==================================
+INFO CETAK
+==================================*/
+
+.info{
+    width:45%;
+    margin-bottom:18px;
+}
+
+.info td{
+    padding:3px 0;
+}
+
+/*==================================
+TABEL
+==================================*/
+
+.data-table{
+    margin-top:10px;
+}
+
+.data-table th{
+    background:#0d6efd;
+    color:#fff;
+    border:1px solid #000;
+    padding:8px;
+    text-align:center;
+    font-size:11px;
+}
+
+.data-table td{
+    border:1px solid #000;
+    padding:7px;
+    font-size:11px;
+    vertical-align:top;
+}
+
+thead{
+    display:table-header-group;
+}
+
+tr{
+    page-break-inside:avoid;
+}
+
+/*==================================
+FOOTER
+==================================*/
+
+.footer{
+    width:100%;
+    margin-top:55px;
+}
+
+.jabatan{
+    margin-bottom:75px;
+}
+
+.nama{
+    font-weight:bold;
+    text-decoration:underline;
+}
+
+.nip{
+    font-size:11px;
+}
+
+</style>
+
 </head>
+
 <body>
 
-<h2>LAPORAN DATA PENGUNJUNG</h2>
+<table class="header-table">
 
-<table>
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>Nama</th>
-            <th>Alamat</th>
-            <th>Umur</th>
-            <th>Jenis Kelamin</th>
-            <th>Status</th>
-            <th>Tujuan</th>
-            <th>Tanggal Kunjungan</th>
-        </tr>
-    </thead>
+<tr>
 
-    <tbody>
-        @foreach($pengunjungs as $pengunjung)
-        <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $pengunjung->nama }}</td>
-            <td>{{ $pengunjung->alamat }}</td>
-            <td>{{ $pengunjung->umur }}</td>
-            <td>{{ $pengunjung->jenis_kelamin }}</td>
-            <td>{{ $pengunjung->status_pengunjung }}</td>
-            <td>{{ $pengunjung->tujuan }}</td>
-            <td>{{ $pengunjung->tanggal_kunjungan }}</td>
-        </tr>
-        @endforeach
-    </tbody>
+<td width="15%" class="text-center">
+<img src="{{ public_path('img/perpus.png') }}" class="logo">
+</td>
+
+<td width="85%" class="text-center">
+
+<div class="judul">
+PERPUSTAKAAN HATUKAU
+</div>
+
+<div class="subjudul">
+Sistem Informasi Perpustakaan
+</div>
+
+<div class="subjudul">
+Kabupaten Maluku Tengah
+</div>
+
+</td>
+
+</tr>
+
+</table>
+
+<div class="garis"></div>
+
+<div class="judul text-center" style="font-size:16px;">
+LAPORAN DATA PENGUNJUNG
+</div>
+
+<br>
+
+<table class="info">
+
+<tr>
+<td width="35%">Tanggal Cetak</td>
+<td width="5%">:</td>
+<td>{{ $tanggalCetak }}</td>
+</tr>
+
+<tr>
+<td>Jam Cetak</td>
+<td>:</td>
+<td>{{ $jamCetak }}</td>
+</tr>
+
+<tr>
+<td>Jumlah Data</td>
+<td>:</td>
+<td>{{ $jumlahData }} Data</td>
+</tr>
+
+</table>
+
+<table class="data-table">
+
+<thead>
+
+<tr>
+
+<th width="5%">No</th>
+<th width="18%">Nama</th>
+<th width="20%">Alamat</th>
+<th width="6%">Umur</th>
+<th width="10%">Jenis Kelamin</th>
+<th width="12%">Status</th>
+<th width="17%">Tujuan</th>
+<th width="12%">Tanggal</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+@forelse($pengunjungs as $index=>$pengunjung)
+
+<tr>
+
+<td class="center">
+{{ $index+1 }}
+</td>
+
+<td>
+{{ $pengunjung->nama }}
+</td>
+
+<td>
+{{ $pengunjung->alamat }}
+</td>
+
+<td class="center">
+{{ $pengunjung->umur }}
+</td>
+
+<td class="center">
+{{ $pengunjung->jenis_kelamin }}
+</td>
+
+<td class="center">
+{{ $pengunjung->status_pengunjung }}
+</td>
+
+<td>
+{{ $pengunjung->tujuan }}
+</td>
+
+<td class="center">
+{{ \Carbon\Carbon::parse($pengunjung->tanggal_kunjungan)->translatedFormat('d F Y') }}
+</td>
+
+</tr>
+
+@empty
+
+<tr>
+
+<td colspan="8" class="center">
+Tidak ada data pengunjung.
+</td>
+
+</tr>
+
+@endforelse
+
+</tbody>
+
+</table>
+
+<table class="footer">
+
+<tr>
+
+<td width="60%"></td>
+
+<td width="40%" align="center">
+
+Hatukau, {{ $tanggalCetak }}
+
+<br><br>
+
+<div class="jabatan">
+Kepala Perpustakaan
+</div>
+
+<br><br><br><br>
+
+<div class="nama">
+........................................
+</div>
+
+<div class="nip">
+NIP. ..................................
+</div>
+
+</td>
+
+</tr>
+
 </table>
 
 </body>

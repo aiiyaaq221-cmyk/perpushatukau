@@ -93,10 +93,18 @@ class PeminjamanController extends Controller
         // Data
         // ==============================
         $peminjamans = $query
-            ->latest()
-            ->paginate(15)
+            ->orderByRaw("
+                CASE
+                    WHEN status = 'Dipinjam' THEN 1
+                    WHEN status = 'Terlambat' THEN 2
+                    WHEN status = 'Dikembalikan' THEN 3
+                    ELSE 4
+                END
+            ")
+            ->latest('tanggal_pinjam')
+            ->paginate(10)
             ->withQueryString();
-
+            
         // ==============================
         // Modal Tambah
         // ==============================
