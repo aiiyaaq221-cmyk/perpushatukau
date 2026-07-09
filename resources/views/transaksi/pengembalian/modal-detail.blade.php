@@ -139,6 +139,63 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- DAFTAR BUKU --}}
+                        <div class="card border-0 shadow-sm rounded-4 p-4 mt-4">
+                            <h5 class="mb-4">📚 Daftar Buku</h5>
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th width="8%" class="text-center"> No </th>
+                                            <th> Judul Buku </th>
+                                            <th width="15%" class="text-center">Jumlah </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        @forelse($item->peminjaman->details as $detail)
+
+                                            <tr>
+                                                <td class="text-center">
+                                                    {{ $loop->iteration }}
+                                                </td>
+
+                                                <td>
+                                                    <div class="fw-semibold">
+                                                        {{ $detail->buku->judul_buku }}
+                                                    </div>
+
+                                                    <small class="text-muted">
+                                                        {{ $detail->buku->kode_buku }}
+                                                    </small>
+                                                </td>
+
+                                                <td class="text-center">
+                                                    <span class="badge bg-primary rounded-pill px-3 py-2">
+                                                        {{ $detail->jumlah }}
+                                                    </span>
+                                                </td>
+
+                                            </tr>
+
+                                        @empty
+
+                                            <tr>
+                                                <td colspan="3" class="text-center text-muted py-4">
+                                                    Tidak ada data buku
+                                                </td>
+                                            </tr>
+
+                                        @endforelse
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>

@@ -126,8 +126,6 @@
             class="w-full h-screen object-cover">
 
     </div>
-
 </div>
-
 </body>
 </html>

@@ -100,17 +100,6 @@ FILTER CARD
 }
 
 /*==================================
-TABLE CARD
-==================================*/
-
-.modern-card{
-    background:#fff;
-    border-radius:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.06);
-    overflow:hidden;
-}
-
-/*==================================
 TABLE HEADER
 ==================================*/
 
@@ -187,6 +176,7 @@ TABLE
 
 .modern-table tbody td{
     padding:12px 10px;
+    font-size:13px;
     border-bottom:1px solid #eef2f7;
     vertical-align:middle;
 }

@@ -121,9 +121,7 @@ Swal.fire({
                     <th>No Anggota</th>
                     <th>Nama</th>
                     <th>Jenis Kelamin</th>
-                    <th>Umur</th>
-                    <th>No. Telp</th>
-                    <th width="180">Email</th>
+                    <th>Umur</th> 
                     <th>Tanggal Daftar</th>
                     <th>Status</th>
                     <th width="180"> Aksi </th>
@@ -146,9 +144,7 @@ Swal.fire({
                         </small>
                     </td>
                     <td>{{ $anggota->jenis_kelamin }}</td>
-                    <td>{{ $anggota->umur }}</td>
-                    <td>{{ $anggota->no_telp ?? '-' }}</td>
-                    <td>{{ $anggota->email ?? '-' }}</td>
+                    <td>{{ $anggota->umur }}</td> 
                     <td> {{ \Carbon\Carbon::parse($anggota->tanggal_daftar)->format('d-m-Y') }}</td>
                     <td>
                         @if($anggota->status=='Aktif')
@@ -190,7 +186,7 @@ Swal.fire({
 
             @empty
                 <tr>
-                    <td colspan="10">
+                    <td colspan="8">
                         <div class="empty-data">
                             <div style="font-size:60px"> 👥 </div>
                             <h5> Data Anggota Kosong </h5>

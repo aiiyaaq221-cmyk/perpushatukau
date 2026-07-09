@@ -3,6 +3,7 @@
 @section('styles')
 <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 @endsection
+{{ session('login_success') }}
 
 @section('content')
 

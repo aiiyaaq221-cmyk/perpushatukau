@@ -13,6 +13,8 @@ use App\Http\Controllers\Laporan\LaporanPengunjungController;
 use App\Http\Controllers\Transaksi\PeminjamanController;
 use App\Http\Controllers\Transaksi\PengembalianController;
 use App\Http\Controllers\Pengunjung\PengunjungController;
+use App\Http\Controllers\ProfileController;
+
 
 
 use Illuminate\Support\Facades\Route;
@@ -101,12 +103,13 @@ Route::get('/logout-test', function () {
             Route::get('/laporan-pengunjung/excel', [LaporanPengunjungController::class, 'exportExcel']) ->name('pengunjung.excel');
             Route::get('/laporan-pengunjung/pdf', [LaporanPengunjungController::class, 'exportPdf']) ->name('pengunjung.pdf');
         });
+
+        Route::prefix('profil')->name('profil.')->group(function () {
+            Route::get('/',[ProfileController::class, 'index'])->name('index');
+            Route::post('/update',[ProfileController::class, 'update'])->name('update');
+            Route::post('/password',[ProfileController::class, 'updatePassword'])->name('password');
+        });
     });
-
-
-
-
-
 
 
 

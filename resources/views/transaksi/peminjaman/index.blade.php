@@ -261,15 +261,16 @@ TABLE CARD
                         </div>
                     </td>
                     <td class="text-center">
-                        @if($item->status=='Dipinjam')
+                        @if($item->status == 'Dipinjam')
                             <span class="badge bg-primary">
                                 Dipinjam
                             </span>
 
-                        @elseif($item->status=='Dikembalikan')
+                        @elseif($item->status == 'Dikembalikan')
                             <span class="badge bg-success">
                                 Dikembalikan
                             </span>
+
                         @else
                             <span class="badge bg-danger">
                                 Terlambat
@@ -280,28 +281,45 @@ TABLE CARD
                     <td class="text-center">
                         <div class="d-flex flex-column align-items-center gap-2">
                             <div class="d-flex justify-content-center gap-2">
-                                <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#detail{{ $item->id_peminjaman }}">
-                                <i class="fas fa-eye"></i>
+                                {{-- Detail selalu tampil --}}
+                                <button class="btn btn-info btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#detail{{ $item->id_peminjaman }}">
+                                    <i class="fas fa-eye"></i>
                                 </button>
-
-                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit{{ $item->id_peminjaman }}">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-
-                                <form action="{{ route('transaksi.peminjaman.destroy',$item->id_peminjaman) }}" method="POST" class="form-delete m-0">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" class="btn btn-danger btn-sm btn-delete">
-                                    <i class="fas fa-trash"></i>
+                                {{-- Edit dan Hapus hanya jika belum dikembalikan --}}
+                                @if($item->status != 'Dikembalikan')
+                                    <button class="btn btn-warning btn-sm"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#edit{{ $item->id_peminjaman }}">
+                                        <i class="fas fa-edit"></i>
                                     </button>
-                                </form>
+
+                                    <form action="{{ route('transaksi.peminjaman.destroy', $item->id_peminjaman) }}"
+                                        method="POST"
+                                        class="form-delete m-0">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="button"
+                                                class="btn btn-danger btn-sm btn-delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                @endif
                             </div>
 
-                                @if(!$item->tanggal_kembali)
-                                <form action="{{ route('transaksi.peminjaman.kembali',$item->id_peminjaman) }}" method="POST" class="form-kembalikan m-0">
+                            {{-- Tombol kembalikan hanya muncul jika status masih dipinjam atau terlambat --}}
+                            @if($item->status == 'Dipinjam' || $item->status == 'Terlambat')
+
+                                <form action="{{ route('transaksi.peminjaman.kembali', $item->id_peminjaman) }}"
+                                    method="POST"
+                                    class="form-kembalikan m-0">
                                     @csrf
-                                    <button type="button" class="btn btn-success btn-sm btn-kembalikan">
-                                    Kembalikan
+
+                                    <button type="button"
+                                            class="btn btn-success btn-sm btn-kembalikan">
+                                        Kembalikan
                                     </button>
                                 </form>
                             @endif

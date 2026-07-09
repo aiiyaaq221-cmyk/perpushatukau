@@ -136,18 +136,18 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table class="table modern-table align-middle">
+            <table class="table modern-table">
                 <thead>
                     <tr>
-                    <th width="60">No</th>
-                    <th width="120">Kode</th>
-                    <th width="150">Anggota</th>
-                    <th width="260">Buku</th>
-                    <th width="110">Pinjam</th>
-                    <th width="120">Batas</th>
-                    <th width="90">Durasi</th>
-                    <th width="110">Status</th>
-                    <th width="140">Keterangan</th>
+                    <th  >No</th>
+                    <th  >Kode</th>
+                    <th  >Anggota</th>
+                    <th >Buku</th>
+                    <th  >Pinjam</th>
+                    <th  >Batas</th>
+                    <th  >Durasi</th>
+                    <th >Status</th>
+                    <th  >Keterangan</th>
                     </tr>
                 </thead>
             <tbody>

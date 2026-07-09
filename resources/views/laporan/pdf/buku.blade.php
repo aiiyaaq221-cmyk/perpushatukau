@@ -3,22 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Laporan Data Buku</title>
-
 <style>
 
 *{
-    font-family:DejaVu Sans,sans-serif;
-    box-sizing:border-box;
+    font-family: DejaVu Sans, sans-serif;
+    box-sizing: border-box;
 }
 
 body{
-    font-size:12px;
-    color:#000;
+    font-size: 9px;
+    color: #000;
 }
 
 table{
-    width:100%;
-    border-collapse:collapse;
+    width: 100%;
+    border-collapse: collapse;
 }
 
 /*==================================
@@ -26,36 +25,33 @@ HEADER
 ==================================*/
 
 .header-table{
-    margin-bottom:10px;
+    margin-bottom: 10px;
 }
 
 .logo{
-    width:90px;
+    width: 80px;
 }
 
-.text-center{
-    text-align:center;
-}
-
+.text-center,
 .center{
-    text-align:center;
+    text-align: center;
 }
 
 .judul{
-    font-size:20px;
-    font-weight:bold;
-    text-transform:uppercase;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .subjudul{
-    font-size:15px;
-    margin-top:4px;
+    font-size: 13px;
+    margin-top: 4px;
 }
 
 .garis{
-    border-top:3px solid #000;
-    border-bottom:1px solid #000;
-    margin:8px 0 18px;
+    border-top: 3px solid #000;
+    border-bottom: 1px solid #000;
+    margin: 8px 0 15px;
 }
 
 /*==================================
@@ -63,12 +59,13 @@ INFO CETAK
 ==================================*/
 
 .info{
-    width:45%;
-    margin-bottom:18px;
+    width: 50%;
+    margin-bottom: 15px;
 }
 
 .info td{
-    padding:3px 0;
+    padding: 2px 0;
+    font-size: 10px;
 }
 
 /*==================================
@@ -76,40 +73,48 @@ TABEL
 ==================================*/
 
 .data-table{
-    margin-top:10px;
+    margin-top: 10px;
+    table-layout: fixed;
 }
 
 .data-table th{
-    background:#0d6efd;
-    color:#fff;
-    border:1px solid #000;
-    padding:8px;
-    text-align:center;
-    font-size:11px;
+    background: #0d6efd;
+    color: #fff;
+    border: 1px solid #000;
+    padding: 5px 3px;
+    text-align: center;
+    font-size: 8px;
+    font-weight: bold;
 }
 
 .data-table td{
-    border:1px solid #000;
-    padding:7px;
-    vertical-align:top;
-    font-size:11px;
+    border: 1px solid #000;
+    padding: 4px 2px;
+    vertical-align: middle;
+    font-size: 8px;
+    text-align: center;
+}
+
+.data-table td:nth-child(3){
+    text-align: left;
 }
 
 thead{
-    display:table-header-group;
+    display: table-header-group;
 }
 
 tfoot{
-    display:table-row-group;
+    display: table-row-group;
 }
 
 tr{
-    page-break-inside:avoid;
+    page-break-inside: avoid;
 }
 
 .data-table td,
 .data-table th{
-    word-wrap:break-word;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 /*==================================
@@ -117,25 +122,24 @@ FOOTER
 ==================================*/
 
 .footer{
-    width:100%;
-    margin-top:55px;
+    width: 100%;
+    margin-top: 40px;
 }
 
 .jabatan{
-    margin-bottom:75px;
+    margin-bottom: 65px;
 }
 
 .nama{
-    font-weight:bold;
-    text-decoration:underline;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 .nip{
-    font-size:11px;
+    font-size: 10px;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -163,7 +167,7 @@ HEADER
             </div>
 
             <div class="subjudul">
-                Kabupaten Maluku Tengah
+                Kabupaten Maluku
             </div>
 
         </td>
@@ -211,81 +215,54 @@ TABEL
 =================================== -->
 
 <table class="data-table">
-
     <thead>
-
         <tr>
-            <th width="5%">No</th>
-            <th width="10%">Kode</th>
-            <th width="24%">Judul Buku</th>
-            <th width="14%">Kategori</th>
-            <th width="13%">Pengarang</th>
-            <th width="12%">Penerbit</th>
-            <th width="8%">Tahun</th>
-            <th width="7%">Jumlah</th>
-            <th width="7%">Stok</th>
+            <th width="3%">No</th>
+            <th width="7%">Kode</th>
+            <th width="16%">Judul Buku</th>
+            <th width="10%">Kategori</th>
+            <th width="10%">Pengarang</th>
+            <th width="10%">Penerbit</th>
+            <th width="5%">Tahun</th>
+            <th width="8%">Tgl Masuk</th>
+            <th width="5%">Jilid</th>
+            <th width="5%">Edisi</th>
+            <th width="7%">Sumber</th>
+            <th width="5%">Jumlah</th>
+            <th width="4%">Stok</th>
+            <th width="5%">Ket.</th>
         </tr>
-
     </thead>
 
     <tbody>
-
     @forelse($bukus as $index => $buku)
-
         <tr>
-
-            <td class="center">
-                {{ $index + 1 }}
-            </td>
-
-            <td class="center">
-                {{ $buku->kode_buku }}
-            </td>
-
-            <td>
-                {{ $buku->judul_buku }}
-            </td>
-
-            <td>
-                {{ $buku->kategori->nama_kategori ?? '-' }}
-            </td>
-
-            <td>
-                {{ $buku->pengarang }}
-            </td>
-
-            <td>
-                {{ $buku->penerbit }}
-            </td>
-
-            <td class="center">
-                {{ $buku->tahun_terbit }}
-            </td>
-
-            <td class="center">
-                {{ $buku->jumlah_buku }}
-            </td>
-
-            <td class="center">
-                {{ $buku->stok_tersedia }}
-            </td>
-
+            <td>{{ $index + 1 }}</td>
+            <td>{{ $buku->kode_buku ?? '-' }}</td>
+            <td>{{ $buku->judul_buku ?? '-' }}</td>
+            <td>{{ $buku->kategori->nama_kategori ?? '-' }}</td>
+            <td>{{ $buku->pengarang ?? '-' }}</td>
+            <td>{{ $buku->penerbit ?? '-' }}</td>
+            <td>{{ $buku->tahun_terbit ?? '-' }}</td>
+            <td>{{ $buku->tanggal_masuk ? \Carbon\Carbon::parse($buku->tanggal_masuk)->format('d-m-Y') : '-' }}</td>
+            <td>{{ $buku->jilid ?? '-' }}</td>
+            <td>{{ $buku->edisi ?? '-' }}</td>
+            <td>{{ $buku->sumber ?? '-' }}</td>
+            <td>{{ $buku->jumlah_buku ?? '-' }}</td>
+            <td>{{ $buku->stok_tersedia ?? '-' }}</td>
+            <td>{{ $buku->keterangan ?? '-' }}</td>
         </tr>
-
     @empty
 
         <tr>
-
             <td colspan="9" class="center">
                 Tidak ada data buku.
             </td>
-
         </tr>
 
     @endforelse
 
     </tbody>
-
 </table>
 
 <!-- ==================================

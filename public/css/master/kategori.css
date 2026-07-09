@@ -96,6 +96,24 @@
     color:#1e293b;
 }
 
+.modal{
+    padding-left:0 !important;
+}
+
+.modal-dialog{
+    margin:0 auto;
+}
+
+.modal-dialog-centered{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* ===================================
+   MODERN
+=================================== */
 .modern-label{
     display:block;
     margin-bottom:8px;

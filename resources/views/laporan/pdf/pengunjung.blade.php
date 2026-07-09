@@ -150,7 +150,7 @@ Sistem Informasi Perpustakaan
 </div>
 
 <div class="subjudul">
-Kabupaten Maluku Tengah
+Kabupaten Maluku 
 </div>
 
 </td>

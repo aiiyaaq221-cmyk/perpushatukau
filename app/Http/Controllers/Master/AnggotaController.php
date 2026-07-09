@@ -99,7 +99,6 @@ class AnggotaController extends Controller
                 ->with('error','Terjadi kesalahan saat menambahkan data anggota.');
 
         }
-
     }
 
     public function update(Request $request, $id)

@@ -103,8 +103,8 @@ class LaporanBukuController extends Controller
             ->get();
 
         $tanggalCetak = Carbon::now('Asia/Jayapura')->translatedFormat('d F Y');
-        $jamCetak      = Carbon::now('Asia/Jayapura')->format('H:i');
-        $jumlahData    = $bukus->count();
+        $jamCetak = Carbon::now('Asia/Jayapura')->format('H:i');
+        $jumlahData = $bukus->count();
 
         $pdf = PDF::loadView(
             'laporan.pdf.buku',
@@ -114,7 +114,7 @@ class LaporanBukuController extends Controller
                 'jamCetak',
                 'jumlahData'
             )
-        );
+        )->setPaper('A4', 'landscape');
 
         return $pdf->download('laporan-buku.pdf');
     }

@@ -23,6 +23,24 @@
     </main>
 </div>
 
+@if(session('login_success'))
+<div id="login-success"
+     class="position-fixed bottom-0 start-50 translate-middle-x mb-4
+            bg-success text-white px-4 py-2 rounded shadow"
+     style="z-index:9999; font-size:14px;">
+    {{ session('login_success') }}
+</div>
+
+<script>
+setTimeout(function() {
+    const notif = document.getElementById('login-success');
+    if(notif){
+        notif.remove();
+    }
+}, 3000);
+</script>
+@endif
+
 <!-- ===========================================
      LIBRARY
 =========================================== -->
@@ -159,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 @endif
 
+@yield('scripts')
 
 @stack('scripts')
 
@@ -184,6 +203,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+
+
 
 </body>
 </html>

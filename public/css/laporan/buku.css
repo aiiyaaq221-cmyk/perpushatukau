@@ -181,6 +181,7 @@ TABLE
 .modern-table tbody td{
     padding:14px 12px;
     border-bottom:1px solid #eef2f7;
+    font-size:12.5px;
     vertical-align:middle;
 }
 

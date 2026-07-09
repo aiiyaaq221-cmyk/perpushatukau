@@ -118,7 +118,7 @@
     </div>
 
     <div class="table-responsive">
-        <table class="table align-middle modern-table text-center">
+        <table class="table modern-table text-center">
             <thead>
             <tr>
                 <th>No</th>

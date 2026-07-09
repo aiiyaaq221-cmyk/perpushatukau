@@ -46,14 +46,12 @@
             </p>
 
             {{-- Error --}}
-            @if ($errors->any())
-                <div class="mb-5 rounded-lg bg-red-100 border border-red-200 p-4 text-red-600 text-sm">
-                    <ul class="list-disc ml-5">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            @if($errors->has('login'))
+            <div class="mb-5 rounded-lg bg-red-100 border border-red-200 p-4 text-red-600 text-sm">
+                <ul class="list-disc ml-5">
+                    <li>{{ $errors->first('login') }}</li>
+                </ul>
+            </div>
             @endif
 
             {{-- Success --}}
@@ -63,7 +61,36 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('login') }}" class="space-y-5">
+            <!-- notip -->
+            @if(session('login_success') || session('logout_success'))
+                <div id="auth-notification"
+                    class="fixed bottom-5 left-1/2 transform -translate-x-1/2
+                            px-4 py-2 rounded-lg shadow-md text-sm z-50 transition-opacity duration-500
+                            {{ session('login_success')
+                                ? 'bg-green-100 border border-green-300 text-green-700'
+                                : 'bg-blue-100 border border-blue-300 text-blue-700' }}">
+
+                    {{ session('login_success') ?? session('logout_success') }}
+
+                </div>
+
+                <script>
+                setTimeout(() => {
+                    const notif = document.getElementById('auth-notification');
+
+                    if(notif){
+                        notif.style.opacity = '0';
+
+                        setTimeout(() => {
+                            notif.remove();
+                        }, 500);
+                    }
+                }, 3000);
+                </script>
+
+                @endif
+
+            <form method="POST" action="{{ route('login') }}" class="space-y-5" novalidate>
 
                 @csrf
 
@@ -73,15 +100,13 @@
                         Email
                     </label>
 
-                    <input
-                        type="email"
-                        name="email"
-                        value="{{ old('email') }}"
-                        placeholder="Masukkan Email"
-                        required
-                        autofocus
-
+                    <input type="email" name="email" value="{{ old('email') }}" placeholder="Masukkan Email"  required autofocus
                         class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        @error('email')
+                            <p class="text-red-500 text-sm mt-2">
+                                {{ $message }}
+                            </p>
+                        @enderror
                 </div>
 
                 <!-- PASSWORD -->
@@ -91,15 +116,13 @@
                         Password
                     </label>
 
-                    <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        placeholder="Masukkan Password"
-                        required
-
+                    <input type="password" name="password" id="password" placeholder="Masukkan Password" required
                         class="w-full rounded-lg border border-gray-300 px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-blue-500">
-
+                        @error('password')
+                            <p class="text-red-500 text-sm mt-2">
+                                {{ $message }}
+                            </p>
+                        @enderror
                     <button
                         type="button"
                         onclick="togglePassword()"

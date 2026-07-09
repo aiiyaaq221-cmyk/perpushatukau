@@ -431,6 +431,8 @@ TABLE
 .modern-table td,
 .modern-table th{
     vertical-align:middle;
+    font-size:13px;
+
 }
 
 /* ===========================

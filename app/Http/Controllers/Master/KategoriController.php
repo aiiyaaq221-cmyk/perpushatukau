@@ -68,7 +68,7 @@ class KategoriController extends Controller
             ->with('success', 'Kategori berhasil diubah');
     }
 
-    
+     
     public function destroy(Kategori $kategori)
     {
         $kategori->delete();

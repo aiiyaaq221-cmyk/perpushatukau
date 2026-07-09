@@ -1,0 +1,90 @@
+.profile-container{
+    padding:24px;
+}
+
+.page-header-card{
+    background:#fff;
+    border-radius:24px;
+    padding:30px;
+    margin-bottom:24px;
+    box-shadow:0 8px 25px rgba(0,0,0,.05);
+}
+
+.page-title{
+    font-size:34px;
+    font-weight:800;
+    color:#1f2937;
+}
+
+.page-subtitle{
+    color:#6b7280;
+    margin-top:5px;
+}
+
+.profile-card{
+    background:#fff;
+    border-radius:24px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+}
+
+.profile-image-wrapper{
+    display:flex;
+    justify-content:center;
+}
+
+.profile-image{
+    width:170px;
+    height:170px;
+    object-fit:cover;
+    border-radius:50%;
+    border:5px solid #F7CD61;
+    box-shadow:0 10px 30px rgba(247,205,97,.35);
+}
+
+.section-title{
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:25px;
+    color:#1f2937;
+}
+
+.modern-input{
+    height:52px;
+    border-radius:14px;
+    border:1px solid #e5e7eb;
+}
+
+.modern-input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 4px rgba(37,99,235,.15);
+}
+
+.btn-upload,
+.btn-save-profile,
+.btn-change-password{
+    border:none;
+    padding:12px 24px;
+    border-radius:14px;
+    font-weight:600;
+}
+
+.btn-upload{
+    width:100%;
+    background:#F7CD61;
+    color:#3b3d42;
+}
+
+.btn-save-profile{
+    background:#2563eb;
+    color:white;
+}
+
+.btn-change-password{
+    background:linear-gradient(
+        135deg,
+        #F7CD61,
+        #f0b429
+    );
+    color:#3b3d42;
+}

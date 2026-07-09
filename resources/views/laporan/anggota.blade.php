@@ -103,14 +103,14 @@
                 <thead>
                     <thead>
                         <tr>
-                            <th width="45">No</th>
-                            <th width="160">Nama</th>
-                            <th width="60">Jenis Kelamin</th>
-                            <th width="55">Umur</th>
-                            <th width="130">No Telp</th>
-                            <th width="160">Email</th>
-                            <th width="105">Tgl Daftar</th>
-                            <th width="80">Status</th>
+                            <th >No</th>
+                            <th >Nama</th>
+                            <th  >Jenis Kelamin</th>
+                            <th  >Umur</th>
+                            <th  >No Telp</th>
+                            <th  >Email</th>
+                            <th  >Tgl Daftar</th>
+                            <th  >Status</th>
                         </tr>
                     </thead>
                 </thead>

@@ -205,102 +205,70 @@
                 </button>
 
                 <ul class="submenu">
-
                     <li>
-
                         <a href="{{ route('laporan.buku') }}"
                            class="{{ request()->routeIs('laporan.buku') ? 'active-menu' : '' }}">
-
                             <i class="fas fa-book"></i>
-
                             <span>Laporan Buku</span>
-
                         </a>
-
                     </li>
 
                     <li>
-
                         <a href="{{ route('laporan.anggota') }}"
                            class="{{ request()->routeIs('laporan.anggota') ? 'active-menu' : '' }}">
-
                             <i class="fas fa-users"></i>
-
                             <span>Laporan Anggota</span>
-
                         </a>
-
                     </li>
 
                     <li>
 
                         <a href="{{ route('laporan.peminjaman') }}"
                            class="{{ request()->routeIs('laporan.peminjaman') ? 'active-menu' : '' }}">
-
                             <i class="fas fa-book-reader"></i>
-
                             <span>Peminjaman</span>
-
                         </a>
-
                     </li>
 
                     <li>
-
                         <a href="{{ route('laporan.pengembalian') }}"
                            class="{{ request()->routeIs('laporan.pengembalian') ? 'active-menu' : '' }}">
-
                             <i class="fas fa-undo"></i>
-
                             <span>Pengembalian</span>
-
                         </a>
-
                     </li>
 
                     <li>
-
                         <a href="{{ route('laporan.pengunjung') }}"
                            class="{{ request()->routeIs('laporan.pengunjung') ? 'active-menu' : '' }}">
-
                             <i class="fas fa-user-friends"></i>
-
                             <span>Pengunjung</span>
-
                         </a>
-
                     </li>
-
                 </ul>
-
             </li>
-
-
-
-            {{-- PROFIL --}}
-            <li class="menu-title">
-
-                Pengaturan
-
-            </li>
-
-            <li>
-
-                <a href="#">
-
-                    <i class="fas fa-user-cog"></i>
-
-                    <span>Profil Admin</span>
-
-                </a>
-
-            </li>
-
         </ul>
-
     </div>
 
-
+    <div class="sidebar-profile">
+        <a href="{{ route('profil.index') }}" class="profile-card-sidebar">
+            <div class="profile-left">
+                @if(Auth::user()->foto)
+                    <img src="{{ asset('storage/'.Auth::user()->foto) }}"
+                        class="profile-sidebar-img">
+                @else
+                    <div class="profile-sidebar-placeholder">
+                        {{ strtoupper(substr(Auth::user()->name,0,1)) }}
+                    </div>
+                @endif
+                <div class="profile-sidebar-info">
+                    <h6>{{ Auth::user()->name }}</h6>
+                    <small>Admin</small>
+                </div>
+            </div>
+            <i class="fas fa-chevron-right profile-arrow"></i>
+        </a>
+</div>
 
     {{-- ===========================
         FOOTER

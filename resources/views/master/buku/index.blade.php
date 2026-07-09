@@ -85,12 +85,10 @@
     <div class="modern-card" id="tableData">
         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
             <div>
-                <h5 class="fw-bold mb-1">
-                    Data Buku
-                </h5>
+                <h5 class="fw-bold mb-1"> Data Buku</h5>
                 <small class="text-muted">
                     Total :
-                    <strong>{{ $bukus->count() }}</strong>
+                    <strong>{{ $bukus->sum('stok_tersedia') }}</strong>
                     Buku
                 </small>
             </div>

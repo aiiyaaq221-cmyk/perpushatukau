@@ -42,7 +42,7 @@
                 </table>
                 <hr>
 
-            <h6>Daftar Buku</h6>
+                <h6>Daftar Buku</h6>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -60,7 +60,6 @@
                             <td>{{ $detail->jumlah }}</td>
                         </tr>
                         @endforeach
-
                     </tbody>
                 </table>
             </div>

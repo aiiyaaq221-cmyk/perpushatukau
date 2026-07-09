@@ -25,21 +25,29 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
+
         $request->session()->regenerate();
-    
-        // Ambil role pengguna yang sedang login
+
+        // Ambil user yang sedang login
         $user = Auth::user();
-    
-        // Arahkan pengguna ke halaman sesuai role
+
+        // Redirect berdasarkan role
         if ($user->role === 'admin') {
-            return redirect()->route('dashboard');
-        } elseif ($user->role === 'user') {
-            return redirect()->route('user.index');
-        } 
-    
+            return redirect()
+                ->route('dashboard')
+                ->with('login_success', 'Anda berhasil login.');
+        }
+
+        if ($user->role === 'user') {
+            return redirect()
+                ->route('user.index')
+                ->with('login_success', 'Anda berhasil login.');
+        }
+
         // Default jika role tidak dikenali
-        return redirect()->route('dashboard');
-    
+        return redirect()
+            ->route('dashboard')
+            ->with('success', 'Anda berhasil login.');
     }
 
     /**
@@ -48,11 +56,9 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
-        return redirect('/');
+        return redirect('/')
+                ->with('logout_success', 'Anda telah keluar dari sistem.');
     }
 }

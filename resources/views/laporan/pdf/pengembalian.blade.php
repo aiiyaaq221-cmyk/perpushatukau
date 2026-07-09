@@ -170,7 +170,7 @@ HEADER
             <td width="85%" class="text-center">    
             <div class="judul"> PERPUSTAKAAN HATUKAU </div>
             <div class="subjudul"> Sistem Informasi Perpustakaan </div>
-            <div class="subjudul"> Kabupaten Maluku Tengah </div>
+            <div class="subjudul"> Kabupaten Maluku </div>
             </td>
         </tr>
     </table>

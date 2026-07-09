@@ -222,6 +222,7 @@ TABLE
 .modern-table tbody td{
     padding:17px 15px;
     border-bottom:1px solid #eef2f7;
+    font-size:13px;
     vertical-align:middle;
 }
 

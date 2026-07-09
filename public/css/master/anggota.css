@@ -121,11 +121,13 @@
 .modern-table thead th:last-child{
     border-top-right-radius:14px;
 }
-
 .modern-table tbody td{
-    padding:16px 18px;
+    padding:8px 12px;
     border-bottom:1px solid #edf2f7;
+    font-size:13px;
     text-align:center;
+    vertical-align:middle;
+    line-height:1.2;
     transition:.25s;
 }
 
@@ -135,6 +137,20 @@
 
 .modern-table tbody tr:hover td{
     background:#fff8e8;
+}
+
+/* nama anggota */
+.modern-table tbody td .fw-semibold{
+    margin-bottom:2px;
+    line-height:1.2;
+}
+
+/* alamat */
+.modern-table tbody td small{
+    display:block;
+    margin-top:0;
+    font-size:11px;
+    line-height:1.1;
 }
 
 /*==========================
