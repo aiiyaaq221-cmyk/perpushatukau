@@ -63,8 +63,7 @@
                         name="search"
                         value="{{ request('search') }}"
                         class="form-control"
-                        placeholder="Cari judul buku..."
-                        onkeyup="this.form.submit()">
+                        placeholder="Cari judul buku...">
                 </div>
 
                 <div class="col-md-3">
@@ -72,8 +71,7 @@
 
                     <select
                         name="kategori"
-                        class="form-select"
-                        onchange="this.form.submit()">
+                        class="form-select">
 
                         <option value="">Semua Kategori</option>
 
@@ -90,8 +88,7 @@
 
                 <div class="col-md-3">
                     <label>Tanggal Masuk</label>
-                    <input type="date" name="tanggal" value="{{ request('tanggal') }}" class="form-control"
-                        onchange="this.form.submit()">
+                    <input type="date" name="tanggal" value="{{ request('tanggal') }}" class="form-control">
                 </div>
 
                 <div class="col-md-2 d-flex align-items-end gap-2">

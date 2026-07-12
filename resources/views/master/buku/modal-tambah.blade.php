@@ -104,7 +104,7 @@
                                 type="text"
                                 name="sumber"
                                 class="form-control modern-input"
-                                placeholder="Pengadaan / Hibah / Donasi">
+                                placeholder="Contoh: Sumbangan Perpus Nasional Maluku">
                         </div>
 
                         <!-- Jilid -->

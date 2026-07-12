@@ -25,8 +25,9 @@
             <div class="col-lg-9">
                 <div class="search-box">
                     <i class="fas fa-search search-icon"></i>
-                    <input type="text" id="searchInput" name="search" value="{{ request('search') }}" class="form-control modern-input search-input"
+                    <input type="text" name="search" value="{{ request('search') }}" class="form-control modern-input search-input"
                         placeholder="Masukkan nama kategori...">
+                        
                 </div>
             </div>
 
@@ -149,18 +150,6 @@
 
 @section('scripts')
 <script>
-    document.addEventListener("DOMContentLoaded", function(){
-        let timer;
-        const form = document.getElementById("searchKategori");
-        const input = document.getElementById("searchInput");
-        input.addEventListener("keyup", function(){
-            clearTimeout(timer);
-            timer = setTimeout(function(){
-                form.submit();
-            },500);
-        });
-    });
-
 function confirmDelete(id)
 {
     Swal.fire({

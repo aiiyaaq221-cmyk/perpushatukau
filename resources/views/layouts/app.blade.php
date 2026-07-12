@@ -67,48 +67,6 @@ const swalConfig = {
 
 
 <!-- ===========================================
-     AUTO SEARCH
-=========================================== -->
-
-<script>
-let timer;
-    const searchInput = document.getElementById('searchInput');
-    if(searchInput){
-        searchInput.addEventListener('keyup',function(){
-            clearTimeout(timer);
-            timer=setTimeout(()=>{
-                this.form.submit();
-            },500);
-        });
-    }
-
-    const namaInput=document.getElementById('namaInput');
-    if(namaInput){
-        namaInput.addEventListener('keyup',function(){
-            clearTimeout(timer);
-            timer=setTimeout(()=>{
-                const form=document.getElementById('filterForm');
-                if(form){
-                    form.submit();
-                }
-            },500);
-        });
-    }
-
-
-    document.querySelectorAll('.auto-submit').forEach(function(item){
-        item.addEventListener('change',function(){
-            const form=document.getElementById('filterForm');
-            if(form){
-                form.submit();
-            }
-        });
-    });
-</script>
-
-
-
-<!-- ===========================================
      SUCCESS
 =========================================== -->
 @if(session('success'))

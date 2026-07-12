@@ -143,7 +143,7 @@
                     <th  >Kode</th>
                     <th  >Anggota</th>
                     <th >Buku</th>
-                    <th  >Pinjam</th>
+                    <th >Pinjam</th>
                     <th  >Batas</th>
                     <th  >Durasi</th>
                     <th >Status</th>

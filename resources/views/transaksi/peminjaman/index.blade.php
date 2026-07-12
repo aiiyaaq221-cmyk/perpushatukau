@@ -148,8 +148,7 @@ FILTER
             <div class="col-lg-2">
                 <div class="d-flex gap-2 h-100">
                     <button type="submit" class="btn btn-primary btn-filter-action flex-fill">
-                        <i class="fas fa-search me-1"></i> Cari
-                    </button>
+                        <i class="fas fa-search me-1"></i> </button>
 
                     @if(request()->hasAny(['search','status','tanggal_pinjam']))
                     <a href="{{ route('transaksi.peminjaman.index') }}" class="btn btn-secondary btn-filter-action">
@@ -370,43 +369,6 @@ TABLE CARD
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-
-    /* ==========================================
-       AUTO SEARCH (500ms)
-    ========================================== */
-
-    let timer;
-    const searchInput = document.getElementById('searchInput');
-    const form = document.getElementById('searchForm');
-
-    if (searchInput) {
-        searchInput.addEventListener('keyup', function () {
-            clearTimeout(timer);
-            timer = setTimeout(function () {
-                form.submit();
-            }, 500);
-        });
-    }
-
-
-    /* ==========================================
-       FILTER OTOMATIS
-    ========================================== */
-
-    document.querySelectorAll(
-        'select[name="status"], input[name="tanggal_pinjam"]'
-    ).forEach(function (item) {
-
-        item.addEventListener('change', function () {
-
-            form.submit();
-
-        });
-
-    });
-
-
     /* ==========================================
        KONFIRMASI KEMBALIKAN
     ========================================== */
@@ -468,7 +430,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     });
-});
 </script>
 
 @endsection

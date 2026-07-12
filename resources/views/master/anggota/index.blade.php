@@ -62,7 +62,7 @@ Swal.fire({
         <div class="row g-3 align-items-end">
             <div class="col-lg-6">
                 <label class="modern-label"> Cari Anggota </label>
-                <input type="text" id="searchInput" name="search" value="{{ request('search') }}"
+                <input type="text" name="search" value="{{ request('search') }}"
                     class="form-control modern-input" placeholder="Nama anggota / nomor anggota">
             </div>
 
@@ -217,31 +217,6 @@ Swal.fire({
 </form>
 
 <script>
-
-// AUTO SEARCH
-let timer;
-
-const form = document.getElementById('searchForm');
-
-document.getElementById('searchInput').addEventListener('keyup',function(){
-
-    clearTimeout(timer);
-
-    timer=setTimeout(function(){
-
-        form.submit();
-
-    },500);
-
-});
-
-// FILTER STATUS
-document.getElementById('statusFilter').addEventListener('change',function(){
-
-    form.submit();
-
-});
-
 // HAPUS
 document.querySelectorAll('.btn-hapus').forEach(button=>{
 

@@ -7,6 +7,7 @@ use App\Models\Buku;
 use App\Models\Peminjaman;
 use App\Models\Pengembalian;
 use App\Models\Pengunjung;
+use App\Models\DetailPeminjaman;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -37,7 +38,7 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $totalBuku = Buku::sum('jumlah_buku');
+        $stokTersedia = Buku::sum('stok_tersedia');
 
         $totalAnggota = Anggota::count();
 
@@ -58,15 +59,16 @@ class DashboardController extends Controller
 
         $totalPeminjaman = Peminjaman::count();
 
-        $peminjamanAktif = Peminjaman::whereNull(
-            'tanggal_kembali'
-        )->count();
+        $peminjamanAktif = DetailPeminjaman::whereHas('peminjaman', function ($q) {
+            $q->whereNull('tanggal_kembali');
+        })->sum('jumlah');
 
         $totalPengembalian = Pengembalian::count();
 
-        $terlambat = Peminjaman::whereNull('tanggal_kembali')
-            ->whereDate('batas_kembali', '<', today())
-            ->count();
+        $terlambat = DetailPeminjaman::whereHas('peminjaman', function ($q) {
+            $q->where('status', 'Terlambat')
+            ->whereNull('tanggal_kembali');
+        })->sum('jumlah');
 
         /*
         |--------------------------------------------------------------------------
@@ -131,8 +133,6 @@ class DashboardController extends Controller
         // ===========================
         // Statistik Buku
         // ===========================
-
-        $totalBuku = Buku::sum('jumlah_buku');
 
         $stokAman = Buku::where('stok_tersedia', '>', 5)->count();
 
@@ -224,7 +224,7 @@ class DashboardController extends Controller
                 'warna' => 'danger',
                 'icon'  => 'fa-clock',
                 'text'  => $terlambat . ' peminjaman terlambat'
-            ];
+            ]; 
         }
 
         if ($bukuMenipis->count() > 0) {
@@ -265,10 +265,6 @@ class DashboardController extends Controller
             Carbon::today()
         )->count();
 
-        $terlambat = Peminjaman::whereNull('tanggal_kembali')
-            ->whereDate('batas_kembali','<',Carbon::today())
-            ->count();
-            
         /*
         |--------------------------------------------------------------------------
         | View
@@ -276,7 +272,7 @@ class DashboardController extends Controller
         */
 
         return view('dashboard', compact(
-        'totalBuku',
+        'stokTersedia',
         'totalAnggota',
         'pengunjungHariIni',
         'kunjunganMinggu',
@@ -284,6 +280,7 @@ class DashboardController extends Controller
         'totalPeminjaman',
         'peminjamanAktif',
         'totalPengembalian',
+        'terlambat',
 
         'stokAman',
         'stokMenipis',
@@ -299,9 +296,7 @@ class DashboardController extends Controller
         'pinjamHariIni',
         'kembaliHariIni',
         'pengunjungHariIni',
-        'terlambat',
-
-
+    
         'totalBulanIni',
         'bulanTertinggi',
         'nilaiTertinggi'

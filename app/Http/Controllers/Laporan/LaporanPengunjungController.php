@@ -32,11 +32,11 @@ class LaporanPengunjungController extends Controller
 
         if ($request->filled('status')) {
 
-            if ($request->status == 'Anggota') {
+            if ($request->status == 'anggota') {
                 $query->whereNotNull('id_anggota');
             }
 
-            if ($request->status == 'Umum') {
+            if ($request->status == 'umum') {
                 $query->whereNull('id_anggota');
             }
         }

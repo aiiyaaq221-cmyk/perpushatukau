@@ -59,8 +59,7 @@
             <div class="row g-3">
                 <div class="col-md-4">
                     <label>Nama Pengunjung</label>
-                    <input type="text" name="search" class="form-control" placeholder="Cari nama pengunjung..." value="{{ request('search') }}"
-                        onkeyup="this.form.submit()">
+                    <input type="text" name="search" class="form-control" placeholder="Cari nama pengunjung..." value="{{ request('search') }}">
                 </div>
 
                 <div class="col-md-3">

@@ -64,15 +64,15 @@
             <div class="row g-3">
                 <div class="col-md-5">
                     <label>Nama Anggota</label>
-                    <input type="text" name="nama" class="form-control" placeholder="Cari nama anggota..." value="{{ request('nama') }}" onkeyup="this.form.submit()">
+                    <input type="text" name="nama" class="form-control" placeholder="Cari nama anggota..." value="{{ request('nama') }}">
                 </div>
                 <div class="col-md-3">
                     <label>Tanggal Pinjam</label>
-                    <input type="date" name="tanggal" class="form-control" value="{{ request('tanggal') }}" onchange="this.form.submit()">
+                    <input type="date" name="tanggal" class="form-control" value="{{ request('tanggal') }}">
                 </div>
                 <div class="col-md-2">
                     <label>Status</label>
-                    <select name="status" class="form-select" onchange="this.form.submit()">
+                    <select name="status" class="form-select">
                         <option value="">Semua</option>
                         <option value="Dipinjam" {{ request('status')=='Dipinjam'?'selected':'' }}>Dipinjam</option>
                         <option value="Dikembalikan" {{ request('status')=='Dikembalikan'?'selected':'' }}>Dikembalikan</option>

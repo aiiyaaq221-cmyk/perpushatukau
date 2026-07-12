@@ -250,43 +250,4 @@
 
 @include('transaksi.pengembalian.modal-detail')
 
-<script>
-
-document.addEventListener('DOMContentLoaded',function(){
-
-    const form=document.getElementById('filterForm');
-    const search=document.getElementById('searchInput');
-    const status=document.getElementById('statusFilter');
-    const tanggal=document.getElementById('tanggalFilter');
-
-    let timer;
-
-    search.addEventListener('keyup',function(){
-
-        clearTimeout(timer);
-
-        timer=setTimeout(function(){
-
-            form.submit();
-
-        },500);
-
-    });
-
-    status.addEventListener('change',function(){
-
-        form.submit();
-
-    });
-
-    tanggal.addEventListener('change',function(){
-
-        form.submit();
-
-    });
-
-});
-
-</script>
-
 @endsection

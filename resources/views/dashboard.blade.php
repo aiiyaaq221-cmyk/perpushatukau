@@ -3,7 +3,6 @@
 @section('styles')
 <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 @endsection
-{{ session('login_success') }}
 
 @section('content')
 
@@ -144,7 +143,7 @@
                 </div>
                 <div class="dashboard-info-content">
                     <span>Jumlah Buku</span>
-                    <h3>{{ $totalBuku }}</h3>
+                    <h3>{{ $stokTersedia }}</h3>
                 </div>
             </div>
         </div>
@@ -239,7 +238,7 @@
                 </div>
 
                 <div class="dashboard-info-content">
-                    <span>Pengunjung Minggu</span>
+                    <span>Pengunjung Mingguan</span>
                     <h3>{{ $kunjunganMinggu }}</h3>
                 </div>
             </div>
@@ -254,7 +253,7 @@
     <div class="dashboard-card mb-4">
          <div class="dashboard-card-header">
             <div>
-                <h4>Statistik Aktivitas Perpustakaan</h4>
+                <h4>Grafik Aktivitas Perpustakaan</h4>
                 <small>
                     Tahun {{ date('Y') }}
                 </small>
@@ -294,7 +293,7 @@
 
                         <small class="dashboard-table-subtitle">
                             {{ $pengunjungTerbaru->count() }}
-                            data kunjungan terakhir
+                            data kunjungan terbaru
                         </small>
                     </div>
                 </div>
@@ -349,7 +348,7 @@
                         </h5>
                         <small class="dashboard-table-subtitle">
                             {{ $peminjamanTerbaru->count() }}
-                            transaksi terakhir
+                            transaksi terbaru
                         </small>
                     </div>
                 </div>

@@ -68,8 +68,7 @@
                             name="nama"
                             class="form-control"
                             placeholder="Cari nama anggota..."
-                            value="{{ request('nama') }}"
-                            onkeyup="this.form.submit()">
+                            value="{{ request('nama') }}">
                     </div>
 
                     <div class="col-md-3">
@@ -78,16 +77,14 @@
                             type="date"
                             name="tanggal"
                             class="form-control"
-                            value="{{ request('tanggal') }}"
-                            onchange="this.form.submit()">
+                            value="{{ request('tanggal') }}">
                     </div>
 
                     <div class="col-md-2">
                         <label>Status</label>
                         <select
                             name="status"
-                            class="form-select"
-                            onchange="this.form.submit()">
+                            class="form-select">
 
                             <option value="">Semua</option>
 

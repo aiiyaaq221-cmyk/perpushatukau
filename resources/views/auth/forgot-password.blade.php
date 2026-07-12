@@ -103,12 +103,12 @@
 
                 </a>
 
-                <a href="{{ route('register') }}"
+                <!-- <a href="{{ route('register') }}"
                    class="text-blue-600 hover:underline">
 
                     Register
 
-                </a>
+                </a> -->
 
             </div>
 
@@ -121,7 +121,7 @@
     <div class="hidden md:block w-1/2">
 
         <img
-            src="{{ asset('img/ok.jpg') }}"
+            src="{{ asset('img/gedung.jpeg') }}"
             alt="Forgot Password"
             class="w-full h-screen object-cover">
 

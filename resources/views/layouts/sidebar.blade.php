@@ -5,25 +5,28 @@
     ============================ --}}
     <div class="sidebar-header">
 
-        <div class="brand">
+    <div class="brand">
 
-            <img src="{{ asset('img/perpus.png') }}" alt="Logo">
+        <img src="{{ asset('img/perpus.png') }}"
+             alt="Logo"
+             class="brand-logo">
 
-            <div class="brand-text">
-
-                <h5>Perpustakaan Hatukau </h5>
-
-                <small>Batumerah</small>
-
-            </div>
-            <button id="sidebarToggle"
-                class="collapse-btn"
-                type="button">
-                <i class="fas fa-bars"></i>
-            </button>
+        <div class="brand-text">
+            <h5>Perpustakaan Hatukau</h5>
+            <small>Batumerah</small>
         </div>
+
     </div>
 
+    <button id="sidebarToggle"
+            class="collapse-btn"
+            type="button">
+
+        <i class="fas fa-bars"></i>
+
+    </button>
+
+</div>
 
     {{-- ===========================
         MENU
@@ -268,7 +271,7 @@
             </div>
             <i class="fas fa-chevron-right profile-arrow"></i>
         </a>
-</div>
+    </div>
 
     {{-- ===========================
         FOOTER

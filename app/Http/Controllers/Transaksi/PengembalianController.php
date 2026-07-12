@@ -97,11 +97,7 @@ class PengembalianController extends Controller
                 ->findOrFail($id);
 
             foreach ($peminjaman->details as $detail) {
-
-                Buku::where(
-                    'id_buku',
-                    $detail->id_buku
-                )->increment(
+                Buku::where(  'id_buku', $detail->id_buku)->increment(
                     'stok_tersedia',
                     $detail->jumlah
                 );

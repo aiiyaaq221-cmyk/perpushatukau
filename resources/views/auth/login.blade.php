@@ -158,7 +158,7 @@
 
             </form>
 
-            <p class="text-center mt-8 text-gray-600">
+            <!-- <p class="text-center mt-8 text-gray-600">
 
                 Belum punya akun?
 
@@ -166,14 +166,10 @@
 
                     <a href="{{ route('register') }}"
                         class="text-blue-600 font-semibold hover:underline">
-
                         Register
-
                     </a>
-
                 @endif
-
-            </p>
+            </p> -->
 
         </div>
 

@@ -22,9 +22,11 @@
             <div class="row g-3 align-items-end">
                 <div class="col-lg-4">
                     <label class="modern-label">Cari Buku</label>
-                    <input type="text" id="searchInput" name="search" value="{{ request('search') }}" class="form-control modern-input"
-                        placeholder="Judul, kode buku, pengarang..." 
-                        onkeyup="this.form.submit()">
+                    <input type="text"
+                        name="search"
+                        class="form-control"
+                        placeholder="Cari judul, kode, pengarang..."
+                        value="{{ request('search') }}">
                 </div>
 
                 <div class="col-lg-3">
@@ -93,7 +95,7 @@
                 </small>
             </div>
         </div>
-
+ 
         <div class="table-responsive">
             <table class="table modern-table align-middle">
                 <thead>
@@ -212,50 +214,16 @@
 
 @include('master.buku.modal-tambah') 
 
-@push('scripts')
-<script>
-    document.addEventListener("DOMContentLoaded", function(){
-        const form = document.getElementById("filterForm");
-        const search = document.getElementById("searchInput");
-        const kategori = document.getElementById("kategoriFilter");
-        const status = document.getElementById("statusFilter");
-        let typingTimer;
-
-        // Auto search setelah berhenti mengetik 500 ms
-        search.addEventListener("keyup", function(){
-            clearTimeout(typingTimer);
-            typingTimer = setTimeout(function(){
-                form.submit();
-            }, 500);
-        });
-
-        // Filter kategori
-        kategori.addEventListener("change", function(){
-            form.submit();
-        });
-
-        // Filter status
-        status.addEventListener("change", function(){
-            form.submit();
-        });
-    });
-</script>
-@endpush
 
 @push('scripts')
 
 <script>
 
 document.querySelectorAll('.formDelete').forEach(function(form){
-
     form.addEventListener('submit',function(e){
-
         e.preventDefault();
-
         Swal.fire({
-
             title: 'Hapus Buku?',
-
             text: 'Data buku yang dihapus tidak dapat dikembalikan.',
 
             icon: 'warning',

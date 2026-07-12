@@ -17,7 +17,6 @@ class BukuController extends Controller
 
         // Search
         if ($request->filled('search')) {
-
             $search = trim($request->search);
 
             $query->where(function ($q) use ($search) {
@@ -78,7 +77,6 @@ class BukuController extends Controller
             'pengarang'      => 'required',
             'jumlah_buku'    => 'required|integer',
             'stok_tersedia'  => 'required|integer',
-
             'kode_buku'      => 'nullable|unique:bukus,kode_buku',
             'jilid'          => 'nullable',
             'edisi'          => 'nullable',

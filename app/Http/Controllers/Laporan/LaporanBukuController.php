@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Buku;
 use App\Models\Kategori;
+use App\Models\DetailPeminjaman;
 use App\Exports\BukuExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -64,13 +65,13 @@ class LaporanBukuController extends Controller
 
         $stokTersedia = Buku::sum('stok_tersedia');
 
-        $totalDipinjam = Buku::sum('jumlah_buku') - Buku::sum('stok_tersedia');
-
+        $totalDipinjam = DetailPeminjaman::whereHas('peminjaman', function ($q) {
+            $q->whereNull('tanggal_kembali');
+        })->sum('jumlah');
+        
         $totalKategori = Kategori::count();
 
-        $kategoris = Kategori::orderBy(
-            'nama_kategori'
-        )->get();
+        $kategoris = Kategori::orderBy('nama_kategori')->get();
 
         return view(
             'laporan.buku',

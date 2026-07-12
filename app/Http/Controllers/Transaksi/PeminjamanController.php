@@ -22,11 +22,11 @@ class PeminjamanController extends Controller
         // Update otomatis status terlambat
         // ==============================
         Peminjaman::whereNull('tanggal_kembali')
-            ->where('status', 'Dipinjam')
-            ->whereDate('batas_kembali', '<', now())
-            ->update([
-                'status' => 'Terlambat'
-            ]);
+        ->where('status', 'Dipinjam')
+        ->whereDate('batas_kembali', '<', today())
+        ->update([
+            'status' => 'Terlambat'
+        ]);
 
         // ==============================
         // Query
@@ -65,9 +65,6 @@ class PeminjamanController extends Controller
 
         }
 
-        // ==============================
-        // Filter Status
-        // ==============================
         if ($request->filled('status')) {
 
             $query->where(
@@ -77,9 +74,6 @@ class PeminjamanController extends Controller
 
         }
 
-        // ==============================
-        // Filter Tanggal Pinjam
-        // ==============================
         if ($request->filled('tanggal_pinjam')) {
 
             $query->whereDate(
@@ -93,17 +87,17 @@ class PeminjamanController extends Controller
         // Data
         // ==============================
         $peminjamans = $query
-            ->orderByRaw("
-                CASE
-                    WHEN status = 'Dipinjam' THEN 1
-                    WHEN status = 'Terlambat' THEN 2
-                    WHEN status = 'Dikembalikan' THEN 3
-                    ELSE 4
-                END
-            ")
-            ->latest('tanggal_pinjam')
-            ->paginate(10)
-            ->withQueryString();
+    ->orderByRaw("
+        CASE
+            WHEN status = 'Dipinjam' THEN 1
+            WHEN status = 'Terlambat' THEN 2
+            WHEN status = 'Dikembalikan' THEN 3
+            ELSE 4
+        END
+    ")
+    ->orderByDesc('id_peminjaman')
+    ->paginate(10)
+    ->withQueryString();
             
         // ==============================
         // Modal Tambah

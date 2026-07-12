@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Laporan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Peminjaman;
+use App\Models\DetailPeminjaman;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\PeminjamanExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -70,9 +71,9 @@ class LaporanPeminjamanController extends Controller
 
         $totalPeminjaman = Peminjaman::count();
 
-        $dipinjam = Peminjaman::whereNull('tanggal_kembali')
-            ->whereDate('batas_kembali', '>=', now())
-            ->count();
+        $dipinjam = DetailPeminjaman::whereHas('peminjaman', function ($q) {
+            $q->whereNull('tanggal_kembali');
+        })->sum('jumlah');
 
         $terlambat = Peminjaman::whereNull('tanggal_kembali')
             ->whereDate('batas_kembali', '<', now())
