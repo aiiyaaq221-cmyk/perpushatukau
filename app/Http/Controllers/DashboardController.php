@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Anggota;
 use App\Models\Buku;
 use App\Models\Peminjaman;
 use App\Models\Pengembalian;
 use App\Models\Pengunjung;
+use App\Models\Kategori;
 use App\Models\DetailPeminjaman;
 use Carbon\Carbon;
 
@@ -38,7 +38,7 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $stokTersedia = Buku::sum('stok_tersedia');
+        $stokTersedia = Buku::sum('jumlah_buku');
 
         $totalAnggota = Anggota::count();
 
@@ -49,13 +49,7 @@ class DashboardController extends Controller
             today()
         )->count();
 
-        $kunjunganMinggu = Pengunjung::whereBetween(
-            'tanggal_kunjungan',
-            [
-                now()->startOfWeek(),
-                now()->endOfWeek()
-            ]
-        )->count();
+        $totalKategori = Kategori::count();
 
         $totalPeminjaman = Peminjaman::count();
 
@@ -92,8 +86,8 @@ class DashboardController extends Controller
         |--------------------------------------------------------------------------
         */
 
-        $bukuMenipis = Buku::where('stok_tersedia', '<=', 3)
-            ->orderBy('stok_tersedia')
+        $bukuMenipis = Buku::where('jumlah_buku', '<=', 3)
+            ->orderBy('jumlah_buku')
             ->orderBy('judul_buku')
             ->take(5)
             ->get();
@@ -134,11 +128,11 @@ class DashboardController extends Controller
         // Statistik Buku
         // ===========================
 
-        $stokAman = Buku::where('stok_tersedia', '>', 5)->count();
+        $stokAman = Buku::where('jumlah_buku', '>', 5)->count();
 
-        $stokMenipis = Buku::whereBetween('stok_tersedia', [1, 5])->count();
+        $stokMenipis = Buku::whereBetween('jumlah_buku', [1, 5])->count();
 
-        $stokHabis = Buku::where('stok_tersedia', 0)->count();
+        $stokHabis = Buku::where('jumlah_buku', 0)->count();
 
         // ===================================
         // Grafik Dashboard
@@ -275,7 +269,7 @@ class DashboardController extends Controller
         'stokTersedia',
         'totalAnggota',
         'pengunjungHariIni',
-        'kunjunganMinggu',
+        'totalKategori',
 
         'totalPeminjaman',
         'peminjamanAktif',

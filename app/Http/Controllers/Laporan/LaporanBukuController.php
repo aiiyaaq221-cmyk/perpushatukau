@@ -62,12 +62,9 @@ class LaporanBukuController extends Controller
 
         // Statistik
         $totalBuku = Buku::count();
-
-        $stokTersedia = Buku::sum('stok_tersedia');
-
+        $jumlahBuku = Buku::sum('jumlah_buku');
         $totalDipinjam = DetailPeminjaman::whereHas('peminjaman', function ($q) {
-            $q->whereNull('tanggal_kembali');
-        })->sum('jumlah');
+            $q->whereNull('tanggal_kembali');})->sum('jumlah');
         
         $totalKategori = Kategori::count();
 
@@ -79,7 +76,7 @@ class LaporanBukuController extends Controller
                 'bukus',
                 'kategoris',
                 'totalBuku',
-                'stokTersedia',
+                'jumlahBuku',
                 'totalDipinjam',
                 'totalKategori'
             )
@@ -105,7 +102,7 @@ class LaporanBukuController extends Controller
 
         $tanggalCetak = Carbon::now('Asia/Jayapura')->translatedFormat('d F Y');
         $jamCetak = Carbon::now('Asia/Jayapura')->format('H:i');
-        $jumlahData = $bukus->count();
+        $jumlahBuku = Buku::sum('jumlah_buku');
 
         $pdf = PDF::loadView(
             'laporan.pdf.buku',
@@ -113,7 +110,7 @@ class LaporanBukuController extends Controller
                 'bukus',
                 'tanggalCetak',
                 'jamCetak',
-                'jumlahData'
+                'jumlahBuku'
             )
         )->setPaper('A4', 'landscape');
 

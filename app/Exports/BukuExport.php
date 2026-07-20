@@ -27,13 +27,13 @@ class BukuExport implements
 
     public function collection()
     {
-        $data = Buku::with('kategori')
+        $buku = Buku::with('kategori')
             ->latest()
             ->get();
 
-        $this->jumlahData = $data->count();
+        $this->jumlahBuku = $buku->sum('jumlah_buku');
 
-        return $data;
+        return $buku;
     }
 
     public function headings(): array
@@ -51,7 +51,6 @@ class BukuExport implements
             'Edisi',
             'Sumber',
             'Jumlah',
-            'Stok',
             'Keterangan'
         ];
     }
@@ -59,35 +58,19 @@ class BukuExport implements
     public function map($buku): array
     {
         return [
-
             $this->no++,
-
             $buku->kode_buku,
-
             $buku->judul_buku,
-
             $buku->kategori->nama_kategori ?? '-',
-
             $buku->pengarang,
-
             $buku->penerbit,
-
             $buku->tahun_terbit,
-
             Carbon::parse($buku->tanggal_masuk)->format('d-m-Y'),
-
             $buku->jilid,
-
             $buku->edisi,
-
             $buku->sumber,
-
             $buku->jumlah_buku,
-
-            $buku->stok_tersedia,
-
             $buku->keterangan ?? '-',
-
         ];
     }
 
@@ -121,7 +104,7 @@ class BukuExport implements
 
                 $sheet->setCellValue(
                     'A6',
-                    'Jumlah Data : ' . $this->jumlahData . ' Data'
+                    'Jumlah Buku : ' . $this->jumlahBuku . ' Buku'
                 );
 
                 $sheet->getStyle('A1:N2')->applyFromArray([

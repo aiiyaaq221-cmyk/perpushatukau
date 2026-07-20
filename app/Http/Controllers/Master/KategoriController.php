@@ -14,24 +14,19 @@ class KategoriController extends Controller
         $query = Kategori::withCount('bukus');
 
         if ($request->filled('search')) {
-
             $query->where(
                 'nama_kategori',
                 'like',
                 '%' . $request->search . '%'
             );
-
         }
 
         $kategoris = $query
-             ->latest()
+            ->orderBy('nama_kategori', 'asc')
             ->paginate(10)
             ->withQueryString();
 
-        return view(
-            'master.kategori.index',
-            compact('kategoris')
-        );
+        return view('master.kategori.index', compact('kategoris'));
     }
 
 

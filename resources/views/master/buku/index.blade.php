@@ -90,8 +90,7 @@
                 <h5 class="fw-bold mb-1"> Data Buku</h5>
                 <small class="text-muted">
                     Total :
-                    <strong>{{ $bukus->sum('stok_tersedia') }}</strong>
-                    Buku
+                    <strong>{{ $jumlahBuku }}</strong> Buku
                 </small>
             </div>
         </div>
@@ -143,13 +142,13 @@
                             </small>
                         </td>
                         <td class="text-center">{{ $buku->kategori->nama_kategori ?? '-' }}</td>
-                        <td class="text-center">{{ $buku->stok_tersedia }}</td>
+                        <td class="text-center">{{ $buku->jumlah_buku }}</td>
                         <td class="text-center">
-                            @if($buku->stok_tersedia > 5)
+                            @if($buku->jumlah_buku > 5)
                                 <span class="badge bg-success">
                                     Tersedia
                                 </span>
-                            @elseif($buku->stok_tersedia > 0)
+                            @elseif($buku->jumlah_buku > 0)
                                 <span class="badge bg-warning">
                                     Hampir Habis
                                 </span>

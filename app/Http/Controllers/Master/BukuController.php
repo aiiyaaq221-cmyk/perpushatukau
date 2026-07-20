@@ -42,18 +42,17 @@ class BukuController extends Controller
             switch ($request->status) {
 
                 case 'tersedia':
-                    $query->where('stok_tersedia', '>', 5);
+                    $query->where('jumlah_buku', '>', 5);
                     break;
 
                 case 'hampir':
-                    $query->whereBetween('stok_tersedia', [1, 5]);
+                    $query->whereBetween('jumlah_buku', [1, 5]);
                     break;
 
                 case 'habis':
-                    $query->where('stok_tersedia', 0);
+                    $query->where('jumlah_buku', 0);
                     break;
             }
-
         }
 
         $bukus = $query
@@ -61,11 +60,13 @@ class BukuController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        $kategoris = Kategori::all();
+        $kategoris = Kategori::orderBy('nama_kategori')->get();
+        $jumlahBuku = Buku::sum('jumlah_buku');
 
         return view('master.buku.index', compact(
             'bukus',
-            'kategoris'
+            'kategoris',
+            'jumlahBuku'
         ));
     }
 
@@ -76,7 +77,6 @@ class BukuController extends Controller
             'judul_buku'     => 'required',
             'pengarang'      => 'required',
             'jumlah_buku'    => 'required|integer',
-            'stok_tersedia'  => 'required|integer',
             'kode_buku'      => 'nullable|unique:bukus,kode_buku',
             'jilid'          => 'nullable',
             'edisi'          => 'nullable',
@@ -92,9 +92,7 @@ class BukuController extends Controller
 
         Buku::create([
             'id_kategori'    => $request->id_kategori,
-            'kode_buku'      => $request->filled('kode_buku')
-                                ? strtoupper(trim($request->kode_buku))
-                                : null,
+            'kode_buku'      => $request->filled('kode_buku') ? strtoupper(trim($request->kode_buku)) : null,
             'judul_buku'     => Str::title(trim($request->judul_buku)),
             'pengarang'      => Str::title(trim($request->pengarang)),
             'penerbit'       => $request->penerbit ? Str::title(trim($request->penerbit)) : null,
@@ -104,7 +102,6 @@ class BukuController extends Controller
             'edisi'          => $request->edisi,
             'sumber'         => $request->sumber ? Str::title(trim($request->sumber)) : null,
             'jumlah_buku'    => $request->jumlah_buku,
-            'stok_tersedia'  => $request->stok_tersedia,
             'cover'          => $cover,
             'keterangan'     => $request->keterangan ? Str::title(trim($request->keterangan)) : null,
         ]);
@@ -142,7 +139,6 @@ class BukuController extends Controller
             'edisi'          => $request->edisi,
             'sumber'         => $request->sumber ? Str::title(trim($request->sumber)) : null,
             'jumlah_buku'    => $request->jumlah_buku,
-            'stok_tersedia'  => $request->stok_tersedia,
             'keterangan'     => $request->keterangan ? Str::title(trim($request->keterangan)) : null,
         ];
 

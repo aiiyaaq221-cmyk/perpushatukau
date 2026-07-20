@@ -18,8 +18,8 @@
                         <!-- Kategori -->
                         <div class="col-md-6">
                             <label class="modern-label"> Kategori Buku </label>
-                            <select name="id_kategori" class="form-select modern-input"  required>
-                                <option value=""> -- Pilih Kategori -- </option>
+                            <select name="id_kategori" class="form-select modern-input" required>
+                                <option value="">-- Pilih Kategori --</option>
                                 @foreach($kategoris as $kategori)
                                     <option value="{{ $kategori->id_kategori }}">
                                         {{ $kategori->nama_kategori }}
@@ -33,7 +33,7 @@
                             <label class="modern-label"> Kode Buku
                                 <small class="text-danger"> (Opsional) </small>
                             </label>
-                            <input type="text" name="kode_buku" class="form-control modern-input" placeholder="Contoh: BK001">
+                            <input type="text" name="kode_buku" class="form-control modern-input" placeholder="Contoh: 987-602-03-0112-9">
                         </div>
 
                         <!-- Judul Buku -->
@@ -91,7 +91,8 @@
                             <input
                                 type="date"
                                 name="tanggal_masuk"
-                                class="form-control modern-input">
+                                value="{{ date('Y-m-d') }}"
+                                class="form-control">
                         </div>
 
                         <!-- Sumber -->
@@ -151,20 +152,6 @@
                                 placeholder="Jumlah buku" required> 
                         </div>
 
-                        <!-- Stok -->
-                        <div class="col-12 mb-3">
-                            <label class="modern-label">
-                                Stok Tersedia
-                            </label>
-
-                            <input
-                                type="number"
-                                name="stok_tersedia"
-                                class="form-control modern-input"
-                                placeholder="Stok tersedia"
-                                required>
-                        </div>
-
                         <!-- Cover -->
                         <div class="col-12 mb-3">
 
@@ -184,7 +171,7 @@
                         <!-- Keterangan -->
                         <div class="col-12">
                             <label class="modern-label"> Keterangan
-                                <span class="optional">(Opsional)</span>
+                                <span class="text-danger">(Opsional)</span>
                             </label>
                             <textarea  class="form-control modern-textarea"  rows="4"  name="keterangan" placeholder="Masukkan keterangan buku..."></textarea>
                         </div>

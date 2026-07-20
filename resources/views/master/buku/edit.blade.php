@@ -107,12 +107,6 @@
                             <label class="modern-label"> Jumlah Buku </label> 
                             <input   type="number"  name="jumlah_buku"  class="form-control modern-input"  value="{{ $buku->jumlah_buku }}"> 
                         </div>
-
-                        <!-- Stok -->
-                        <div class="col-12 mb-3">
-                            <label class="modern-label"> Stok Tersedia </label>
-                            <input type="number" name="stok_tersedia"  class="form-control modern-input" value="{{ $buku->stok_tersedia }}" required>
-                        </div>
                         <div class="col-12">
                             <label class="modern-label"> Cover Buku </label>
 

@@ -108,7 +108,7 @@ class PeminjamanController extends Controller
         )->orderBy('nama')->get();
 
         $bukus = Buku::where(
-            'stok_tersedia',
+            'jumlah_buku',
             '>',
             0
         )->orderBy('judul_buku')->get();
@@ -164,14 +164,14 @@ class PeminjamanController extends Controller
                 $buku = Buku::findOrFail($item['id_buku']);
 
                 // Cek stok
-                if ($buku->stok_tersedia < $item['jumlah']) {
+                if ($buku->jumlah_buku < $item['jumlah']) {
                     throw new \Exception(
                         'Stok buku "' . $buku->judul_buku . '" tidak mencukupi.'
                     );
                 }
 
                 // Kurangi stok
-                $buku->decrement('stok_tersedia', $item['jumlah']);
+                $buku->decrement('jumlah_buku', $item['jumlah']);
 
                 // Simpan detail
                 DetailPeminjaman::create([
@@ -252,7 +252,7 @@ class PeminjamanController extends Controller
 
             foreach ($peminjaman->details as $detail) {
                 $detail->buku->increment(
-                    'stok_tersedia',
+                    'jumlah_buku',
                     $detail->jumlah
                 );
             }
@@ -305,7 +305,7 @@ class PeminjamanController extends Controller
 
             // Kembalikan stok
             foreach ($peminjaman->details as $detail) {
-                $detail->buku->increment('stok_tersedia', $detail->jumlah);
+                $detail->buku->increment('jumlah_buku', $detail->jumlah);
             }
 
             $peminjaman->delete();

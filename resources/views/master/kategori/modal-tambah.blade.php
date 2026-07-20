@@ -17,19 +17,14 @@
                      style="background:linear-gradient(135deg,#c3d6ff,#e9f0ff);">
 
                     <div class="d-flex align-items-center">
-
                         <div class="modal-icon rounded-circle bg-white shadow-sm d-flex align-items-center justify-content-center">
-
                             <i class="fas fa-folder-open text-primary"></i>
-
                         </div>
 
                         <div class="ms-3">
 
                             <h5 class="modal-title fw-bold mb-1">
-
                                 Tambah Kategori
-
                             </h5>
 
                             <small class="text-muted">

@@ -18,13 +18,13 @@
 
     </div>
 
-    <button id="sidebarToggle"
+    <!-- <button id="sidebarToggle"
             class="collapse-btn"
             type="button">
 
         <i class="fas fa-bars"></i>
 
-    </button>
+    </button> -->
 
 </div>
 

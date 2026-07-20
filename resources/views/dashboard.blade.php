@@ -161,13 +161,14 @@
         </div>
 
         <div class="col-xl-3 col-md-6">
-            <div class="dashboard-info-card">
-                <div class="dashboard-info-icon dashboard-orange">
-                    <i class="fas fa-user-check"></i>
+            <div class="dashboard-info-card">                
+                <div class="dashboard-info-icon dashboard-purple-light">
+                    <i class="fas fa-users"></i>
                 </div>
+
                 <div class="dashboard-info-content">
-                    <span>Pengunjung Hari Ini</span>
-                    <h3>{{ $pengunjungHariIni }}</h3>
+                    <span>kategori</span>
+                    <h3>{{ $totalKategori }}</h3>
                 </div>
             </div>
         </div>
@@ -232,14 +233,12 @@
 
         <div class="col-xl-3 col-md-6">
             <div class="dashboard-info-card">
-
-                <div class="dashboard-info-icon dashboard-purple-light">
-                    <i class="fas fa-users"></i>
+                <div class="dashboard-info-icon dashboard-orange">
+                    <i class="fas fa-user-check"></i>
                 </div>
-
                 <div class="dashboard-info-content">
-                    <span>Pengunjung Mingguan</span>
-                    <h3>{{ $kunjunganMinggu }}</h3>
+                    <span>Pengunjung Hari Ini</span>
+                    <h3>{{ $pengunjungHariIni }}</h3>
                 </div>
             </div>
         </div>

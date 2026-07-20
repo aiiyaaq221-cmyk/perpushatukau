@@ -262,11 +262,7 @@ HEADER
                 <br><br><br><br>
 
             <div class="nama">
-                ........................................
-            </div>
-
-            <div class="nip">
-                NIP. ..................................
+                Arita Muhlisa
             </div>
             </td>
         </tr>

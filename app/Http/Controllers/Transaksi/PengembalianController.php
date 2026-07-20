@@ -98,7 +98,7 @@ class PengembalianController extends Controller
 
             foreach ($peminjaman->details as $detail) {
                 Buku::where(  'id_buku', $detail->id_buku)->increment(
-                    'stok_tersedia',
+                    'jumlah_buku',
                     $detail->jumlah
                 );
             }

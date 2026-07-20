@@ -291,13 +291,8 @@ FOOTER
             <br><br><br><br>
 
             <div class="nama">
-                ........................................
+                Arita Muhlisa
             </div>
-
-            <div class="nip">
-                NIP. ..................................
-            </div>
-
         </td>
 
     </tr>

@@ -205,7 +205,7 @@ INFO CETAK
     <tr>
         <td>Jumlah Data</td>
         <td>:</td>
-        <td>{{ $jumlahData }} Data</td>
+        <td>{{ $jumlahBuku }} Data</td>
     </tr>
 
 </table>
@@ -228,8 +228,7 @@ TABEL
             <th width="5%">Jilid</th>
             <th width="5%">Edisi</th>
             <th width="7%">Sumber</th>
-            <th width="5%">Jumlah</th>
-            <th width="4%">Stok</th>
+            <th width="5%">Jumlah</th> 
             <th width="5%">Ket.</th>
         </tr>
     </thead>
@@ -249,7 +248,6 @@ TABEL
             <td>{{ $buku->edisi ?? '-' }}</td>
             <td>{{ $buku->sumber ?? '-' }}</td>
             <td>{{ $buku->jumlah_buku ?? '-' }}</td>
-            <td>{{ $buku->stok_tersedia ?? '-' }}</td>
             <td>{{ $buku->keterangan ?? '-' }}</td>
         </tr>
     @empty
@@ -288,11 +286,7 @@ FOOTER
             <br><br><br><br>
 
             <div class="nama">
-                ........................................
-            </div>
-
-            <div class="nip">
-                NIP. ..................................
+               Arita Muhlisa
             </div>
 
         </td>

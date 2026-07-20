@@ -86,7 +86,7 @@
 
                                     @foreach($bukus as $buku)
                                         <option value="{{ $buku->id_buku }}">
-                                            {{ $buku->judul_buku }} - Stok: {{ $buku->stok_tersedia }}
+                                            {{ $buku->judul_buku }} - Stok: {{ $buku->jumlah_buku }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     @foreach($bukus as $buku)
                         <option value="{{ $buku->id_buku }}">
-                            {{ $buku->judul_buku }} - Stok: {{ $buku->stok_tersedia }}
+                            {{ $buku->judul_buku }} - Stok: {{ $buku->jumlah_buku }}
                         </option>
                     @endforeach
 

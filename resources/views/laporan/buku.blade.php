@@ -22,29 +22,22 @@
 </div>
 
     <!-- Statistik -->
-    <div class="row g-3 mb-4">
-        <div class="col-md-3">
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3">
             <div class="stat-card blue">
-                <h3>{{ $totalBuku }}</h3>
-                    <p>Total Buku</p>
+                <h3>{{ $jumlahBuku }}</h3>
+                <p>Jumlah Buku</p>
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="stat-card green">
-                <h3>{{ $stokTersedia }}</h3>
-                <p>Stok Tersedia</p>
-            </div>
-        </div>
-
-        <div class="col-md-3">
+        <div class="col-md-4 mb-3">
             <div class="stat-card orange">
                 <h3>{{ $totalDipinjam }}</h3>
                     <p>Sedang Dipinjam</p>
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4 mb-3">
             <div class="stat-card red">
                 <h3>{{ $totalKategori }}</h3>
                 <p>Kategori Buku</p>
@@ -110,7 +103,8 @@
     <div class="table-header">
         <h5 class="table-title">Data Buku</h5>
         <p class="table-subtitle">
-            Total : {{ $bukus->total() }} Buku
+            Total : 
+            <strong>{{ $jumlahBuku }}</strong> Buku
         </p>
     </div>
 
@@ -128,7 +122,6 @@
                 <th>Tanggal Masuk</th>
                 <th>Sumber</th>
                 <th>Jumlah</th>
-                <th>Stok</th>
                 <th>Keterangan</th>
             </tr>
         </thead>
@@ -163,17 +156,14 @@
                     <td> {{ $buku->tahun_terbit }} </td>
                     <td> {{ \Carbon\Carbon::parse($buku->tanggal_masuk)->format('d M Y') }} </td>
                     <td> {{ $buku->sumber ?? '-' }} </td>
-                    <td>
-                        <span class="badge bg-info">
-                            {{ $buku->jumlah_buku }}
-                        </span>
-                    </td>
-
-                    <td>
-                        @if($buku->stok_tersedia > 0)
+                    <td class="text-center">
+                        @if($buku->jumlah_buku > 5)
                             <span class="badge bg-success">
-                                {{ $buku->stok_tersedia }}
                                 Tersedia
+                            </span>
+                        @elseif($buku->jumlah_buku > 0)
+                            <span class="badge bg-warning">
+                                Hampir Habis
                             </span>
                         @else
                             <span class="badge bg-danger">

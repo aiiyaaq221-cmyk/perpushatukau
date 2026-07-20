@@ -22,7 +22,6 @@ class Buku extends Model
         'edisi',
         'sumber',
         'jumlah_buku',
-        'stok_tersedia',
         'cover',
         'keterangan'
     ];

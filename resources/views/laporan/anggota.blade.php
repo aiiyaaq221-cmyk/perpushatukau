@@ -119,7 +119,7 @@
                     <tr>
                         <td class="text-center"> {{ $loop->iteration + ($anggotas->firstItem()-1) }} </td>
                         <td>
-                            <div class="fw-semibold nama-anggota">
+                            <div class="fw-semibold nama-anggota text-center">
                                 {{ $anggota->nama }}
                             </div>
                         </td>
@@ -133,7 +133,7 @@
                             @endif
                         </td>
                         <td class="text-center"> {{ $anggota->umur }} </td>
-                        <td> {{ $anggota->no_telp ?? '-' }} </td>
+                        <td class="text-center"> {{ $anggota->no_telp ?? '-' }} </td>
                         <td> {{ $anggota->email ?? '-' }} </td>
                         <td class="text-center"> {{ \Carbon\Carbon::parse($anggota->tanggal_daftar)->translatedFormat('d M Y') }} </td>
                         <td class="text-center">
