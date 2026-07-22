@@ -84,7 +84,7 @@
 
                                 <div class="mb-4">
                                     <label class="form-label fw-semibold"> Status Pengunjung </label>
-                                    <input type="text" name="status_pengunjung" class="form-control" placeholder="Warga, Organisasi, Pegawai, dll">
+                                    <input type="text" name="status_pengunjung" class="form-control" placeholder="Warga, Organisasi, Siswa, dll">
                                 </div>
                             </div>
 

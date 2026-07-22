@@ -230,11 +230,7 @@ document.querySelectorAll('.btn-hapus').forEach(button=>{
             title:'Hapus Anggota?',
 
             html:`
-                Data anggota
-                <br>
-                <strong>${nama}</strong>
-                <br><br>
-                akan dihapus permanen.
+                Data anggota <strong>${nama}</strong> akan dihapus permanen.
             `,
 
             icon:'warning',

@@ -38,6 +38,7 @@
 
                             <input type="date"
                                    name="tanggal_pinjam"
+                                   id="tanggal_pinjam"
                                    class="form-control"
                                    value="{{ date('Y-m-d') }}"
                                    required>
@@ -46,16 +47,8 @@
 
                         {{-- Batas Kembali --}}
                         <div class="col-md-3 mb-3">
-
-                            <label class="form-label">
-                                Batas Kembali
-                            </label>
-
-                            <input type="date"
-                                   name="batas_kembali"
-                                   class="form-control"
-                                   required>
-
+                            <label class="form-label">  Batas Kembali  </label>
+                            <input type="date" name="batas_kembali" id="batas_kembali" class="form-control" required>
                         </div>
 
                     </div>
@@ -127,9 +120,14 @@
     </div>
 </div>
 
+
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
+    // ==========================
+    // Tambah Buku
+    // ==========================
     const addButton = document.getElementById('add-buku');
     const wrapper = document.getElementById('buku-wrapper');
 
@@ -172,7 +170,6 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
 
         wrapper.insertAdjacentHTML('beforeend', html);
-
         index++;
     });
 
@@ -185,9 +182,37 @@ document.addEventListener('DOMContentLoaded', function () {
             if (items.length > 1) {
                 e.target.closest('.buku-item').remove();
             }
+
         }
 
     });
+
+    // ==========================
+    // Otomatis Batas Kembali (+3 Hari)
+    // ==========================
+    const tanggalPinjam = document.getElementById("tanggal_pinjam");
+    const batasKembali = document.getElementById("batas_kembali");
+
+    function setBatasKembali() {
+
+        if (!tanggalPinjam.value) return;
+
+        let tgl = new Date(tanggalPinjam.value);
+
+        tgl.setDate(tgl.getDate() + 3);
+
+        let yyyy = tgl.getFullYear();
+        let mm = String(tgl.getMonth() + 1).padStart(2, '0');
+        let dd = String(tgl.getDate()).padStart(2, '0');
+
+        batasKembali.value = `${yyyy}-${mm}-${dd}`;
+    }
+
+    // Saat modal dibuka / halaman dimuat
+    setBatasKembali();
+
+    // Jika tanggal pinjam diubah
+    tanggalPinjam.addEventListener("change", setBatasKembali);
 
 });
 </script>

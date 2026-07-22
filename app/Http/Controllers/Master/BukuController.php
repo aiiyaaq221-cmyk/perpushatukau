@@ -20,20 +20,15 @@ class BukuController extends Controller
             $search = trim($request->search);
 
             $query->where(function ($q) use ($search) {
-
                 $q->where('judul_buku', 'like', "%{$search}%")
-                ->orWhere('kode_buku', 'like', "%{$search}%")
-                ->orWhere('pengarang', 'like', "%{$search}%");
-
+                ->orWhere('kode_buku', 'like', "%{$search}%");
             });
 
         }
 
         // Filter kategori
         if ($request->filled('kategori')) {
-
             $query->where('id_kategori', $request->kategori);
-
         }
 
         // Filter status stok

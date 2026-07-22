@@ -25,7 +25,7 @@
                     <input type="text"
                         name="search"
                         class="form-control"
-                        placeholder="Cari judul, kode, pengarang..."
+                        placeholder="Cari judul dan kode buku"
                         value="{{ request('search') }}">
                 </div>
 
@@ -174,7 +174,6 @@
 
                                     <button type="submit"
                                             class="btn btn-danger btn-sm">
-
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>

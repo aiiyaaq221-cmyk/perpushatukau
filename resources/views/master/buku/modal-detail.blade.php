@@ -86,7 +86,6 @@ function setDetailBuku(buku) {
     document.getElementById('detail_penerbit').innerText = buku.penerbit ?? '-';
     document.getElementById('detail_kategori').innerText = buku.kategori?.nama_kategori ?? '-';
     document.getElementById('detail_tahun').innerText = buku.tahun_terbit ?? '-';
-    document.getElementById('detail_stok').innerText = buku.jumlah_buku ?? 0;
     document.getElementById('detail_jumlah').innerText = buku.jumlah_buku ?? 0;
     document.getElementById('detail_keterangan').innerText = buku.keterangan ?? '-';
 
