@@ -23,10 +23,20 @@ class LaporanPengunjungController extends Controller
             });
         }
 
-        if ($request->filled('tanggal')) {
+        // rentang tanggal
+        if($request->filled('dari')){
             $query->whereDate(
                 'tanggal_kunjungan',
-                $request->tanggal
+                '>=',
+                $request->dari
+            );
+        }
+
+        if($request->filled('sampai')){
+            $query->whereDate(
+                'tanggal_kunjungan',
+                '<=',
+                $request->sampai
             );
         }
 
@@ -41,6 +51,9 @@ class LaporanPengunjungController extends Controller
             }
         }
 
+        $statistikQuery = clone $query;
+
+        // tabel
         $pengunjungs = $query
             ->latest()
             ->paginate(10)
@@ -57,6 +70,25 @@ class LaporanPengunjungController extends Controller
 
         $umum = Pengunjung::whereNull('id_anggota')->count();
 
+        // total filter usia
+        $usia = collect();
+
+        foreach ($statistikQuery->get() as $item) {
+            $umur = $item->anggota?->umur ?? $item->umur;
+
+            if ($umur) {
+                $usia->push($umur);
+            }
+        }
+
+        $usiaTerbanyak = $usia
+            ->countBy()
+            ->sortDesc();
+
+        $umurTerbanyak = $usiaTerbanyak->keys()->first();
+
+        $totalUmur = $usiaTerbanyak->first();
+
         return view(
             'laporan.pengunjung',
             compact(
@@ -64,25 +96,44 @@ class LaporanPengunjungController extends Controller
                 'totalPengunjung',
                 'hariIni',
                 'anggota',
-                'umum'
+                'umum',
+                'umurTerbanyak',
+                'totalUmur'
             )
         );
     }
 
-    public function exportExcel()
+   public function exportExcel(Request $request)
     {
         return Excel::download(
-            new PengunjungExport(),
+            new PengunjungExport($request),
             'laporan_pengunjung.xlsx'
         );
     }
 
 
-    public function exportPdf()
+    public function exportPdf(Request $request)
     {
         Carbon::setLocale('id');
 
-        $pengunjungs = Pengunjung::latest()->get();
+        $query = Pengunjung::with('anggota');
+
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->search . '%')
+                ->orWhere('alamat', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        if ($request->filled('dari')) {
+            $query->whereDate('tanggal_kunjungan', '>=', $request->dari);
+        }
+
+        if ($request->filled('sampai')) {
+            $query->whereDate('tanggal_kunjungan', '<=', $request->sampai);
+        }
+
+        $pengunjungs = $query->latest()->get();
 
         $tanggalCetak = Carbon::now('Asia/Jayapura')->translatedFormat('d F Y');
         $jamCetak = Carbon::now('Asia/Jayapura')->format('H:i');

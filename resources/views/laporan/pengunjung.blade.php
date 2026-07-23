@@ -15,83 +15,80 @@
         </div>
 
         <div class="d-flex gap-2 flex-wrap">
-            <a href="{{ route('laporan.pengunjung.excel') }}" class="btn btn-success btn-modern-export"> 📊 Export Excel </a>
-            <a href="{{ route('laporan.pengunjung.pdf') }}" class="btn btn-danger btn-modern-export"> 📄 Export PDF </a>
+            <a href="{{ route('laporan.pengunjung.excel', request()->query()) }}" class="btn btn-success btn-modern-export"> 📊 Export Excel </a>
+            <a href="{{ route('laporan.pengunjung.pdf', request()->query()) }}" class="btn btn-danger btn-modern-export"> 📄 Export PDF </a>
         </div>
     </div>
 </div>
 
 <!-- STATISTIK -->
 <div class="row g-3 mb-4">
-    <div class="col-md-3">
+    <div class="col-lg-4 col-md-6">
         <div class="stat-card primary">
             <h3>{{ $totalPengunjung }}</h3>
             <p>Total Kunjungan</p>
         </div>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-lg-4 col-md-6">
         <div class="stat-card success">
             <h3>{{ $hariIni }}</h3>
-            <p>Hari Ini</p>
+            <p>Kunjungan Hari Ini</p>
         </div>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-lg-4 col-md-6">
         <div class="stat-card warning">
-            <h3>{{ $anggota }}</h3>
-            <p>Anggota</p>
+            <h3>{{ $umurTerbanyak ?? '-' }} Tahun</h3>
+            <p>Usia Terbanyak ({{ $totalUmur ?? 0 }} Orang)</p>
         </div>
     </div>
 
-    <div class="col-md-3">
-        <div class="stat-card danger">
-            <h3>{{ $umum }}</h3>
-            <p>Non Anggota</p>
-        </div>
-    </div>
 </div>
 
 <!-- filter -->
 <div class="card border-0 filter-card mb-4">
     <div class="card-body">
         <form method="GET">
-            <div class="row g-3">
-                <div class="col-md-4">
+            <div class="row g-3 align-items-end">
+                <div class="col-lg-4">
                     <label>Nama Pengunjung</label>
-                    <input type="text" name="search" class="form-control" placeholder="Cari nama pengunjung..." value="{{ request('search') }}">
+                    <input type="text"
+                        name="search"
+                        class="form-control"
+                        placeholder="Cari nama pengunjung..."
+                        value="{{ request('search') }}">
                 </div>
 
-                <div class="col-md-3">
-                    <label>Tanggal Kunjungan</label>
-                    <input type="date"name="tanggal" class="form-control"
-                        value="{{ request('tanggal') }}">
+                <div class="col-lg-3">
+                    <label>Dari Tanggal</label>
+                    <input type="date"
+                        name="dari"
+                        class="form-control"
+                        value="{{ request('dari') }}">
                 </div>
 
-                <div class="col-md-3">
-                    <label>Status</label>
-                    <select name="status" class="form-select">
-                        <option value="">Semua</option>
-                        <option value="anggota"
-                            {{ request('status')=='anggota'?'selected':'' }}>
-                            Anggota
-                        </option>
-                        <option value="umum"
-                            {{ request('status')=='umum'?'selected':'' }}>
-                            Non Anggota
-                        </option>
-                    </select>
+                <div class="col-lg-3">
+                    <label>Sampai Tanggal</label>
+                    <input type="date"
+                        name="sampai"
+                        class="form-control"
+                        value="{{ request('sampai') }}">
                 </div>
 
-                <div class="col-md-2 d-flex align-items-end gap-2">
-                    <button class="btn btn-primary flex-fill">
-                        <i class="fas fa-search"></i>
-                    </button>
-                    @if(request()->hasAny(['search','tanggal','status']))
-                        <a href="{{ route('laporan.pengunjung') }}"
-                            class="btn btn-secondary"> Reset
-                        </a>
-                    @endif
+                <div class="col-lg-2">
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search me-1"></i> Cari
+                        </button>
+
+                        @if(request()->hasAny(['search','dari','sampai']))
+                            <a href="{{ route('laporan.pengunjung') }}"
+                            class="btn btn-outline-secondary">
+                                <i class="fas fa-rotate-left me-1"></i> Reset
+                            </a>
+                        @endif
+                    </div>
                 </div>
             </div>
         </form>
@@ -125,7 +122,8 @@
             <tbody>
                 @forelse($pengunjungs as $item)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    <td class="text-center"> {{ $loop->iteration+($pengunjungs->firstItem()-1) }} </td>
+
                     <td> {{ \Carbon\Carbon::parse($item->tanggal_kunjungan)->format('d-m-Y') }} </td>
                     <td>
                         @if($item->anggota)

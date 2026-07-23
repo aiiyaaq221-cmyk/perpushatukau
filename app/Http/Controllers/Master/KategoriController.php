@@ -32,35 +32,50 @@ class KategoriController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_kategori' => 'required'
-        ]);
+        $namaKategori = Str::title(trim($request->nama_kategori));
+
+        if (Kategori::where('nama_kategori', $namaKategori)->exists()) {
+            return back()
+                ->withInput()
+                ->with('error', 'Kategori sudah tersedia.');
+        }
 
         Kategori::create([
-            'nama_kategori' => Str::title(trim($request->nama_kategori))
+            'nama_kategori' => $namaKategori
         ]);
 
-        return redirect()
-            ->back()
-            ->with('success', 'Kategori berhasil ditambahkan');
+        return back()->with(
+            'success',
+            'Kategori berhasil ditambahkan.'
+        );
     }
 
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama_kategori' => 'required'
-        ]);
+        dd($request->all(), $request->file('cover'));
+        $namaKategori = Str::title(trim($request->nama_kategori));
+
+        $cek = Kategori::where('nama_kategori', $namaKategori)
+            ->where('id_kategori', '!=', $id)
+            ->exists();
+
+        if ($cek) {
+            return back()
+                ->withInput()
+                ->with('error', 'Kategori sudah tersedia.');
+        }
 
         $kategori = Kategori::findOrFail($id);
 
         $kategori->update([
-            'nama_kategori' => Str::title(trim($request->nama_kategori))
+            'nama_kategori' => $namaKategori
         ]);
 
-        return redirect()
-            ->back()
-            ->with('success', 'Kategori berhasil diubah');
+        return back()->with(
+            'success',
+            'Kategori berhasil diubah.'
+        );
     }
 
      

@@ -13,8 +13,8 @@
                 <p class="page-subtitle">  Data seluruh transaksi peminjaman buku </p>
             </div>
             <div class="d-flex gap-2 flex-wrap">
-                <a href="{{ route('laporan.peminjaman.excel') }}" class="btn btn-success btn-modern-export"> 📊 Export Excel </a>
-                <a href="{{ route('laporan.peminjaman.pdf') }}" class="btn btn-danger btn-modern-export"> 📄 Export PDF </a>
+                <a href="{{ route('laporan.peminjaman.excel', request()->query()) }}" class="btn btn-success btn-modern-export"> 📊 Export Excel </a>
+                <a href="{{ route('laporan.peminjaman.pdf', request()->query()) }}" class="btn btn-danger btn-modern-export"> 📄 Export PDF </a>
             </div>
         </div>
     </div>
@@ -58,10 +58,13 @@
         <div class="col-lg-3 col-md-6 mb-3">
             <div class="card stat-card danger">
                 <div class="card-body">
-                    <small>Terlambat</small>
-                    <h2 class="fw-bold">
-                        {{ $terlambat }}
-                    </h2>
+                    <small>Buku Terpopuler</small>
+                    <h7 class="fw-bold mb-1">
+                        {{ $namaBuku ?? '-' }}
+                    </h7><br>
+                    <small class="text-muted">
+                        {{ $totalDipinjam ?? 0 }} kali dipinjam
+                    </small>
                 </div>
             </div>
         </div>
@@ -70,61 +73,54 @@
     <!-- FILTER -->
     <div class="card border-0 shadow-sm mb-4 filter-card">
         <div class="card-body">
+
             <form method="GET">
-                <div class="row g-3">
-                    <div class="col-md-5">
-                        <label>Nama Peminjam</label>
+
+                <div class="row g-3 align-items-end">
+
+                    <div class="col-lg-4 col-md-12">
+                        <label class="form-label">Nama Peminjam</label>
                         <input type="text"
                             name="nama"
                             class="form-control"
                             placeholder="Cari nama anggota..."
-                            value="{{ request('nama') }}"
-                            onkeyup="this.form.submit()">
+                            value="{{ request('nama') }}">
                     </div>
 
-                    <div class="col-md-3">
-                        <label>Tanggal Pengembalian</label>
+                    <div class="col-lg-3 col-md-6">
+                        <label class="form-label">Dari Tanggal</label>
                         <input type="date"
-                            name="tanggal"
+                            name="dari"
                             class="form-control"
-                            value="{{ request('tanggal') }}">
+                            value="{{ request('dari') }}">
                     </div>
 
-                    <div class="col-md-2">
-                        <label>Status</label>
-                        <select name="status" class="form-select">
-                            <option value="">Semua</option>
-                            <option value="Dipinjam" {{ request('status')=='Dipinjam'?'selected':'' }}>
-                                Dipinjam
-                            </option>
-                            <option value="Dikembalikan" {{ request('status')=='Dikembalikan'?'selected':'' }}>
-                                Dikembalikan
-                            </option>
-                            <option value="Terlambat" {{ request('status')=='Terlambat'?'selected':'' }}>
-                                Terlambat
-                            </option>
-                        </select>
+                    <div class="col-lg-3 col-md-6">
+                        <label class="form-label">Sampai Tanggal</label>
+                        <input type="date"
+                            name="sampai"
+                            class="form-control"
+                            value="{{ request('sampai') }}">
                     </div>
 
-                    <div class="col-md-2 d-flex align-items-end gap-2">
+                    <div class="col-lg-2 col-md-12">
+                        <div class="d-grid gap-2 d-md-flex">
 
-                        <button class="btn btn-primary flex-fill">
-                            <i class="fas fa-search"></i> 
-                        </button>
+                            <button type="submit"
+                                class="btn btn-primary flex-fill">
+                                <i class="fas fa-search me-1"></i>                                
+                            </button>
 
-                        @if(request()->hasAny(['nama','tanggal','status']))
-                            <a href="{{ route('laporan.peminjaman') }}"
-                            class="btn btn-secondary">
-                                Reset
-                            </a>
-                        @endif
-
+                            @if(request()->hasAny(['nama','dari','sampai']))
+                                <a href="{{ route('laporan.peminjaman') }}"
+                                    class="btn btn-light border btn-reset">
+                                    <i class="fas fa-rotate-left"></i>
+                                </a>
+                            @endif
+                        </div>
                     </div>
-
                 </div>
-
             </form>
-
         </div>
     </div>
 
@@ -139,15 +135,15 @@
             <table class="table modern-table">
                 <thead>
                     <tr>
-                    <th  >No</th>
-                    <th  >Kode</th>
-                    <th  >Anggota</th>
-                    <th >Buku</th>
-                    <th >Pinjam</th>
-                    <th  >Batas</th>
-                    <th  >Durasi</th>
-                    <th >Status</th>
-                    <th  >Keterangan</th>
+                    <th>No</th>
+                    <th>Kode</th>
+                    <th>Anggota</th>
+                    <th>Buku</th>
+                    <th>Pinjam</th>
+                    <th>Batas</th>
+                    <th>Durasi</th>
+                    <th>Status</th>
+                    <th>Keterangan</th>
                     </tr>
                 </thead>
             <tbody>

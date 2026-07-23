@@ -435,48 +435,64 @@ TABLE
     text-align:center;
     font-size:13px;
 }
-
 /* ===========================
    BOOK LIST
 ===========================*/
-.book-list{
+
+.book-items{
     display:flex;
     flex-direction:column;
-    gap:5px;
+    align-items:flex-start;
+    gap:6px;
+    text-align:left;
 }
 
-.book-text{
+.book-item{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:8px;
+    width:100%;
+}
+
+.book-item i{
+    width:16px;
+    color:#374151;
+    flex-shrink:0;
+}
+
+.book-item span{
     font-size:13px;
     color:#374151;
     font-weight:500;
+    text-align:left;
 }
 
-.book-text span{
+.book-item small{
     color:#9CA3AF;
-    margin-left:4px;
     font-size:12px;
+    margin-left:4px;
+}
+
+.more-books{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    width:100%;
 }
 
 .toggle-books{
+    margin-left:24px;
     color:#2563EB;
     font-size:12px;
     font-weight:600;
     cursor:pointer;
-    user-select:none;
-    width:fit-content;
     transition:.2s;
 }
 
 .toggle-books:hover{
     color:#1D4ED8;
     text-decoration:underline;
-}
-
-.more-books{
-    display:flex;
-    flex-direction:column;
-    gap:5px;
-    margin-top:3px;
 }
 
 /* ===================================

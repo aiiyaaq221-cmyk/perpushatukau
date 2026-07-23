@@ -56,7 +56,7 @@ class LaporanBukuController extends Controller
         }
 
         $bukus = $query
-            ->latest()
+            ->orderBy('judul_buku', 'asc')
             ->paginate(10)
             ->withQueryString();
 

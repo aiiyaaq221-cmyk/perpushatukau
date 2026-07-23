@@ -130,7 +130,7 @@
 
                         <i class="fas fa-repeat"></i>
 
-                        <span>Transaksi</span>
+                        <span>Aktifitas Buku</span>
 
                     </div>
 

@@ -43,10 +43,14 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="modern-label"> Nomor Telepon
-                                <span class="optional"> (Opsional) </span>
-                            </label>
-                            <input type="text" name="no_telp" class="form-control modern-input" placeholder="08xxxxxxxxxx">
+                            <label class="modern-label">  Nomor Telepon </label>
+                            <input type="text" name="no_telp"
+                                class="form-control modern-input"
+                                placeholder="08xxxxxxxxxx"
+                                maxlength="12"
+                                inputmode="numeric"
+                                pattern="[0-9]{1,12}"
+                                oninput="this.value=this.value.replace(/[^0-9]/g,'')">
                         </div>
 
                         <div class="col-md-6">

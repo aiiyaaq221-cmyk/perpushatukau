@@ -25,9 +25,42 @@ class PengunjungExport implements
 
     protected $jumlahData = 0;
 
+    protected $request;
+
+    public function __construct($request)
+    {
+        $this->request = $request;
+    }
+
+
     public function collection()
     {
-        $data = Pengunjung::latest()->get();
+        $query = Pengunjung::query();
+
+        if ($this->request->filled('search')) {
+            $query->where(function ($q) {
+                $q->where('nama', 'like', '%' . $this->request->search . '%')
+                ->orWhere('alamat', 'like', '%' . $this->request->search . '%');
+            });
+        }
+
+        if ($this->request->filled('dari')) {
+            $query->whereDate(
+                'tanggal_kunjungan',
+                '>=',
+                $this->request->dari
+            );
+        }
+
+        if ($this->request->filled('sampai')) {
+            $query->whereDate(
+                'tanggal_kunjungan',
+                '<=',
+                $this->request->sampai
+            );
+        }
+
+        $data = $query->latest()->get();
 
         $this->jumlahData = $data->count();
 

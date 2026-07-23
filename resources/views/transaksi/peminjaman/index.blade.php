@@ -71,8 +71,7 @@ FILTER
 =========================== -->
 <div class="modern-card mb-4">
     <form
-        id="searchForm"
-        method="GET">
+        id="searchForm" method="GET">
 
         <div class="row g-3 align-items-end">
 
@@ -81,7 +80,7 @@ FILTER
 
                 <label class="modern-label">
 
-                    Cari Transaksi
+                    Cari Peminjaman
 
                 </label>
 
@@ -135,8 +134,6 @@ FILTER
                 </select>
 
             </div>
-
-
 
             <!-- Tanggal -->
             <div class="col-lg-2">

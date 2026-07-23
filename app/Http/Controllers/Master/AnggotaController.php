@@ -57,7 +57,7 @@ class AnggotaController extends Controller
             'tanggal_daftar'  => 'required',
             'kode_anggota'    => 'nullable|unique:anggotas,kode_anggota',
             'email'           => 'nullable|email|unique:anggotas,email',
-            'no_telp'         => 'nullable|unique:anggotas,no_telp',
+            'no_telp'         => 'nullable|digits_between:1,12|regex:/^[0-9]+$/|unique:anggotas,no_telp',
             'status'          => 'required',
         ],[
             'email.unique'   => 'Email sudah terdaftar.',
@@ -112,12 +112,13 @@ class AnggotaController extends Controller
             'alamat'         => 'required',
             'tanggal_daftar' => 'required',
             'kode_anggota'   => 'nullable|unique:anggotas,kode_anggota,' . $id . ',id_anggota',
-            'email' => 'nullable|email|unique:anggotas,email,' . $id . ',id_anggota',
-            'no_telp' => 'nullable|unique:anggotas,no_telp,' . $id . ',id_anggota',
+            'email'          => 'nullable|email|unique:anggotas,email,' . $id . ',id_anggota',
+            'no_telp'        => 'nullable|digits_between:1,12|regex:/^[0-9]+$/|unique:anggotas,no_telp,' . $id . ',id_anggota',
             'status'         => 'required',
         ],[
             'email.unique'   => 'Email sudah terdaftar.',
             'no_telp.unique' => 'Nomor telepon sudah terdaftar.',
+            'no_telp.regex'  => 'Nomor telepon hanya boleh berisi angka.',
         ]);
 
         $anggota->update([

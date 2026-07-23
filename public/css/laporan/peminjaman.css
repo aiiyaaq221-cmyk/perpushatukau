@@ -81,46 +81,73 @@ STATISTIK CARD
 .stat-card.warning{border-left:5px solid #f59e0b;}
 .stat-card.danger{border-left:5px solid #ef4444;}
 
-/*==================================
-FILTER CARD
-==================================*/
+
+/*==================================================
+=               FILTER
+==================================================*/
 
 .filter-card{
     background:#fff;
     border:none;
-    border-radius:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.06);
-    margin-bottom:20px;
+    border-radius:18px;
+    box-shadow:0 6px 20px rgba(15,23,42,.06);
 }
 
 .filter-card .card-body{
-    padding:22px 24px;
+    padding:24px;
 }
 
 .filter-card label{
-    display:block;
-    margin-bottom:6px;
-    font-size:13px;
+    font-size:.9rem;
     font-weight:600;
     color:#475569;
+    margin-bottom:8px;
 }
 
-.filter-card .form-control,
-.filter-card .form-select{
-    height:42px;
+.filter-card .form-control{
+    height:46px;
     border:1px solid #dbe2ea;
     border-radius:10px;
+    font-size:.95rem;
 }
 
-.filter-card .form-control:focus,
-.filter-card .form-select:focus{
+.filter-card .form-control:focus{
     border-color:#2563eb;
     box-shadow:0 0 0 .18rem rgba(37,99,235,.15);
 }
 
 .filter-card .btn{
-    height:42px;
+    height:46px;
+    border-radius:10px;
+    padding:0 18px;
+    font-weight:600;
 }
+
+.filter-card .btn-outline-secondary{
+    border-color:#d1d5db;
+}
+
+.filter-card .btn-outline-secondary:hover{
+    background:#64748b;
+    border-color:#64748b;
+    color:#fff;
+}
+.btn-reset{
+    width:46px;
+    height:46px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:10px;
+    color:#64748b;
+    transition:.2s;
+}
+
+.btn-reset:hover{
+    background:#f1f5f9;
+    color:#334155;
+}
+
 /*==================================
 TABLE CARD
 ==================================*/

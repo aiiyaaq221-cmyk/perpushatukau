@@ -133,35 +133,22 @@
                                             class="form-control modern-input">
 
                                     </div>
-
                                     <div class="mb-3">
+                                        <label class="modern-label">  Nomor Telepon </label>
 
-                                        <label class="modern-label">
-
-                                            Nomor Telepon
-
-                                        </label>
-
-                                        <input
-                                            type="text"
+                                        <input type="text"
                                             name="no_telp"
                                             value="{{ $anggota->no_telp }}"
-                                            class="form-control modern-input">
-
+                                            class="form-control modern-input"
+                                            maxlength="12"
+                                            inputmode="numeric"
+                                            pattern="[0-9]{1,12}"
+                                            oninput="this.value=this.value.replace(/[^0-9]/g,'')">
                                     </div>
 
                                     <div class="mb-0">
-
-                                        <label class="modern-label">
-
-                                            Status
-
-                                        </label>
-
-                                        <select
-                                            name="status"
-                                            class="form-select modern-input">
-
+                                        <label class="modern-label"> Status </label>
+                                        <select name="status" class="form-select modern-input">
                                             <option value="Aktif"
                                                 {{ $anggota->status=='Aktif' ? 'selected' : '' }}>
                                                 Aktif
@@ -171,9 +158,7 @@
                                                 {{ $anggota->status=='Tidak Aktif' ? 'selected' : '' }}>
                                                 Tidak Aktif
                                             </option>
-
                                         </select>
-
                                     </div>
 
                                 </div>

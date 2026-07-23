@@ -103,7 +103,7 @@
                         <th>Cover</th>
                         <th>Informasi Buku</th>
                         <th>Kategori</th>
-                        <th>Stok</th>
+                        <th>Jumlah</th>
                         <th>Status</th>
                         <th width="180">Aksi</th>
                     </tr>

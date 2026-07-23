@@ -46,22 +46,10 @@
 
                 <!-- BODY -->
                 <div class="modal-body p-4">
-
                     <div class="mb-3">
-
-                        <label class="modern-label">
-
-                            Nama Kategori
-
-                        </label>
-
-                        <input
-                            type="text"
-                            name="nama_kategori"
-                            class="form-control modern-input"
-                            placeholder="Contoh : Novel"
+                        <label class="modern-label"> Nama Kategori </label>
+                        <input type="text" name="nama_kategori" class="form-control modern-input" placeholder="Contoh : Novel"
                             required>
-
                     </div>
 
                 </div>

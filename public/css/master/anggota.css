@@ -91,16 +91,9 @@
 
 .modern-table{
     width:100%;
-    min-width:1350px;
     margin-bottom:0;
     border-collapse:separate;
     border-spacing:0;
-}
-
-.modern-table th,
-.modern-table td{
-    white-space:nowrap;
-    vertical-align:middle;
 }
 
 .modern-table thead th{

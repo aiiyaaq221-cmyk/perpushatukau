@@ -33,27 +33,22 @@ class LaporanPeminjamanController extends Controller
             });
         }
 
-        // Filter Tanggal Pinjam
-        if ($request->filled('tanggal')) {
-            $query->whereDate('tanggal_pinjam', $request->tanggal );
+        // Filter Dari Tanggal
+        if ($request->filled('dari')) {
+            $query->whereDate(
+                'tanggal_pinjam',
+                '>=',
+                $request->dari
+            );
         }
 
-        // Filter Status
-        if ($request->filled('status')) {
-            switch ($request->status) {
-                case 'Dipinjam':
-                    $query->whereNull('tanggal_kembali')
-                        ->whereDate('batas_kembali', '>=', now());
-                    break;
-                case 'Terlambat':
-                    $query->whereNull('tanggal_kembali')
-                        ->whereDate('batas_kembali', '<', now());
-
-                    break;
-                case 'Dikembalikan':
-                    $query->whereNotNull('tanggal_kembali');
-                    break;
-            }
+        // Filter Sampai Tanggal
+        if ($request->filled('sampai')) {
+            $query->whereDate(
+                'tanggal_pinjam',
+                '<=',
+                $request->sampai
+            );
         }
 
         $peminjamans = $query
@@ -74,13 +69,19 @@ class LaporanPeminjamanController extends Controller
         $dipinjam = DetailPeminjaman::whereHas('peminjaman', function ($q) {
             $q->whereNull('tanggal_kembali');
         })->sum('jumlah');
-
-        $terlambat = Peminjaman::whereNull('tanggal_kembali')
-            ->whereDate('batas_kembali', '<', now())
-            ->count();
-
+        
         $dikembalikan = Peminjaman::whereNotNull('tanggal_kembali')
             ->count();
+
+        $bukuTerpopuler = DetailPeminjaman::select('id_buku')
+            ->selectRaw('SUM(jumlah) as total')
+            ->with('buku')
+            ->groupBy('id_buku')
+            ->orderByDesc('total')
+            ->first();
+
+        $namaBuku = $bukuTerpopuler?->buku?->judul_buku;
+        $totalDipinjam = $bukuTerpopuler?->total;
 
         return view(
             'laporan.peminjaman',
@@ -89,35 +90,76 @@ class LaporanPeminjamanController extends Controller
                 'totalPeminjaman',
                 'dipinjam',
                 'dikembalikan',
-                'terlambat'
+                'namaBuku',
+                'totalDipinjam'
             )
         );
     }
 
-    public function exportPeminjamanExcel()
+    public function exportPeminjamanExcel(Request $request)
     {
         return Excel::download(
-            new PeminjamanExport,
+            new PeminjamanExport($request),
             'Laporan_Peminjaman.xlsx'
         );
     }
 
-    public function exportPeminjamanPdf()
+    public function exportPeminjamanPdf(Request $request)
     {
-        $peminjamans=Peminjaman::with([
+        $query = Peminjaman::with([
             'anggota',
             'details.buku'
-        ])->latest()->get();
+        ]);
 
-        $pdf=Pdf::loadView(
+        // Nama
+        if ($request->filled('nama')) {
+
+            $query->whereHas('anggota', function ($q) use ($request) {
+
+                $q->where(
+                    'nama',
+                    'LIKE',
+                    '%' . trim($request->nama) . '%'
+                );
+
+            });
+
+        }
+
+        // Dari
+        if ($request->filled('dari')) {
+
+            $query->whereDate(
+                'tanggal_pinjam',
+                '>=',
+                $request->dari
+            );
+
+        }
+
+        // Sampai
+        if ($request->filled('sampai')) {
+
+            $query->whereDate(
+                'tanggal_pinjam',
+                '<=',
+                $request->sampai
+            );
+
+        }
+
+        $peminjamans = $query->latest()->get();
+
+        $pdf = Pdf::loadView(
             'laporan.pdf.peminjaman',
             [
-                'peminjamans'=>$peminjamans,
-                'tanggalCetak'=>Carbon::now('Asia/Jayapura')->translatedFormat('d F Y'),
-                'jamCetak'=>Carbon::now('Asia/Jayapura')->format('H:i').' WIT',
-                'jumlahData'=>$peminjamans->count()
+                'peminjamans' => $peminjamans,
+                'tanggalCetak' => Carbon::now('Asia/Jayapura')->translatedFormat('d F Y'),
+                'jamCetak' => Carbon::now('Asia/Jayapura')->format('H:i') . ' WIT',
+                'jumlahData' => $peminjamans->count()
             ]
-        )->setPaper('A4','landscape');
+        )->setPaper('A4', 'landscape');
+
         return $pdf->download('Laporan_Peminjaman.pdf');
     }
 }

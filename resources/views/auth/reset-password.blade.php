@@ -167,7 +167,7 @@
 
     <div class="hidden md:block w-1/2">
 
-        <img src="{{ asset('img/ok.jpg') }}"
+        <img src="{{ asset('img/gedung.jpeg') }}"
              class="w-full h-screen object-cover"
              alt="Reset Password">
 

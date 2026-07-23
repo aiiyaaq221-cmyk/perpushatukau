@@ -23,7 +23,7 @@
         <div class="row g-3 align-items-end">
             <div class="col-lg-4">
                 <label class="form-label">
-                    Cari
+                    Cari Pengembalian
                 </label>
 
                 <input

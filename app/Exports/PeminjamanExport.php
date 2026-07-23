@@ -24,15 +24,60 @@ class PeminjamanExport implements
     protected $no = 1;
 
     protected $jumlahData = 0;
+    protected $request;
+
+    public function __construct($request)
+    {
+        $this->request = $request;
+    }
 
     public function collection()
     {
-        $data = Peminjaman::with([
+        $query = Peminjaman::with([
             'anggota',
             'details.buku'
-        ])
-        ->latest()
-        ->get();
+        ]);
+
+        // Filter Nama Anggota
+        if ($this->request->filled('nama')) {
+
+            $query->whereHas('anggota', function ($q) {
+
+                $q->where(
+                    'nama',
+                    'LIKE',
+                    '%' . trim($this->request->nama) . '%'
+                );
+
+            });
+
+        }
+
+        // Filter Dari Tanggal
+        if ($this->request->filled('dari')) {
+
+            $query->whereDate(
+                'tanggal_pinjam',
+                '>=',
+                $this->request->dari
+            );
+
+        }
+
+        // Filter Sampai Tanggal
+        if ($this->request->filled('sampai')) {
+
+            $query->whereDate(
+                'tanggal_pinjam',
+                '<=',
+                $this->request->sampai
+            );
+
+        }
+
+        $data = $query
+            ->latest()
+            ->get();
 
         $this->jumlahData = $data->count();
 
@@ -188,7 +233,7 @@ class PeminjamanExport implements
 
                 $sheet->getStyle("A8:H{$lastRow}")
                     ->applyFromArray([
-
+ 
                         'borders' => [
 
                             'allBorders' => [

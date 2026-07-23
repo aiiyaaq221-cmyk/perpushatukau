@@ -2,7 +2,8 @@
 <div class="modal fade"  id="editBuku{{ $buku->id_buku }}" 
     tabindex="-1"  aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
-        <form action="{{ route('master.buku.update',$buku->id_buku) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('master.buku.update',$buku->id_buku) }}" method="POST" 
+        enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="modal-content">
