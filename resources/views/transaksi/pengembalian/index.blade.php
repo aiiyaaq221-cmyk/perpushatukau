@@ -101,7 +101,7 @@
                     <th width="140">Tanggal Kembali</th>
                     <th width="250">Buku</th>
                     <th width="120">Status</th>
-                    <th width="90">Aksi</th>
+                    <th width="180">Aksi</th>
                 </tr>
             </thead>
 
@@ -183,11 +183,27 @@
                             class="btn btn-info btn-sm"
                             data-bs-toggle="modal"
                             data-bs-target="#detail{{ $item->id_pengembalian }}">
-
                             <i class="fas fa-eye"></i>
-
                         </button>
 
+                        <form
+                            action="{{ route('transaksi.pengembalian.batal', $item->id_pengembalian) }}"
+                            method="POST"
+                            class="d-inline form-batal">
+
+                            @csrf
+                            @method('PUT')
+
+                            <button
+                                type="button"
+                                class="btn btn-warning btn-sm btn-konfirmasi-batal"
+                                title="Batalkan Pengembalian">
+
+                                <i class="fas fa-undo"></i>
+
+                            </button>
+
+                        </form>
                     </td>
 
                 </tr>
@@ -229,25 +245,53 @@
 
     <div class="mt-4 d-flex justify-content-between align-items-center flex-wrap">
         <small class="text-muted">
-            Menampilkan
-
-            {{ $pengembalians->firstItem() ?? 0 }}
-
-            -
-
-            {{ $pengembalians->lastItem() ?? 0 }}
-
-            dari
-
-            {{ $pengembalians->total() }}
-
-            data
-
+            Menampilkan {{ $pengembalians->firstItem() ?? 0 }} - {{ $pengembalians->lastItem() ?? 0 }}
+            dari {{ $pengembalians->total() }} data
         </small>
         {{ $pengembalians->links('pagination::bootstrap-5') }}
     </div>
 </div>
 
 @include('transaksi.pengembalian.modal-detail')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    document.querySelectorAll('.btn-konfirmasi-batal').forEach(function (button) {
+
+        button.addEventListener('click', function () {
+
+            let form = this.closest('.form-batal');
+
+            Swal.fire({
+                title: 'Batalkan Pengembalian?',
+                text: 'Status peminjaman akan dikembalikan menjadi Dipinjam.',
+                icon: 'warning',
+
+                showCancelButton: true,
+
+                confirmButtonText: 'Ya, Batalkan',
+                cancelButtonText: 'Batal',
+
+                confirmButtonColor: '#f59e0b',
+                cancelButtonColor: '#6c757d',
+
+                reverseButtons: true,
+
+                focusCancel: true
+
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+
+            });
+
+        });
+
+    });
+
+});
+</script>
 
 @endsection

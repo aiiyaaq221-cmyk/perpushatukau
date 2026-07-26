@@ -75,7 +75,7 @@ Route::get('/logout-test', function () {
                 Route::get('/',[PengembalianController::class, 'index'])->name('index');
                 Route::post('/store/{id}',[PengembalianController::class, 'store'])->name('store');
                 Route::delete('/destroy/{id}', [PengembalianController::class, 'destroy'])->name('destroy');
-                
+                Route::put('/{id}/batal', [PengembalianController::class,'batal'])->name('batal');
             });
         });
 

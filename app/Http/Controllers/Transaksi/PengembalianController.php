@@ -170,4 +170,35 @@ class PengembalianController extends Controller
             );
         }
     }
+
+    public function batal($id)
+    {
+        $pengembalian = Pengembalian::with('peminjaman.details.buku')
+            ->findOrFail($id);
+
+        $peminjaman = $pengembalian->peminjaman;
+
+        DB::transaction(function () use ($pengembalian, $peminjaman) {
+
+            // kurangi stok kembali
+            foreach ($peminjaman->details as $detail) {
+                $detail->buku->decrement('jumlah_buku');
+            }
+
+            // ubah status peminjaman
+            $peminjaman->update([
+                'status' => 'Dipinjam',
+                'tanggal_kembali' => null,
+            ]);
+
+            // hapus data pengembalian
+            $pengembalian->delete();
+
+        });
+
+        return back()->with(
+            'success',
+            'Pengembalian berhasil dibatalkan.'
+        );
+    }
 }
