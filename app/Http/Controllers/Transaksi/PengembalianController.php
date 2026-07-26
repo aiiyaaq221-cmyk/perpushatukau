@@ -96,6 +96,7 @@ class PengembalianController extends Controller
             $peminjaman = Peminjaman::with('details')
                 ->findOrFail($id);
 
+            // penambahan jumlah buku
             foreach ($peminjaman->details as $detail) {
                 Buku::where(  'id_buku', $detail->id_buku)->increment(
                     'jumlah_buku',
@@ -103,6 +104,7 @@ class PengembalianController extends Controller
                 );
             }
 
+            // status pengembalian
             $statusPengembalian =
                 now()->gt($peminjaman->batas_kembali)
                 ? 'Terlambat'

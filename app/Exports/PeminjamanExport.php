@@ -22,7 +22,6 @@ class PeminjamanExport implements
     WithEvents
 {
     protected $no = 1;
-
     protected $jumlahData = 0;
     protected $request;
 
@@ -53,26 +52,33 @@ class PeminjamanExport implements
 
         }
 
-        // Filter Dari Tanggal
-        if ($this->request->filled('dari')) {
+        // Filter Rentang Bulan
+        if (
+            $this->request->filled('bulan_awal') &&
+            $this->request->filled('bulan_akhir')
+        ) {
 
-            $query->whereDate(
+            $tahun = $this->request->tahun ?? now()->year;
+
+            $tanggalAwal = Carbon::create(
+                $tahun,
+                $this->request->bulan_awal,
+                1
+            )->startOfMonth();
+
+            $tanggalAkhir = Carbon::create(
+                $tahun,
+                $this->request->bulan_akhir,
+                1
+            )->endOfMonth();
+
+            $query->whereBetween(
                 'tanggal_pinjam',
-                '>=',
-                $this->request->dari
+                [
+                    $tanggalAwal,
+                    $tanggalAkhir
+                ]
             );
-
-        }
-
-        // Filter Sampai Tanggal
-        if ($this->request->filled('sampai')) {
-
-            $query->whereDate(
-                'tanggal_pinjam',
-                '<=',
-                $this->request->sampai
-            );
-
         }
 
         $data = $query

@@ -94,15 +94,13 @@
 
             </form>
 
-            <div class="flex justify-between mt-8 text-sm">
-
+            <div class="mt-8 text-sm">
+                Kembali ke
                 <a href="{{ route('login') }}"
-                   class="text-blue-600 hover:underline">
-
+                class="text-blue-600 hover:underline">
                     Login
-
                 </a>
-
+                
                 <!-- <a href="{{ route('register') }}"
                    class="text-blue-600 hover:underline">
 

@@ -34,20 +34,38 @@ class LaporanPeminjamanController extends Controller
         }
 
         // Filter Dari Tanggal
-        if ($request->filled('dari')) {
-            $query->whereDate(
-                'tanggal_pinjam',
-                '>=',
-                $request->dari
-            );
-        }
+        if (
+            $request->filled('bulan_awal') &&
+            $request->filled('bulan_akhir')
+        ) {
 
-        // Filter Sampai Tanggal
-        if ($request->filled('sampai')) {
-            $query->whereDate(
+            if ($request->bulan_awal > $request->bulan_akhir) {
+                return back()->with(
+                    'error',
+                    'Bulan awal tidak boleh lebih besar dari bulan akhir.'
+                );
+            }
+
+            $tahun = $request->tahun ?? now()->year;
+
+            $tanggalAwal = Carbon::create(
+                $tahun,
+                $request->bulan_awal,
+                1
+            )->startOfMonth();
+
+            $tanggalAkhir = Carbon::create(
+                $tahun,
+                $request->bulan_akhir,
+                1
+            )->endOfMonth();
+
+            $query->whereBetween(
                 'tanggal_pinjam',
-                '<=',
-                $request->sampai
+                [
+                    $tanggalAwal,
+                    $tanggalAkhir
+                ]
             );
         }
 
@@ -126,26 +144,34 @@ class LaporanPeminjamanController extends Controller
 
         }
 
-        // Dari
-        if ($request->filled('dari')) {
 
-            $query->whereDate(
+        // Filter Rentang Bulan
+        if (
+            $request->filled('bulan_awal') &&
+            $request->filled('bulan_akhir')
+        ) {
+
+            $tahun = $request->tahun ?? now()->year;
+
+            $tanggalAwal = Carbon::create(
+                $tahun,
+                $request->bulan_awal,
+                1
+            )->startOfMonth();
+
+            $tanggalAkhir = Carbon::create(
+                $tahun,
+                $request->bulan_akhir,
+                1
+            )->endOfMonth();
+
+            $query->whereBetween(
                 'tanggal_pinjam',
-                '>=',
-                $request->dari
+                [
+                    $tanggalAwal,
+                    $tanggalAkhir
+                ]
             );
-
-        }
-
-        // Sampai
-        if ($request->filled('sampai')) {
-
-            $query->whereDate(
-                'tanggal_pinjam',
-                '<=',
-                $request->sampai
-            );
-
         }
 
         $peminjamans = $query->latest()->get();

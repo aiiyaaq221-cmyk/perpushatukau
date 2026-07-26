@@ -44,19 +44,32 @@ class PengunjungExport implements
             });
         }
 
-        if ($this->request->filled('dari')) {
-            $query->whereDate(
-                'tanggal_kunjungan',
-                '>=',
-                $this->request->dari
-            );
-        }
+        // Filter Rentang Bulan
+        if (
+            $this->request->filled('bulan_awal') &&
+            $this->request->filled('bulan_akhir')
+        ) {
 
-        if ($this->request->filled('sampai')) {
-            $query->whereDate(
+            $tahun = $this->request->tahun ?? now()->year;
+
+            $tanggalAwal = Carbon::create(
+                $tahun,
+                $this->request->bulan_awal,
+                1
+            )->startOfMonth();
+
+            $tanggalAkhir = Carbon::create(
+                $tahun,
+                $this->request->bulan_akhir,
+                1
+            )->endOfMonth();
+
+            $query->whereBetween(
                 'tanggal_kunjungan',
-                '<=',
-                $this->request->sampai
+                [
+                    $tanggalAwal,
+                    $tanggalAkhir
+                ]
             );
         }
 
@@ -86,17 +99,11 @@ class PengunjungExport implements
         return [
 
             $this->no++,
-
             $pengunjung->nama,
-
             $pengunjung->alamat,
-
             $pengunjung->umur,
-
             $pengunjung->jenis_kelamin,
-
             $pengunjung->status_pengunjung,
-
             $pengunjung->tujuan,
 
             Carbon::parse(

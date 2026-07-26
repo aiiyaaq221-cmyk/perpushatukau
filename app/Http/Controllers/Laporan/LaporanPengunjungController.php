@@ -23,20 +23,16 @@ class LaporanPengunjungController extends Controller
             });
         }
 
-        // rentang tanggal
-        if($request->filled('dari')){
-            $query->whereDate(
-                'tanggal_kunjungan',
-                '>=',
-                $request->dari
-            );
-        }
+        // Filter Rentang Bulan
+        if ($request->filled('bulan_awal') && $request->filled('bulan_akhir')) {
+            $tahun = $request->tahun ?? now()->year;
 
-        if($request->filled('sampai')){
-            $query->whereDate(
-                'tanggal_kunjungan',
-                '<=',
-                $request->sampai
+            $tanggalAwal = Carbon::create( $tahun, $request->bulan_awal, 1)->startOfMonth();
+
+            $tanggalAkhir = Carbon::create($tahun, $request->bulan_akhir, 1 )->endOfMonth();
+
+            $query->whereBetween(
+                'tanggal_kunjungan', [ $tanggalAwal, $tanggalAkhir ]
             );
         }
 
@@ -125,12 +121,18 @@ class LaporanPengunjungController extends Controller
             });
         }
 
-        if ($request->filled('dari')) {
-            $query->whereDate('tanggal_kunjungan', '>=', $request->dari);
-        }
+        
+        // Filter Rentang Bulan
+        if ($request->filled('bulan_awal') && $request->filled('bulan_akhir')) {
+            $tahun = $request->tahun ?? now()->year;
 
-        if ($request->filled('sampai')) {
-            $query->whereDate('tanggal_kunjungan', '<=', $request->sampai);
+            $tanggalAwal = Carbon::create( $tahun, $request->bulan_awal, 1)->startOfMonth();
+
+            $tanggalAkhir = Carbon::create($tahun, $request->bulan_akhir, 1 )->endOfMonth();
+
+            $query->whereBetween(
+                'tanggal_kunjungan', [ $tanggalAwal, $tanggalAkhir ]
+            );
         }
 
         $pengunjungs = $query->latest()->get();

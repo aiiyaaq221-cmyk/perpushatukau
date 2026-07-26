@@ -123,23 +123,16 @@
 
             <li class="has-submenu {{ request()->routeIs('transaksi.*') ? 'active-parent' : '' }}"
                 data-menu="transaksi">
-
                 <button class="parent-link">
-
                     <div class="menu-item">
-
                         <i class="fas fa-repeat"></i>
-
-                        <span>Aktifitas Buku</span>
-
+                        <span>Aktivitas Buku</span>
                     </div>
 
                     <i class="fas fa-chevron-down arrow"></i>
-
                 </button>
 
                 <ul class="submenu">
-
                     <li>
 
                         <a href="{{ route('transaksi.peminjaman.index') }}"

@@ -156,6 +156,37 @@
     height:42px;
 }
 
+.filter-card .form-label{
+    font-size:13px;
+    font-weight:600;
+    color:#475569;
+    margin-bottom:6px;
+}
+
+.filter-card .form-control,
+.filter-card .form-select{
+    height:45px;
+    border-radius:12px;
+    border:1px solid #dbe3ef;
+    box-shadow:none;
+}
+
+.filter-card .form-control:focus,
+.filter-card .form-select:focus{
+    border-color:#5b8def;
+    box-shadow:0 0 0 .15rem rgba(91,141,239,.15);
+}
+
+.filter-card .btn{
+    height:45px;
+    border-radius:12px;
+}
+
+.filter-card .btn-light{
+    width:45px;
+    padding:0;
+}
+
 /*==================================
 TABLE CARD
 ==================================*/

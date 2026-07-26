@@ -51,45 +51,114 @@
     <div class="card-body">
         <form method="GET">
             <div class="row g-3 align-items-end">
-                <div class="col-lg-4">
-                    <label>Nama Pengunjung</label>
-                    <input type="text"
+
+                <!-- Nama -->
+                <div class="col-lg-4 col-md-6">
+                    <label class="form-label fw-semibold">
+                        Nama Pengunjung
+                    </label>
+                    <input
+                        type="text"
                         name="search"
                         class="form-control"
                         placeholder="Cari nama pengunjung..."
                         value="{{ request('search') }}">
                 </div>
 
-                <div class="col-lg-3">
-                    <label>Dari Tanggal</label>
-                    <input type="date"
-                        name="dari"
-                        class="form-control"
-                        value="{{ request('dari') }}">
+                <!-- Bulan Awal -->
+                <div class="col-lg-2 col-md-3">
+                    <label class="form-label fw-semibold">
+                        Dari Bulan
+                    </label>
+
+                    <select name="bulan_awal" class="form-select">
+
+                        <option value="">Semua</option>
+
+                        @foreach(range(1,12) as $bulan)
+                            <option value="{{ $bulan }}"
+                                {{ request('bulan_awal') == $bulan ? 'selected' : '' }}>
+
+                                {{ \Carbon\Carbon::create()->month($bulan)->translatedFormat('F') }}
+
+                            </option>
+                        @endforeach
+
+                    </select>
                 </div>
 
-                <div class="col-lg-3">
-                    <label>Sampai Tanggal</label>
-                    <input type="date"
-                        name="sampai"
-                        class="form-control"
-                        value="{{ request('sampai') }}">
+                <!-- Bulan Akhir -->
+                <div class="col-lg-2 col-md-3">
+                    <label class="form-label fw-semibold">
+                        Sampai Bulan
+                    </label>
+
+                    <select name="bulan_akhir" class="form-select">
+
+                        <option value="">Semua</option>
+
+                        @foreach(range(1,12) as $bulan)
+                            <option value="{{ $bulan }}"
+                                {{ request('bulan_akhir') == $bulan ? 'selected' : '' }}>
+
+                                {{ \Carbon\Carbon::create()->month($bulan)->translatedFormat('F') }}
+
+                            </option>
+                        @endforeach
+
+                    </select>
                 </div>
 
-                <div class="col-lg-2">
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-search me-1"></i> Cari
+                <!-- Tahun -->
+                <div class="col-lg-2 col-md-3">
+                    <label class="form-label fw-semibold">
+                        Tahun
+                    </label>
+
+                    <select name="tahun" class="form-select">
+
+                        @for($tahun = now()->year; $tahun >= 2020; $tahun--)
+                            <option
+                                value="{{ $tahun }}"
+                                {{ request('tahun', now()->year) == $tahun ? 'selected' : '' }}>
+
+                                {{ $tahun }}
+
+                            </option>
+                        @endfor
+
+                    </select>
+                </div>
+
+                <!-- Tombol -->
+                <div class="col-lg-2 col-md-3">
+
+                    <div class="d-flex gap-2">
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary flex-fill">
+
+                            <i class="fas fa-search me-1"></i>
+                            Cari
+
                         </button>
 
-                        @if(request()->hasAny(['search','dari','sampai']))
+                        @if(request()->hasAny(['search','bulan_awal','bulan_akhir','tahun']))
+
                             <a href="{{ route('laporan.pengunjung') }}"
-                            class="btn btn-outline-secondary">
-                                <i class="fas fa-rotate-left me-1"></i> Reset
+                                class="btn btn-light border">
+
+                                <i class="fas fa-rotate-left"></i>
+
                             </a>
+
                         @endif
+
                     </div>
+
                 </div>
+
             </div>
         </form>
     </div>

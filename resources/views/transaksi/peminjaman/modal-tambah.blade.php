@@ -36,12 +36,7 @@
                                 Tanggal Pinjam
                             </label>
 
-                            <input type="date"
-                                   name="tanggal_pinjam"
-                                   id="tanggal_pinjam"
-                                   class="form-control"
-                                   value="{{ date('Y-m-d') }}"
-                                   required>
+                            <input type="date" name="tanggal_pinjam" id="tanggal_pinjam" class="form-control" value="{{ date('Y-m-d') }}" required>
 
                         </div>
 
@@ -56,19 +51,10 @@
                     <hr>
 
                     <div class="d-flex justify-content-between align-items-center mb-3">
-
-                        <h6 class="mb-0">
-                            Daftar Buku
-                        </h6>
-
-                        <button type="button"
-                                class="btn btn-success btn-sm"
-                                id="add-buku">
-
+                        <h6 class="mb-0"> Daftar Buku </h6>
+                        <button type="button" class="btn btn-success btn-sm" id="add-buku">
                             + Tambah Buku
-
                         </button>
-
                     </div>
 
                     <div id="buku-wrapper">
@@ -104,16 +90,8 @@
                 </div>
 
                 <div class="modal-footer custom-footer">
-                    <button type="button"
-                            class="btn-cancel"
-                            data-bs-dismiss="modal">
-                        Batal
-                    </button>
-
-                    <button type="submit"
-                            class="btn-save">
-                        Simpan
-                    </button>
+                    <button type="button" class="btn-cancel" data-bs-dismiss="modal"> Batal </button>
+                    <button type="submit" class="btn-save"> Simpan </button>
                 </div>
             </form>
         </div>

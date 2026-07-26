@@ -87,17 +87,17 @@ class PeminjamanController extends Controller
         // Data
         // ==============================
         $peminjamans = $query
-    ->orderByRaw("
-        CASE
-            WHEN status = 'Dipinjam' THEN 1
-            WHEN status = 'Terlambat' THEN 2
-            WHEN status = 'Dikembalikan' THEN 3
-            ELSE 4
-        END
-    ")
-    ->orderByDesc('id_peminjaman')
-    ->paginate(10)
-    ->withQueryString();
+        ->orderByRaw("
+            CASE
+                WHEN status = 'Dipinjam' THEN 1
+                WHEN status = 'Terlambat' THEN 2
+                WHEN status = 'Dikembalikan' THEN 3
+                ELSE 4
+            END
+        ")
+        ->orderByDesc('id_peminjaman')
+        ->paginate(10)
+        ->withQueryString();
             
         // ==============================
         // Modal Tambah

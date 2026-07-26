@@ -53,7 +53,6 @@ class KategoriController extends Controller
 
     public function update(Request $request, $id)
     {
-        dd($request->all(), $request->file('cover'));
         $namaKategori = Str::title(trim($request->nama_kategori));
 
         $cek = Kategori::where('nama_kategori', $namaKategori)
