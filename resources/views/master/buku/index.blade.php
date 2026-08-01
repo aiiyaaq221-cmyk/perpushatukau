@@ -115,9 +115,7 @@
                         <td class="text-center"> {{ $loop->iteration + ($bukus->firstItem()-1) }} </td>
                         <td class="text-center">
                             @if($buku->cover)
-                                <img
-                                    src="{{ asset('storage/'.$buku->cover) }}"
-                                    class="book-cover">
+                                <img src="{{ asset('storage/' . $buku->cover) }}" class="book-cover">
                             @else
                                 <span class="text-muted">
                                     Tidak ada cover
