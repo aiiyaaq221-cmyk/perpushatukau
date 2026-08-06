@@ -11,9 +11,10 @@ class Buku extends Model
     protected $primaryKey = 'id_buku';
 
     protected $fillable = [
-        'id_kategori',
         'kode_buku',
+        'isbn',
         'judul_buku',
+        'id_kategori',
         'pengarang',
         'penerbit',
         'tahun_terbit',
@@ -23,7 +24,9 @@ class Buku extends Model
         'sumber',
         'jumlah_buku',
         'cover',
-        'keterangan'
+        'deskripsi',
+        'keterangan',
+
     ];
 
     public function kategori()

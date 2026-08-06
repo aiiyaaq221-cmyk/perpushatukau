@@ -18,7 +18,7 @@
                         <!-- Kategori -->
                         <div class="col-md-6">
                             <label class="modern-label"> Kategori Buku </label>
-                            <select name="id_kategori" class="form-select modern-input" required>
+                            <select name="id_kategori" id="id_kategori" class="form-select modern-input" required>
                                 <option value="">-- Pilih Kategori --</option>
                                 @foreach($kategoris as $kategori)
                                     <option value="{{ $kategori->id_kategori }}">
@@ -39,60 +39,43 @@
                         <!-- Judul Buku -->
                         <div class="col-md-6">
                             <label class="modern-label"> Judul Buku </label>
-                            <input type="text" name="judul_buku" class="form-control modern-input"  placeholder="Masukkan judul buku" required>
+                            <input type="text" name="judul_buku" id="judul_buku" class="form-control modern-input"  placeholder="Masukkan judul buku" required>
+                        </div>
+
+                        <!-- ISBN -->
+                        <div class="col-md-6">
+                            <label class="modern-label">ISBN</label>
+
+                            <div class="input-group">
+                                <input type="text" name="isbn" id="isbn" class="form-control modern-input" placeholder="Masukkan nomor ISBN">
+                                <button type="button" class="btn btn-primary" id="btnCariISBN"> 🔍 </button>
+                            </div>
                         </div>
 
                         <!-- Pengarang -->
                         <div class="col-md-6">
-                            <label class="modern-label">
-                                Pengarang
-                            </label>
-
-                            <input
-                                type="text"
-                                name="pengarang"
-                                class="form-control modern-input"
-                                placeholder="Nama pengarang"
-                                required>
+                            <label class="modern-label">Pengarang </label>
+                            <input type="text" name="pengarang" id="pengarang" class="form-control modern-input" placeholder="Nama pengarang" required>
                         </div>
 
                         <!-- Penerbit -->
                         <div class="col-md-6">
-                            <label class="modern-label">
-                                Penerbit
-                            </label>
-
-                            <input
-                                type="text"
-                                name="penerbit"
-                                class="form-control modern-input"
+                            <label class="modern-label"> Penerbit </label>
+                            <input type="text"  name="penerbit" id="penerbit" class="form-control modern-input"
                                 placeholder="Nama penerbit">
                         </div>
 
                         <!-- Tahun Terbit -->
                         <div class="col-md-6">
-                            <label class="modern-label">
-                                Tahun Terbit
-                            </label>
-
-                            <input
-                                type="number"
-                                name="tahun_terbit"
-                                class="form-control modern-input"
-                                placeholder="2025">
+                            <label class="modern-label"> Tahun Terbit </label>
+                            <input type="number" name="tahun_terbit" id="tahun_terbit"
+                                class="form-control modern-input" placeholder="2025">
                         </div>
 
                         <!-- Tanggal Masuk -->
                         <div class="col-md-6 mb-3">
-                            <label class="modern-label">
-                                Tanggal Masuk
-                            </label>
-
-                            <input
-                                type="date"
-                                name="tanggal_masuk"
-                                value="{{ date('Y-m-d') }}"
-                                class="form-control">
+                            <label class="modern-label"> Tanggal Masuk </label>
+                            <input type="date" name="tanggal_masuk" value="{{ date('Y-m-d') }}" class="form-control">
                         </div>
 
                         <!-- Sumber -->
@@ -109,7 +92,7 @@
                         </div>
 
                         <!-- Jilid -->
-                        <div class="col-md-4 ">
+                        <div class="col-md-6 ">
                             <label class="modern-label">
                                 Jilid
                                 <small class="text-danger">
@@ -125,7 +108,7 @@
                         </div>
 
                         <!-- Edisi -->
-                        <div class="col-md-4  ">
+                        <div class="col-md-6  ">
                             <label class="modern-label">
                                 Edisi
                                 <small class="text-danger">
@@ -141,7 +124,7 @@
                         </div>
 
                         <!-- Jumlah Buku -->
-                        <div class="col-md-4 mb-3"> 
+                        <div class="col-md-6"> 
                             <label class="modern-label"> 
                                 Jumlah Buku </label> 
                                 
@@ -152,18 +135,25 @@
                                 placeholder="Jumlah buku" required> 
                         </div>
 
+                        <!-- deskripsi -->
+                        <div class="col-12">
+                            <label class="form-label"> Deskripsi Buku </label>
+                            <textarea 
+                                name="deskripsi" 
+                                id="deskripsi" class="form-control" rows="5" 
+                                placeholder="Masukkan deskripsi buku">
+                            </textarea>
+                        </div>
+
                         <!-- Cover -->
                         <div class="col-12 mb-3">
-
-                            <label class="modern-label">
-                                Cover Buku
-                            </label>
-
+                            <label class="modern-label"> Cover Buku </label>
                             <div class="upload-cover">
                                 <i class="bi bi-book-half cover-icon"></i>
                                 <h6>Pilih Cover</h6>
                                 <small>  JPG, PNG, WEBP  </small>
-                                <input type="file" name="cover" id="coverInput"    hidden>
+                                <input type="file" name="cover" id="coverInput" hidden>
+                                <input type="hidden" name="cover_url" id="cover_url">
                                 <img id="preview" class="cover-preview">
                             </div>
                         </div>
@@ -208,4 +198,88 @@ document.getElementById('coverInput')
         reader.readAsDataURL(file);
     }
 });
+</script>
+
+
+
+<script>
+
+document.addEventListener('click', async function(e){
+
+    if(e.target.id !== 'btnCariISBN') return;
+
+    const isbn = document.getElementById('isbn').value.trim();
+
+    if(isbn == ''){
+        alert('Masukkan ISBN terlebih dahulu');
+        return;
+    }
+
+    try{
+
+        const response = await fetch(
+            `https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json&jscmd=data`
+        );
+
+        const data = await response.json();
+
+        const key = `ISBN:${isbn}`;
+
+        if(!data[key]){
+            alert('Data buku tidak ditemukan');
+            return;
+        }
+
+        const buku = data[key];
+
+        // Judul
+        document.getElementById('judul_buku').value =
+            buku.title ?? '';
+
+        // Pengarang
+        document.getElementById('pengarang').value =
+            buku.authors
+                ? buku.authors.map(a => a.name).join(', ')
+                : '';
+
+        // Penerbit
+        document.getElementById('penerbit').value =
+            buku.publishers
+                ? buku.publishers.map(p => p.name).join(', ')
+                : '';
+
+        // Tahun
+        document.getElementById('tahun_terbit').value =
+            buku.publish_date
+                ? buku.publish_date.match(/\d{4}/)?.[0] ?? ''
+                : '';
+
+        // Deskripsi (Open Library sering tidak menyediakan deskripsi di endpoint ini)
+        document.getElementById('deskripsi').value = '';
+
+        //cover
+        if(buku.cover){
+            let cover =
+                buku.cover.large ??
+                buku.cover.medium ??
+                buku.cover.small;
+
+            document.getElementById('preview').src = cover;
+            document.getElementById('preview').style.display = 'block';
+
+            document.getElementById('cover_url').value = cover;
+        }
+
+        alert('Data buku berhasil ditemukan');
+
+    }catch(error){
+
+        console.error(error);
+
+        alert('Terjadi kesalahan saat mengambil data.');
+
+    }
+
+});
+
 </script>

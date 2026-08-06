@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Master\BukuController;
@@ -18,8 +19,11 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
-
+// landing page
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
+Route::get('/search-books', [HomeController::class, 'searchBooks'])->name('books.search');
+Route::get('/books', [HomeController::class, 'books'])->name('books.index');
+Route::get('/books/{id_buku}', [HomeController::class, 'show'])->name('books.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
@@ -34,6 +38,7 @@ Route::get('/logout-test', function () {
 
     return redirect('/login');
 });
+
     //Route Admin
    Route::middleware('admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

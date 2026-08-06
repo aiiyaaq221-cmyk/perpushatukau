@@ -34,9 +34,7 @@
 
     <!-- ================= LEFT ================= -->
     <div class="w-full md:w-1/2 flex justify-center items-center bg-white px-8">
-
         <div class="w-full max-w-md">
-
             <h1 class="text-4xl font-bold text-gray-800 mb-2">
                 LOGIN
             </h1>

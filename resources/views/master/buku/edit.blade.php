@@ -49,6 +49,25 @@
                             <label class="modern-label"> Judul Buku </label>
                             <input type="text" name="judul_buku" class="form-control modern-input" value="{{ $buku->judul_buku }}">
                         </div>
+                        <!-- ISBN -->
+                        <div class="col-md-6">
+                            <label class="modern-label">ISBN</label>
+
+                            <div class="input-group">
+                                <input type="text"
+                                        name="isbn"
+                                        class="form-control"
+                                        value="{{ old('isbn', $buku->isbn) }}"
+                                        placeholder="Contoh: 9786020324784">
+
+
+                                <button type="button"
+                                        class="btn btn-primary"
+                                        id="btnCariISBN">
+                                    🔍
+                                </button>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <label class="modern-label">  Pengarang </label>
                             <input type="text"  name="pengarang" class="form-control modern-input" value="{{ $buku->pengarang }}">
@@ -94,7 +113,7 @@
                         </div>
 
                         <!-- Edisi -->
-                        <div class="col-md-4  ">
+                        <div class="col-md-6  ">
                             <label class="modern-label"> Edisi
                                 <small class="text-danger">
                                     (Opsional)
@@ -104,10 +123,22 @@
                         </div>
 
                         <!-- Jumlah Buku -->
-                        <div class="col-md-4 mb-3"> 
+                        <div class="col-md-6"> 
                             <label class="modern-label"> Jumlah Buku </label> 
                             <input   type="number"  name="jumlah_buku"  class="form-control modern-input"  value="{{ $buku->jumlah_buku }}"> 
                         </div>
+
+                        <!-- deskripsi -->
+                        <div class="col-12">
+                            <label class="form-label"> Deskripsi Buku </label>
+                            <textarea 
+                                name="deskripsi"
+                                id="deskripsi"
+                                class="form-control" rows="5"
+                                placeholder="Masukkan deskripsi buku">{{ old('deskripsi', $buku->deskripsi) }}</textarea>
+                        </div>
+
+                        <!-- cover -->
                         <div class="col-12">
                             <label class="modern-label"> Cover Buku </label>
 

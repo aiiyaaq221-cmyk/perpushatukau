@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Buku;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class BukuController extends Controller
 {
@@ -21,7 +22,8 @@ class BukuController extends Controller
 
             $query->where(function ($q) use ($search) {
                 $q->where('judul_buku', 'like', "%{$search}%")
-                ->orWhere('kode_buku', 'like', "%{$search}%");
+                    ->orWhere('kode_buku', 'like', "%{$search}%")
+                    ->orWhere('isbn', 'like', "%{$search}%");
             });
 
         }
@@ -66,7 +68,8 @@ class BukuController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {    
+
         $request->validate([
             'id_kategori'    => 'required',
             'judul_buku'     => 'required',
@@ -77,17 +80,31 @@ class BukuController extends Controller
             'edisi'          => 'nullable',
             'keterangan'     => 'nullable',
             'cover'          => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'isbn'           => 'nullable|string|max:20',
+            'deskripsi'      => 'nullable|string|max:5000',
         ]);
 
         $cover = null;
 
+        // Upload manual
         if ($request->hasFile('cover')) {
             $cover = $request->file('cover')->store('buku', 'public');
+        }
+
+        // Cover dari Open Library
+        elseif($request->filled('cover_url')){
+            $image = Http::get($request->cover_url);
+            if($image->successful()){
+                $filename = 'buku/'.time().'.jpg';
+                Storage::disk('public') ->put($filename, $image->body());
+                $cover = $filename;
+            }
         }
 
         Buku::create([
             'id_kategori'    => $request->id_kategori,
             'kode_buku'      => $request->filled('kode_buku') ? strtoupper(trim($request->kode_buku)) : null,
+            'isbn'           => $request->isbn,
             'judul_buku'     => Str::title(trim($request->judul_buku)),
             'pengarang'      => Str::title(trim($request->pengarang)),
             'penerbit'       => $request->penerbit ? Str::title(trim($request->penerbit)) : null,
@@ -98,6 +115,7 @@ class BukuController extends Controller
             'sumber'         => $request->sumber ? Str::title(trim($request->sumber)) : null,
             'jumlah_buku'    => $request->jumlah_buku,
             'cover'          => $cover,
+            'deskripsi'      => $request->deskripsi,
             'keterangan'     => $request->keterangan ? Str::title(trim($request->keterangan)) : null,
         ]);
 
@@ -118,6 +136,8 @@ class BukuController extends Controller
             'penerbit'      => 'required',
             'tahun_terbit'  => 'required',
             'cover'         => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'isbn'           => 'nullable|string|max:20',
+            'deskripsi'      => 'nullable|string|max:5000',
         ]);
 
         $data = [
@@ -125,6 +145,7 @@ class BukuController extends Controller
             'kode_buku'      => $request->filled('kode_buku')
                                 ? strtoupper(trim($request->kode_buku))
                                 : null,
+            'isbn'           => $request->isbn,
             'judul_buku'     => Str::title(trim($request->judul_buku)),
             'pengarang'      => Str::title(trim($request->pengarang)),
             'penerbit'       => Str::title(trim($request->penerbit)),
@@ -134,6 +155,7 @@ class BukuController extends Controller
             'edisi'          => $request->edisi,
             'sumber'         => $request->sumber ? Str::title(trim($request->sumber)) : null,
             'jumlah_buku'    => $request->jumlah_buku,
+            'deskripsi'      => $request->deskripsi,
             'keterangan'     => $request->keterangan ? Str::title(trim($request->keterangan)) : null,
         ];
 
