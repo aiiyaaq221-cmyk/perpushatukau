@@ -24,27 +24,11 @@
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
 
-            <div class="d-flex align-items-center gap-2">
-
-    <a href="{{ route('login') }}"
-       class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold">
-
-        <i class="bi bi-box-arrow-in-right me-2"></i>
-        Login
-
-    </a>
-
-    <a href="{{ route('register') }}"
-       class="btn btn-primary rounded-pill px-4 py-2 fw-semibold shadow-sm">
-
-        <i class="bi bi-person-plus-fill me-2"></i>
-        Daftar Anggota
-
-    </a>
-
-</div>
-                <!-- <a href="{{ route('login') }}" class="btn  rounded-pill px-4 fw-bold ms-lg-2">Login</a>
-                <a href="{{ route('register') }}" class="btn rounded-pill px-3 fw-bold ms-lg-3">Daftar Anggota</a> -->
+                <div class="d-flex align-items-center gap-2">
+                    <a href="{{ route('login') }}"class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold"> Login </a>
+                    <a href="{{ route('register') }}" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold shadow-sm"> Daftar Anggota </a>
+                </div>
+               
             </div>
         </div>
     </nav>

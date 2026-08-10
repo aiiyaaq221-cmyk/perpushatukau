@@ -76,6 +76,19 @@
                                         <input type="text"  name="nama"  value="{{ $anggota->nama }}" class="form-control modern-input">
                                     </div>
 
+                                    <div class="md-3">
+                                        <label for="tanggal_lahir_edit" class="form-label">
+                                            Tanggal Lahir
+                                        </label>
+
+                                        <input type="date" name="tanggal_lahir" id="tanggal_lahir_edit" class="form-control" value="{{ old('tanggal_lahir', $anggota->tanggal_lahir) }}" required >
+                                        @error('tanggal_lahir')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
                                     <div class="mb-3">
                                         <label class="modern-label"> Jenis Kelamin </label>
                                         <select name="jenis_kelamin" class="form-select modern-input">
@@ -89,12 +102,7 @@
                                                 Perempuan
                                             </option>
                                         </select>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label class="modern-label"> Umur </label>
-                                        <input type="number" name="umur" value="{{ $anggota->umur }}" class="form-control modern-input">
-                                    </div>
+                                    </div> 
 
                                     <div class="mb-0">
                                         <label class="modern-label">

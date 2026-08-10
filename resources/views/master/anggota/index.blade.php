@@ -120,6 +120,7 @@ Swal.fire({
                     <th>No</th>
                     <th>No Anggota</th>
                     <th>Nama</th>
+                    <th>Tanggal Lahir</th>
                     <th>Jenis Kelamin</th>
                     <th>Umur</th> 
                     <th>Tanggal Daftar</th>
@@ -143,8 +144,25 @@ Swal.fire({
                             {{ Str::limit($anggota->alamat,35) }}
                         </small>
                     </td>
+                    
+                    <td>
+                        @if ($anggota->tanggal_lahir)
+                            {{ \Carbon\Carbon::parse($anggota->tanggal_lahir)->translatedFormat('d F Y') }}
+                        @else
+                            -
+                        @endif
+                    </td>
+                    
                     <td>{{ $anggota->jenis_kelamin }}</td>
-                    <td>{{ $anggota->umur }}</td> 
+
+                    <td>
+                        @if ($anggota->umur !== '-')
+                            {{ $anggota->umur }} Tahun
+                        @else
+                            -
+                        @endif
+                    </td>
+
                     <td> {{ \Carbon\Carbon::parse($anggota->tanggal_daftar)->format('d-m-Y') }}</td>
                     <td>
                         @if($anggota->status=='Aktif')

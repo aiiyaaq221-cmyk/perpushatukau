@@ -149,17 +149,12 @@
                     type="submit"
 
                     class="w-full rounded-lg bg-yellow-500 py-3 font-semibold text-white hover:bg-yellow-600 transition">
-
                     Login
-
                 </button>
-
             </form>
 
-            <!-- <p class="text-center mt-8 text-gray-600">
-
+            <p class="text-center mt-8 text-gray-600">
                 Belum punya akun?
-
                 @if(Route::has('register'))
 
                     <a href="{{ route('register') }}"
@@ -167,10 +162,8 @@
                         Register
                     </a>
                 @endif
-            </p> -->
-
+            </p>
         </div>
-
     </div>
 
     <!-- ================= RIGHT ================= -->

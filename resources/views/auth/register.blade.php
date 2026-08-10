@@ -30,17 +30,15 @@
 
 <div class="flex min-h-screen">
 
-    <!-- LEFT -->
-    <div class="w-full md:w-1/2 flex items-center justify-center bg-white p-10">
-
+<!-- LEFT -->
+<div class="w-full md:w-1/2 h-screen overflow-y-auto bg-white">
+    <div class="flex items-center justify-center p-10 min-h-full">
         <div class="w-full max-w-md">
-
             <h1 class="text-4xl font-bold text-gray-800 mb-2">
-                Create Account
+                Daftar Anggota
             </h1>
-
             <p class="text-gray-500 mb-8">
-                Gabung dan mulai menggunakan sistem.
+                Lengkapi data diri untuk membuat akun perpustakaan.
             </p>
 
             <!-- Error -->
@@ -58,22 +56,69 @@
 
                 @csrf
 
-                <!-- Name -->
+                <!-- Nama -->
                 <div>
                     <label class="block text-sm text-gray-700 mb-2">
-                        Name
+                        Nama Lengkap
                     </label>
 
                     <input
                         type="text"
-                        name="name"
-                        value="{{ old('name') }}"
-                        placeholder="Masukkan Nama"
+                        name="nama"
+                        value="{{ old('nama') }}"
+                        placeholder="Masukkan Nama Lengkap"
                         required
                         autofocus
-
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg
+                            focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
+
+
+                <!-- Tanggal Lahir -->
+                <div>
+                    <label class="block text-sm text-gray-700 mb-2">
+                        Tanggal Lahir
+                    </label>
+
+                    <input
+                        type="date"
+                        name="tanggal_lahir"
+                        value="{{ old('tanggal_lahir') }}"
+                        required
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg
+                            focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+
+
+                <!-- Jenis Kelamin -->
+                <div>
+                    <label class="block text-sm text-gray-700 mb-2">
+                        Jenis Kelamin
+                    </label>
+
+                    <select
+                        name="jenis_kelamin"
+                        required
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg
+                            focus:ring-2 focus:ring-blue-500 focus:outline-none">
+
+                        <option value="">Pilih Jenis Kelamin</option>
+
+                        <option
+                            value="L"
+                            {{ old('jenis_kelamin') == 'L' ? 'selected' : '' }}>
+                            Laki-laki
+                        </option>
+
+                        <option
+                            value="P"
+                            {{ old('jenis_kelamin') == 'P' ? 'selected' : '' }}>
+                            Perempuan
+                        </option>
+
+                    </select>
+                </div>
+
 
                 <!-- Email -->
                 <div>
@@ -87,28 +132,44 @@
                         value="{{ old('email') }}"
                         placeholder="Masukkan Email"
                         required
-
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg
+                            focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
 
-                <!-- Role -->
+
+                <!-- Nomor Telepon -->
                 <div>
                     <label class="block text-sm text-gray-700 mb-2">
-                        Role
+                        Nomor Telepon
                     </label>
 
-                    <select
-                        name="role"
+                    <input
+                        type="tel"
+                        name="no_telp"
+                        value="{{ old('no_telp') }}"
+                        placeholder="Masukkan Nomor Telepon"
+                        maxlength="12"
                         required
-
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
-
-                        <option value="">Pilih Role</option>
-                        <option value="admin">Admin</option>
-                        <option value="user">User</option>
-
-                    </select>
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg
+                            focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
+
+
+                <!-- Alamat -->
+                <div>
+                    <label class="block text-sm text-gray-700 mb-2">
+                        Alamat
+                    </label>
+
+                    <textarea
+                        name="alamat"
+                        rows="3"
+                        placeholder="Masukkan Alamat"
+                        required
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg
+                            focus:ring-2 focus:ring-blue-500 focus:outline-none">{{ old('alamat') }}</textarea>
+                </div>
+
 
                 <!-- Password -->
                 <div class="relative">
@@ -123,13 +184,12 @@
                         name="password"
                         placeholder="Masukkan Password"
                         required
-
-                        class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg
+                            focus:ring-2 focus:ring-blue-500 focus:outline-none">
 
                     <button
                         type="button"
                         onclick="togglePassword('password','eye1')"
-
                         class="absolute right-4 top-[46px] text-gray-500">
 
                         <i id="eye1" class="fas fa-eye"></i>
@@ -138,11 +198,12 @@
 
                 </div>
 
+
                 <!-- Confirm Password -->
                 <div class="relative">
 
                     <label class="block text-sm text-gray-700 mb-2">
-                        Confirm Password
+                        Konfirmasi Password
                     </label>
 
                     <input
@@ -151,13 +212,12 @@
                         name="password_confirmation"
                         placeholder="Konfirmasi Password"
                         required
-
-                        class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg
+                            focus:ring-2 focus:ring-blue-500 focus:outline-none">
 
                     <button
                         type="button"
                         onclick="togglePassword('password_confirmation','eye2')"
-
                         class="absolute right-4 top-[46px] text-gray-500">
 
                         <i id="eye2" class="fas fa-eye"></i>
@@ -166,47 +226,38 @@
 
                 </div>
 
+
                 <!-- Button -->
                 <button
                     type="submit"
-
-                    class="w-full py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-lg transition">
+                    class="w-full py-3 bg-yellow-500 hover:bg-yellow-600
+                        text-white font-semibold rounded-lg transition">
 
                     Register
-
                 </button>
 
             </form>
 
             <p class="text-center mt-8 text-gray-600">
-
                 Sudah punya akun?
-
                 <a href="{{ route('login') }}"
                    class="text-blue-600 font-semibold hover:underline">
-
                     Login
-
                 </a>
-
             </p>
-
         </div>
-
     </div>
+</div>
 
     <!-- RIGHT -->
 
-    <div class="hidden md:block w-1/2">
-
+    <div class="hidden md:block md:w-1/2 h-screen sticky top-0">
         <img
             src="{{ asset('img/gedung.jpeg') }}"
             alt="Register"
-
-            class="w-full h-screen object-cover">
+            class="w-full h-full object-cover">
 
     </div>
-
 </div>
 
 <script>

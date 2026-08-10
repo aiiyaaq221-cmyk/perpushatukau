@@ -4,8 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\Admin; // Tambahkan ini
-use App\Http\Middleware\Guru;  // Tambahkan ini
-use App\Http\Middleware\Siswa; // Tambahkan ini
+use App\Http\Middleware\User; // Tambahkan ini
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -16,7 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'admin' => Admin::class,
-            'user' => Guru::class,
+            'user' => User::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

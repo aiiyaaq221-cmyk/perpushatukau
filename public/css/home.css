@@ -54,8 +54,12 @@ body {
 
 .text-gradient {
     background: linear-gradient(135deg, #1D4ED8 0%, #3B82F6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+   
+    background-clip: text;
+        -webkit-background-clip: text;
+
+    color: transparent;
+        -webkit-text-fill-color: transparent;
 }
 
 /* Feature & Process Icons */

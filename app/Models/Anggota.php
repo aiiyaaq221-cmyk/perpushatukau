@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+use App\Models\User;
 
 class Anggota extends Model
 {
@@ -11,9 +13,9 @@ class Anggota extends Model
     protected $fillable = [
         'kode_anggota',
         'nama',
+        'tanggal_lahir',
         'jenis_kelamin',
         'alamat',
-        'umur',
         'no_telp',
         'email',
         'tanggal_daftar',
@@ -33,6 +35,24 @@ class Anggota extends Model
     {
         return $this->hasMany(
             Peminjaman::class,
+            'id_anggota',
+            'id_anggota'
+        );
+    }
+
+    public function getUmurAttribute()
+    {
+        if (!$this->tanggal_lahir) {
+            return '-';
+        }
+
+        return Carbon::parse($this->tanggal_lahir)->age;
+    }
+
+    public function user()
+    {
+        return $this->hasOne(
+            User::class,
             'id_anggota',
             'id_anggota'
         );

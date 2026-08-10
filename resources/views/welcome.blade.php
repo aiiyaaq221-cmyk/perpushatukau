@@ -1,6 +1,6 @@
 @extends('layouts.welcome')
 
-@section('title', 'Beranda')
+@section('title', 'Perpuastakaan Hatukau')
 
 @section('content')
 
@@ -10,9 +10,7 @@
     @include('partials.about')
     @include('partials.why-choose')
     @include('partials.atmosphere')
-    {{-- Panduan Meminjam Buku --}}
     @include('partials.guide')
-
     @include('partials.contact')
 
 </div>

@@ -12,6 +12,7 @@ class AnggotaController extends Controller
     public function index(Request $request)
     {
         $query = Anggota::query();
+
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
                 $q->where(
@@ -46,58 +47,72 @@ class AnggotaController extends Controller
             compact('anggotas')
         );
     }
-    
+
     public function store(Request $request)
     {
         $request->validate([
-            'nama'            => 'required',
-            'jenis_kelamin'   => 'required',
-            'umur'            => 'required',
-            'alamat'          => 'required',
-            'tanggal_daftar'  => 'required',
-            'kode_anggota'    => 'nullable|unique:anggotas,kode_anggota',
-            'email'           => 'nullable|email|unique:anggotas,email',
-            'no_telp'         => 'nullable|digits_between:1,12|regex:/^[0-9]+$/|unique:anggotas,no_telp',
-            'status'          => 'required',
-        ],[
-            'email.unique'   => 'Email sudah terdaftar.',
-            'no_telp.unique' => 'Nomor telepon sudah terdaftar.',
+            'nama'           => 'required',
+            'tanggal_lahir'  => 'required|date',
+            'jenis_kelamin'  => 'required',
+            'alamat'         => 'required',
+            'tanggal_daftar' => 'required',
+            'kode_anggota'   => 'nullable|unique:anggotas,kode_anggota',
+            'email'          => 'nullable|email|unique:anggotas,email',
+            'no_telp'        => 'nullable|digits_between:1,12|regex:/^[0-9]+$/|unique:anggotas,no_telp',
+            'status'         => 'required',
+        ], [
+            'tanggal_lahir.required' => 'Tanggal lahir wajib diisi.',
+            'tanggal_lahir.date'     => 'Format tanggal lahir tidak valid.',
+            'email.unique'           => 'Email sudah terdaftar.',
+            'no_telp.unique'         => 'Nomor telepon sudah terdaftar.',
+            'no_telp.regex'          => 'Nomor telepon hanya boleh berisi angka.',
         ]);
 
         try {
 
-            $lastAnggota = Anggota::orderBy('id_anggota','desc')->first();
+            $lastAnggota = Anggota::orderBy(
+                'id_anggota',
+                'desc'
+            )->first();
 
             $nomorUrut = $lastAnggota
-                ? (int) substr($lastAnggota->kode_anggota,3) + 1
+                ? (int) substr($lastAnggota->kode_anggota, 3) + 1
                 : 1;
 
-            $kodeAnggota = 'AGT'.str_pad($nomorUrut,3,'0',STR_PAD_LEFT);
+            $kodeAnggota = 'AGT' . str_pad(
+                $nomorUrut,
+                3,
+                '0',
+                STR_PAD_LEFT
+            );
 
             Anggota::create([
-
                 'kode_anggota'   => $kodeAnggota,
                 'nama'           => Str::title(strtolower($request->nama)),
+                'tanggal_lahir'  => $request->tanggal_lahir,
                 'jenis_kelamin'  => $request->jenis_kelamin,
-                'umur'           => $request->umur,
                 'alamat'         => Str::title(strtolower($request->alamat)),
                 'no_telp'        => $request->no_telp,
                 'email'          => $request->email,
                 'tanggal_daftar' => $request->tanggal_daftar,
                 'status'         => $request->status,
-
             ]);
 
             return redirect()
                 ->back()
-                ->with('success','Data anggota berhasil ditambahkan.');
+                ->with(
+                    'success',
+                    'Data anggota berhasil ditambahkan.'
+                );
 
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
 
             return redirect()
                 ->back()
-                ->with('error','Terjadi kesalahan saat menambahkan data anggota.');
-
+                ->with(
+                    'error',
+                    'Terjadi kesalahan saat menambahkan data anggota.'
+                );
         }
     }
 
@@ -107,24 +122,26 @@ class AnggotaController extends Controller
 
         $request->validate([
             'nama'           => 'required',
+            'tanggal_lahir'  => 'required|date',
             'jenis_kelamin'  => 'required',
-            'umur'           => 'required',
             'alamat'         => 'required',
             'tanggal_daftar' => 'required',
             'kode_anggota'   => 'nullable|unique:anggotas,kode_anggota,' . $id . ',id_anggota',
             'email'          => 'nullable|email|unique:anggotas,email,' . $id . ',id_anggota',
             'no_telp'        => 'nullable|digits_between:1,12|regex:/^[0-9]+$/|unique:anggotas,no_telp,' . $id . ',id_anggota',
             'status'         => 'required',
-        ],[
-            'email.unique'   => 'Email sudah terdaftar.',
-            'no_telp.unique' => 'Nomor telepon sudah terdaftar.',
-            'no_telp.regex'  => 'Nomor telepon hanya boleh berisi angka.',
+        ], [
+            'tanggal_lahir.required' => 'Tanggal lahir wajib diisi.',
+            'tanggal_lahir.date'     => 'Format tanggal lahir tidak valid.',
+            'email.unique'           => 'Email sudah terdaftar.',
+            'no_telp.unique'         => 'Nomor telepon sudah terdaftar.',
+            'no_telp.regex'          => 'Nomor telepon hanya boleh berisi angka.',
         ]);
 
         $anggota->update([
             'nama'           => Str::title(strtolower($request->nama)),
+            'tanggal_lahir'  => $request->tanggal_lahir,
             'jenis_kelamin'  => $request->jenis_kelamin,
-            'umur'           => $request->umur,
             'alamat'         => Str::title(strtolower($request->alamat)),
             'no_telp'        => $request->no_telp,
             'email'          => $request->email,
@@ -140,14 +157,17 @@ class AnggotaController extends Controller
             );
     }
 
-
     public function destroy($id)
     {
         $anggota = Anggota::findOrFail($id);
+
         $anggota->delete();
 
         return redirect()
             ->back()
-            ->with('success', 'Data anggota berhasil dihapus');
+            ->with(
+                'success',
+                'Data anggota berhasil dihapus'
+            );
     }
 }

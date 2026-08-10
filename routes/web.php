@@ -120,7 +120,7 @@ Route::get('/logout-test', function () {
 
     // Routes untuk user
     Route::middleware('user')->group(function () {
-        Route::get('/user', [UserController::class, 'index'])->name('user');
+        Route::get('/user', [UserController::class, 'index']) ->name('user.index');
     });
 
     

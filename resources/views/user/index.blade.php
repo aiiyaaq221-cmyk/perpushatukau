@@ -15,24 +15,23 @@
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen bg-gray-900 text-white">
-    <div class="bg-gray-800 bg-opacity-80 p-8 rounded-lg shadow-lg text-center w-96">
         <h1 class="text-2xl font-bold text-white mb-6">Dashboard user</h1>
         <p class="text-gray-300 mb-4">Selamat datang di dashboard user</p>
+        <br>
+        
+        <form method="POST" action="{{ route('logout') }}">
 
-        <div class="space-y-4">
-            <button class="w-full bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
-                <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+            @csrf
+
+            <button class="btn logout-btn">
+
+                <i class="fas fa-sign-out-alt"></i>
+
+                <span>Logout</span>
+
             </button>
-            
-            @auth
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="w-full bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition">
-                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
-                    </button>
-                </form>
-        </div>
-        @endauth
-    </div>
+
+        </form>
+<br/>
 </body>
 </html>

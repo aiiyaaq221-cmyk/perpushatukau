@@ -30,11 +30,27 @@
                                 <option value="L"> Laki-Laki </option>
                                 <option value="P"> Perempuan </option>
                             </select>
+                            
+                            @error('jenis_kelamin')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
-
+ 
                         <div class="col-md-6">
-                            <label class="modern-label">  Umur </label>
-                            <input type="number" name="umur" class="form-control modern-input" placeholder="Masukkan umur" min="1" required>
+                            <label for="tanggal_lahir" class="form-label">
+                                Tanggal Lahir
+                            </label>
+
+                            <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control @error('tanggal_lahir') is-invalid @enderror"
+                                value="{{ old('tanggal_lahir') }}" required >
+
+                            @error('tanggal_lahir')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6">
